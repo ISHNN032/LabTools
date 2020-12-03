@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">LabTools</string>
+    <string name="title_home">홈</string>
+    <string name="title_calculator">계산기</string>
+    <string name="title_stopwatch">스톱워치</string>
+    <string name="title_qna">QnA</string>
+    <string name="title_profile">프로필</string>
+</resources>
