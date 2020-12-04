@@ -18,4 +18,6 @@
     <item name="xxlarge_margin" type="dimen">36dp</item>
 
     <item name="mid_card_size" type="dimen">40dp</item>
+
+    <dimen name="progressBar_dimen">200dp</dimen>
 </resources>

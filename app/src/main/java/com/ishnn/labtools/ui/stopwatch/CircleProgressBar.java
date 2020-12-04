@@ -1,4 +1,4 @@
-/*
+package com.ishnn.labtools.ui.stopwatch;/*
  * Copyright (C) 2015 Pedramrn@gmail.com
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,8 +13,6 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-
-package com.ishnn.labtools.ui.stopwatch;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;
@@ -90,18 +88,6 @@ public class CircleProgressBar extends View {
     public void setMax(int max) {
         this.max = max;
         invalidate();
-    }
-
-    public int getColor() {
-        return color;
-    }
-
-    public void setColor(int color) {
-        this.color = color;
-        backgroundPaint.setColor(adjustAlpha(color, 0.3f));
-        foregroundPaint.setColor(color);
-        invalidate();
-        requestLayout();
     }
 
     public CircleProgressBar(Context context, AttributeSet attrs) {

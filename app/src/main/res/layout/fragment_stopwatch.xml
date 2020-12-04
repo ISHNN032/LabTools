@@ -6,17 +6,63 @@
     android:layout_height="match_parent"
     tools:context=".ui.stopwatch.StopwatchFragment">
 
-    <TextView
-        android:id="@+id/text_stopwatch"
+
+    <LinearLayout
+        android:id="@+id/progress_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/seekBar_layout"
+        >
+
+        <com.ishnn.labtools.ui.stopwatch.CircleProgressBar
+            android:id="@+id/custom_progressBar"
+            android:layout_width="@dimen/progressBar_dimen"
+            android:layout_height="@dimen/progressBar_dimen"
+            app:progress="35"
+            app:progressBarThickness="4dp"
+            />
+
+        <TextView
+            android:id="@+id/text_stopwatch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Preparing"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/seekBar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/progress_layout"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        >
+
+        <SeekBar
+            android:id="@+id/seekBar_progress"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:indeterminate="false"
+            android:max="100" />
+
+        <SeekBar
+            android:id="@+id/seekBar_thickness"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:max="40" />
+
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
