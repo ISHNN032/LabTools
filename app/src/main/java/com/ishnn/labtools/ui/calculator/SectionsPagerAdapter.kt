@@ -1,4 +1,4 @@
-package com.ishnn.labtools.ui.calculator.ui.main
+package com.ishnn.labtools.ui.calculator
 
 import android.content.Context
 import androidx.fragment.app.Fragment

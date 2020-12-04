@@ -1,4 +1,4 @@
-package com.ishnn.labtools.ui.calculator.ui.main
+package com.ishnn.labtools.ui.calculator
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

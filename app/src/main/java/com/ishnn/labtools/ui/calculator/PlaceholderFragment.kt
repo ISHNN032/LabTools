@@ -1,4 +1,4 @@
-package com.ishnn.labtools.ui.calculator.ui.main
+package com.ishnn.labtools.ui.calculator
 
 import android.os.Bundle
 import android.view.LayoutInflater

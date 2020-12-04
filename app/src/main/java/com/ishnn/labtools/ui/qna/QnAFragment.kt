@@ -1,31 +1,117 @@
 package com.ishnn.labtools.ui.qna
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.ishnn.labtools.R
+import com.rnnzzo.uxdesign.model.RvItem
+import com.ishnn.labtools.util.adapter.ItemTouchHelperCallback
+import kotlinx.coroutines.*
 
-class QnAFragment : Fragment() {
+class QnAFragment : Fragment(){
+    var mSwipe: SwipeRefreshLayout? = null
+    private val adapter by lazy { ItemAdapter(ArrayList(), this) }
+    private var headerCount = 0
+    private var isLoading = false
 
-    private lateinit var qnaViewModel: QnAViewModel
+    private lateinit var mRecyclerView: RecyclerView
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
-        qnaViewModel =
-                ViewModelProviders.of(this).get(QnAViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_qna, container, false)
-        val textView: TextView = root.findViewById(R.id.text_qna)
-        qnaViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
+        mSwipe = root.findViewById<SwipeRefreshLayout>(R.id.swiperefresh)
+        mSwipe!!.setOnRefreshListener {
+            Log.d("refresh", "refreshed")
+            GlobalScope.launch {
+                delay(1000)
+                mSwipe!!.isRefreshing = false
+            }
+        }
+        mRecyclerView = root.findViewById(R.id.recyclerView)
         return root
     }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        initRecyclerView()
+        addData()
+    }
+
+    private fun initRecyclerView() {
+        mRecyclerView.adapter = adapter
+        val linearLayoutManager = LinearLayoutManager(requireContext())
+        mRecyclerView.layoutManager = linearLayoutManager
+
+        val callback: ItemTouchHelper.Callback = ItemTouchHelperCallback(adapter)
+        val mItemTouchHelper = ItemTouchHelper(callback)
+        mItemTouchHelper.attachToRecyclerView(mRecyclerView)
+
+        mRecyclerView.addOnScrollListener(rvScrollListener)
+    }
+
+    fun addData() {
+        val data: MutableList<RvItem> = ArrayList()
+        headerCount++
+        data.add(RvItem("Header $headerCount", TYPE_HEADER))
+        for (i in 1..15) {
+            data.add(RvItem("${i}", TYPE_ITEM))
+        }
+        //ADD LOADER
+        data.add(RvItem("", TYPE_LOADER))
+        adapter.addData(data)
+    }
+
+    private val rvScrollListener = object : RecyclerView.OnScrollListener() {
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            super.onScrolled(recyclerView, dx, dy)
+
+            val linearLayoutManager = recyclerView.layoutManager as LinearLayoutManager?
+            if (!isLoading && linearLayoutManager!!.itemCount == linearLayoutManager.findLastVisibleItemPosition() + 1) {
+                loadData()
+                isLoading = true
+            }
+        }
+    }
+
+    fun loadData() {
+        CoroutineScope(Dispatchers.IO).launch {
+            delay(2000)
+            withContext(Dispatchers.Main) {
+                adapter.removeLoader()
+                addData()
+                isLoading = false
+            }
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+
+            // Check if user triggered a refresh:
+            R.id.menu_refresh -> {
+                Log.i("qna", "Refresh menu item selected")
+
+                // Signal SwipeRefreshLayout to start the progress indicator
+                mSwipe!!.isRefreshing = true
+                // Start the refresh background task.
+                // This method calls setRefreshing(false) when it's finished.
+                return true
+            }
+        }
+
+        // User didn't trigger a refresh, let the superclass handle this action
+        return super.onOptionsItemSelected(item)
+    }
+
 }
