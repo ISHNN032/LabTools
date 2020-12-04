@@ -17,11 +17,11 @@ import com.ishnn.labtools.util.adapter.ItemTouchHelperCallback
 import kotlinx.coroutines.*
 
 class QnAFragment : Fragment(){
-    var mSwipe: SwipeRefreshLayout? = null
     private val adapter by lazy { ItemAdapter(ArrayList(), this) }
     private var headerCount = 0
     private var isLoading = false
 
+    private lateinit var mSwipe: SwipeRefreshLayout
     private lateinit var mRecyclerView: RecyclerView
 
     override fun onCreateView(

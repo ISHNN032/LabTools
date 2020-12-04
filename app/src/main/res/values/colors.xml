@@ -3,7 +3,12 @@
     <color name="colorPrimary">#2E2E2E</color>
     <color name="colorPrimaryDark">#121212</color>
     <color name="colorAccent">#0050FF</color>
+    <color name="colorSecondary">#4e89ae</color>
     <color name="colorWhite">#FFFFFF</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorGray">#2E2E2E</color>
+
+    <color name="colorBlur">#B3000000</color>
 
     <color name="overlay_dark_10">#1A000000</color>
     <color name="overlay_dark_20">#33000000</color>

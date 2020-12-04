@@ -15,12 +15,22 @@
         android:id="@+id/navigation_calculator"
         android:name="com.ishnn.labtools.ui.calculator.CalculatorFragment"
         android:label="@string/title_calculator"
-        tools:layout="@layout/fragment_calculator" />
+        tools:layout="@layout/fragment_calculator">
+        <action
+            android:id="@+id/action_nav_calculator_to_a"
+            app:destination="@id/inner_calculator" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/inner_calculator"
+        android:name="com.ishnn.labtools.ui.calculator.CalculatorInnerFragment"
+        android:label="@string/title_calculator">
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_stopwatch"
-        android:name="com.ishnn.labtools.ui.stopwatch.StopwatchFragment"
-        android:label="@string/title_stopwatch"
+        android:name="com.ishnn.labtools.ui.stopwatch.ClockFragment"
+        android:label="@string/title_clock"
         tools:layout="@layout/fragment_stopwatch" />
 
     <fragment

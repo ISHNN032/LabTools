@@ -172,17 +172,13 @@ android:orientation="vertical">
         android:paddingLeft="25dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <ImageView
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:src="@drawable/ic_nav_home_black_24dp"/>
-        <TextView
-            android:textStyle="bold"
-            android:layout_gravity="center_vertical"
+        <Button
+            android:id="@+id/kakao_loginbtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="20dp"
-            android:text="Show all comments"/>
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:background="@drawable/kakao_login_medium_narrow"/>
     </LinearLayout>
 </LinearLayout>
 </LinearLayout>
