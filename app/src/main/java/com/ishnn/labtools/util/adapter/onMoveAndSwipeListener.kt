@@ -1,4 +1,4 @@
-package com.rnnzzo.uxdesign.util.adapter
+package com.ishnn.labtools.util.adapter
 
 interface OnMoveAndSwipedListener {
     fun onItemMove(start: Int, end: Int): Boolean

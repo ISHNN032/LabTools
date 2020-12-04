@@ -1,18 +1,14 @@
-package com.rnnzzo.uxdesign.util.adapter
+package com.ishnn.labtools.util.adapter
 
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.rnnzzo.uxdesign.ui.recyclerview.TYPE_ITEM
+import com.ishnn.labtools.ui.qna.TYPE_ITEM
 
 
 class ItemTouchHelperCallback(listener: OnMoveAndSwipedListener) :
     ItemTouchHelper.Callback() {
 
-    private val moveAndSwipedListener: OnMoveAndSwipedListener
-
-    init {
-        moveAndSwipedListener = listener
-    }
+    private val moveAndSwipedListener: OnMoveAndSwipedListener = listener
 
     override fun getMovementFlags(
         recyclerView: RecyclerView,
