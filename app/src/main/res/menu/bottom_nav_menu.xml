@@ -12,7 +12,7 @@
     <item
         android:id="@+id/navigation_stopwatch"
         android:icon="@drawable/ic_nav_stopwatch_black_24dp"
-        android:title="@string/title_stopwatch" />
+        android:title="@string/title_stopwatch"/>
     <item
         android:id="@+id/navigation_qna"
         android:icon="@drawable/ic_nav_qna_balck_24dp"

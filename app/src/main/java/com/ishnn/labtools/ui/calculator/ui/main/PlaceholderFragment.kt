@@ -33,6 +33,15 @@ class PlaceholderFragment : Fragment() {
         pageViewModel.text.observe(viewLifecycleOwner, Observer<String> {
             textView.text = it
         })
+        when(mSectionNumber){
+            2 -> {
+                val root = inflater.inflate(R.layout.fragment_calculator, container, false)
+                val textView: TextView = root.findViewById(R.id.section_label)
+                pageViewModel.text.observe(viewLifecycleOwner, Observer<String> {
+                    textView.text = it
+                })
+            }
+        }
         return root
     }
 
@@ -52,8 +61,10 @@ class PlaceholderFragment : Fragment() {
             return PlaceholderFragment().apply {
                 arguments = Bundle().apply {
                     putInt(ARG_SECTION_NUMBER, sectionNumber)
+                    mSectionNumber = sectionNumber
                 }
             }
         }
+        var mSectionNumber = 0
     }
 }
