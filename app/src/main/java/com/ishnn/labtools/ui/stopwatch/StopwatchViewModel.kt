@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 class StopwatchViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is stopwatch Fragment"
+        value = "00:00.00"
     }
     val text: LiveData<String> = _text
 }

@@ -19,5 +19,5 @@
 
     <item name="mid_card_size" type="dimen">40dp</item>
 
-    <dimen name="progressBar_dimen">200dp</dimen>
+    <dimen name="progressBar_dimen">300dp</dimen>
 </resources>
