@@ -1,4 +1,4 @@
-package com.ishnn.labtools.ui.qna
+package com.ishnn.labtools.ui.notification
 
 import android.os.Bundle
 import android.util.Log
@@ -12,12 +12,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.ishnn.labtools.R
+import com.ishnn.labtools.util.adapter.*
 import com.rnnzzo.uxdesign.model.RvItem
-import com.ishnn.labtools.util.adapter.ItemTouchHelperCallback
 import kotlinx.coroutines.*
 
-class QnAFragment : Fragment(){
-    private val adapter by lazy { ItemAdapter(ArrayList(), this) }
+class NotificationFragment : Fragment(){
+    private val adapter by lazy { NotificationItemAdapter(ArrayList(), this) }
     private var headerCount = 0
     private var isLoading = false
 
@@ -29,7 +29,7 @@ class QnAFragment : Fragment(){
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.fragment_qna, container, false)
+        val root = inflater.inflate(R.layout.fragment_notification, container, false)
         mSwipe = root.findViewById<SwipeRefreshLayout>(R.id.swiperefresh)
         mSwipe!!.setOnRefreshListener {
             Log.d("refresh", "refreshed")
@@ -63,7 +63,7 @@ class QnAFragment : Fragment(){
     fun addData() {
         val data: MutableList<RvItem> = ArrayList()
         headerCount++
-        data.add(RvItem("Header $headerCount", TYPE_HEADER))
+        data.add(RvItem("2020년 12월 ${headerCount}일", TYPE_HEADER))
         for (i in 1..15) {
             data.add(RvItem("${i}", TYPE_ITEM))
         }
@@ -100,7 +100,7 @@ class QnAFragment : Fragment(){
 
             // Check if user triggered a refresh:
             R.id.menu_refresh -> {
-                Log.i("qna", "Refresh menu item selected")
+                Log.i("notification", "Refresh menu item selected")
 
                 // Signal SwipeRefreshLayout to start the progress indicator
                 mSwipe!!.isRefreshing = true

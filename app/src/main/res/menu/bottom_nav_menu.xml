@@ -14,9 +14,9 @@
         android:icon="@drawable/ic_nav_stopwatch_black_24dp"
         android:title="@string/title_clock"/>
     <item
-        android:id="@+id/navigation_qna"
-        android:icon="@drawable/ic_nav_qna_balck_24dp"
-        android:title="@string/title_qna" />
+        android:id="@+id/navigation_notification"
+        android:icon="@drawable/ic_nav_notification_black_24dp"
+        android:title="@string/notification" />
     <item
         android:id="@+id/navigation_profile"
         android:icon="@drawable/ic_nav_profile_black_24dp"

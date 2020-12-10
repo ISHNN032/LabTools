@@ -20,7 +20,7 @@
         android:gravity="center"
         android:textAlignment="center"
         android:textSize="20sp"
-        android:text="커뮤니티 페이지 제작 예정"
+        android:text="준비중"
         android:textColor="@color/colorWhite"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

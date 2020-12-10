@@ -3,9 +3,10 @@
     <string name="title_home">홈</string>
     <string name="title_calculator">계산기</string>
     <string name="title_clock">시계</string>
-    <string name="title_qna">QnA</string>
+    <string name="title_notification">알림</string>
     <string name="title_profile">프로필</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="kakao_app_key">fa80791b0b8cfd763b4894481f6e8638</string>
+    <string name="notification">알림</string>
 </resources>

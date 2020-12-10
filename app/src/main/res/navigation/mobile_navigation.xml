@@ -34,9 +34,9 @@
         tools:layout="@layout/fragment_stopwatch" />
 
     <fragment
-        android:id="@+id/navigation_qna"
-        android:name="com.ishnn.labtools.ui.qna.QnAFragment"
-        android:label="@string/title_qna"
+        android:id="@+id/navigation_notification"
+        android:name="com.ishnn.labtools.ui.notification.NotificationFragment"
+        android:label="@string/title_notification"
         tools:layout="@layout/fragment_stopwatch" />
 
     <fragment

@@ -1,4 +1,4 @@
-package com.ishnn.labtools.ui.qna
+package com.ishnn.labtools.ui.notification
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,17 +8,17 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.ishnn.labtools.R
-import com.rnnzzo.uxdesign.model.RvItem
 import com.ishnn.labtools.util.adapter.OnMoveAndSwipedListener
+import com.rnnzzo.uxdesign.model.RvItem
 import java.util.*
 
 val TYPE_HEADER = 1
 val TYPE_ITEM = 2
 val TYPE_LOADER = 3
 
-class ItemAdapter(
+class NotificationItemAdapter(
     var items: MutableList<RvItem>,
-    val clickListener: QnAFragment
+    val clickListener: NotificationFragment
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), OnMoveAndSwipedListener {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {

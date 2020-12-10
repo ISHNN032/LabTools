@@ -8,7 +8,6 @@ import android.util.Base64
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -33,7 +32,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_home,
                 R.id.navigation_calculator,
                 R.id.navigation_stopwatch,
-                R.id.navigation_qna,
+                R.id.navigation_notification,
                 R.id.navigation_profile
             )
         )
