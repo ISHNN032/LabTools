@@ -13,6 +13,6 @@ class CalculatorInnerFragment : Fragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_calculator_content, container, false)
+        return inflater.inflate(R.layout.fragment_calculator_content_main, container, false)
     }
 }

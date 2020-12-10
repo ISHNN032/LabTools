@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    tools:context=".FunctionFragment.UnitConverterFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/unit_1st"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_margin="2dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="58dp"
+                android:layout_weight="1"
+                android:background="@color/colorMwAtomBtn"
+                android:src="@drawable/s_8_1"/>
+
+            <TextView
+                android:id="@+id/unit_1st_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/colorMwAtomBtn"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:text="@string/unit_converter_fragment_1stbtn_text_kor" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/unit_2nd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_margin="2dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="58dp"
+                android:layout_weight="1"
+                android:background="@color/colorMwAtomBtn"
+                android:src="@drawable/s_8_2"/>
+
+            <TextView
+                android:id="@+id/unit_2nd_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/colorMwAtomBtn"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:text="@string/unit_converter_fragment_2ndbtn_text_kor" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

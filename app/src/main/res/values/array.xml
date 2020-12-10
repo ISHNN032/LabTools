@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+    <string-array name="water_unit">
+        <item>M</item>
+        <item>mM</item>
+        <item>uM</item>
+    </string-array>
+    
+    <string-array name="volume_unit">
+        <item>L</item>
+        <item>mL</item>
+        <item>uL</item>
+    </string-array>
+
+    <string-array name="volume_2level_unit">
+        <item>L</item>
+        <item>mL</item>
+    </string-array>
+</resources>

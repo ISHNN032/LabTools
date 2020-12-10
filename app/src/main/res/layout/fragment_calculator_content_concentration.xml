@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    tools:context=".FunctionFragment.ConcentrationFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/concentration_1st"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_margin="2dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="58dp"
+                android:layout_weight="1"
+                android:background="@color/colorMwAtomBtn"
+                android:src="@drawable/s_8_1_1"/>
+
+            <TextView
+                android:id="@+id/concentration_1st_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/colorMwAtomBtn"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:text="@string/concentration_fragment_1stbtn_text_kor" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/concentration_2nd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_margin="2dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="58dp"
+                android:layout_weight="1"
+                android:background="@color/colorMwAtomBtn"
+                android:src="@drawable/s_8_1_2"/>
+
+            <TextView
+                android:id="@+id/concentration_2nd_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/colorMwAtomBtn"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:text="@string/concentration_fragment_2ndbtn_text_kor" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/concentration_3rd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_margin="2dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="58dp"
+                android:layout_weight="1"
+                android:background="@color/colorMwAtomBtn"
+                android:src="@drawable/s_8_1_3"/>
+
+            <TextView
+                android:id="@+id/concentration_3rd_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/colorMwAtomBtn"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:text="@string/concentration_fragment_3rdbtn_text_kor" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/concentration_4th"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_margin="2dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="58dp"
+                android:layout_weight="1"
+                android:background="@color/colorMwAtomBtn"
+                android:src="@drawable/s_8_1_4"/>
+
+            <TextView
+                android:id="@+id/concentration_4th_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/colorMwAtomBtn"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:text="@string/concentration_fragment_4thbtn_text_kor" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/concentration_5th"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_margin="2dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="58dp"
+                android:layout_weight="1"
+                android:background="@color/colorMwAtomBtn"
+                android:src="@drawable/s_8_1_5"/>
+
+            <TextView
+                android:id="@+id/concentration_5th_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/colorMwAtomBtn"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:text="@string/concentration_fragment_5thbtn_text_kor" />
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>

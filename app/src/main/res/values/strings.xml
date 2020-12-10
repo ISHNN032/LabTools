@@ -5,8 +5,344 @@
     <string name="title_clock">시계</string>
     <string name="title_notification">알림</string>
     <string name="title_profile">프로필</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="kakao_app_key">fa80791b0b8cfd763b4894481f6e8638</string>
     <string name="notification">알림</string>
+
+
+
+    <!-- korean 버전 -->
+    <string name="main_login_text_kor">로그인</string>
+    <string name="main_password_text_kor">패스워드</string>
+    <string name="main_sign_text_kor">회원가입</string>
+    <string name="main_findlogin_text_kor">아이디 찾기 / 비밀번호찾기</string>
+    <string name="register_kor">회원가입</string>
+    <string name="login_kor">로그인</string>
+    <string name="logout_kor">로그아웃</string>
+    <string name="share_kor">앱 공유</string>
+    <string name="favorite_kor">내 즐겨찾기</string>
+    <string name="myprotocol_kor">나의 프로토콜</string>
+    <string name="license_kor">라이선스</string>
+    <string name="about_kor">about</string>
+    <string name="input_kor">입력</string>
+    <string name="sol_kor">해설)</string>
+
+    <!--MainFragment 부분-->
+    <string name="main_fragment_make_text_kor">Create buffer calculator\n %, molarity calculator\n</string>
+    <string name="main_fragment_dil_text_kor">Dilution calculator\n with stock solution \n</string>
+    <string name="main_fragment_mw_text_kor">Molecular weight\n Molecular weight calculator\n</string>
+    <string name="main_fragment_cell_text_kor">Cell culture calculator\n counter / seed number / dish area\n</string>
+    <string name="main_fragment_buffer_text_kor">My protocols\n Individual protocol, method, capture\n</string>
+    <string name="main_fragment_unit_converter_text_kor">Unit Converter\nConcentration,Temp,pressure etc.\n</string>
+    <string name="main_fragment_protein_text_kor">Protain \n SDS-page Dye, etc </string>
+    <string name="main_fragment_dnarna_text_kor">RNA / RNA \n PCR, Purity electrophoresis\n</string>
+
+    <!-- ETCM 메뉴 -->
+    <string name="main_fragment_pcr_text_kor">Real time PCR \nFold change\ 계산기 \n (ΔΔCt method) </string>
+    <string name="main_fragment_sds_text_kor">SDS-PAGE\nGel 계산기\n</string>
+    <string name="main_fragment_qa_text_kor">실험 \nQ &amp; A 게시판\n</string>
+
+    <!--Gel Fragment 부분 -->
+    <string name="gel_fragment_stacking_title_kor">Stacking gel (5% 고정)</string>
+    <string name="gel_fragment_stacking_concentration_kor">만들고자 하는 농도</string>
+    <string name="gel_fragment_stacking_makevolume_kor">만들고자 하는 용량</string>
+    <string name="gel_fragment_stacking_fur_kor">조성</string>
+    <string name="gel_fragment_stacking_volume_kor">용량(mL)</string>
+    <string name="gel_fragment_resolving_title_kor">Resolving gel Gel  (6~15% )</string>
+    <string name="gel_fragment_resolving_concentration_kor">만들고자 하는 농도(%)</string>
+    <string name="gel_fragment_resolving_makevolume_kor">만들고자 하는 용량(mL)</string>
+    <string name="gel_fragment_resolving_fur_kor">조성</string>
+    <string name="gel_fragment_resolving_volume_kor">용량(mL)</string>
+
+    <!--Make Fragment 부분-->
+    <string name="make_fragment_1stbtn_text_kor">몰농도(M) 용액제조\n Calculate mass of ingredient</string>
+    <string name="make_fragment_2ndbtn_text_kor">%농도 용액제조\n Calculate mass of ingredient</string>
+    <string name="make_fragment_3rdbtn_text_kor">%농도 용액이용 몰농도(M) 용액제조\n Preparation % soln. from M soln.</string>
+    <string name="make_fragment_4thbtn_text_kor">몰농도 (M)용액이용 %농도 용액제조\n Preparation M soln. from % soln.</string>
+
+    <!--Make Fragment 부분-->
+    <string name="make_fragment_1stbtn_text_eng"> Mass molarity solution\n Calculate mass of ingredient</string>
+    <string name="make_fragment_2ndbtn_text_eng"> % (w/v) solution\n Calculate mass of ingredient</string>
+    <string name="make_fragment_3rdbtn_text_eng"> Molarity from % solution \n Preparation % soln. from M soln.</string>
+    <string name="make_fragment_4thbtn_text_eng"> % soln. from M soln. \n Preparation M soln. from % soln.</string>
+
+
+
+    <!-- Make 첫번째 버튼 부분-->
+    <string name="make_1stbtn_title_kor">몰농도(M) 용액 제조하기</string>
+    <string name="make_1stbtn_weight_kor">시약의 분자량</string>
+    <string name="make_1stbtn_concen_kor">원하는 몰농도</string>
+    <string name="make_1stbtn_volume_kor">원하는 볼륨</string>
+    <string name="make_1stbtn_alldel_kor">모두삭제</string>
+    <string name="make_1stbtn_cal_kor">계산하기</string>
+    <string name="make_1stbtn_amount_kor">필요한 시약 량</string>
+    <string name="make_1stbtn_sol_D_kor"> 의 시약을 증류수를 이용하여 최종 볼륨이</string>
+    <string name="make_1stbtn_sol_C_kor"> 가 되도록 녹이면</string>
+    <string name="make_1stbtn_sol_B_kor"> 용액이 제조된다.</string>
+
+    <!-- Make 두번째 버튼 부분-->
+    <string name="make_2ndbtn_title_kor">%(w/v)농도 용액 제조하기</string>
+    <string name="make_2ndbtn_concen_kor">원하는 농도</string>
+    <string name="make_2ndbtn_volume_kor">원하는 볼륨</string>
+    <string name="make_2ndbtn_alldel_kor">모두삭제</string>
+    <string name="make_2ndbtn_cal_kor">계산하기</string>
+    <string name="make_2ndbtn_amount_kor">필요한 시약 량</string>
+    <string name="make_2ndbtn_sol_D_kor"> 의 시약을 증류수를 이용하여 최종 볼륨이</string>
+    <string name="make_2ndbtn_sol_C_kor"> 가 되도록 녹이면</string>
+    <string name="make_2ndbtn_sol_B_kor"> 용액이 제조된다.</string>
+
+    <!-- Make 세번째 버튼 부분-->
+    <string name="make_3rdbtn_title_kor">% 농도 용액으로 몰농도 (M) 용액 제조</string>
+    <string name="make_3rdbtn_concen_kor">시료 분자량(M/V)</string>
+    <string name="make_3rdbtn_volume_kor">원하는 몰농도</string>
+    <string name="make_3rdbtn_weight_kor">원하는 볼륨</string>
+    <string name="make_3rdbtn_solution_concen_kor">용액의 % 농도</string>
+    <string name="make_3rdbtn_solution_density_kor">용액의 밀도</string>
+    <string name="make_3rdbtn_alldel_kor">모두삭제</string>
+    <string name="make_3rdbtn_cal_kor">계산하기</string>
+    <string name="make_3rdbtn_amount_kor">% 농도로 된 용액을 몰농도 (M)로 환산할 수 있습니다.
+</string>
+    <string name="make_3rdbtn_sol_D_kor"> M 용액 </string>
+    <string name="make_3rdbtn_sol_F_kor"> mL과 증류수 </string>
+    <string name="make_3rdbtn_sol_B_kor"> mL을 혼합하면 </string>
+    <string name="make_3rdbtn_sol_A_kor"> M농도 용액을 제조할수 있다.</string>
+
+    <!-- Make 네번째 버튼 부분-->
+    <string name="make_4thbtn_title_kor">몰농도 (M)용액으로 %농도 용액 제조하기</string>
+    <string name="make_4thbtn_weight_kor">시료 분자량 (MW)</string>
+    <string name="make_4thbtn_concen_kor">제조할 용액 % 농도</string>
+    <string name="make_4thbtn_volume_kor">제조할 볼륨</string>
+
+    <string name="make_4thbtn_solution_concen_kor">용액의 몰농도(M)</string>
+    <string name="make_4thbtn_solution_density_kor">용액의 밀도</string>
+    <string name="make_4thbtn_alldel_kor">모두삭제</string>
+    <string name="make_4thbtn_cal_kor">계산하기</string>
+    <string name="make_4thbtn_amount_kor">% 농도로 된 용액을 몰농도 (M)로 환산할 수 있습니다.</string>
+    <string name="make_4thbtn_sol_D_kor"> M 용액 </string>
+    <string name="make_4thbtn_sol_F_kor"> mL과 증류수 </string>
+    <string name="make_4thbtn_sol_B_kor"> mL을 혼합하면 </string>
+    <string name="make_4thbtn_sol_A_kor"> % 용액 </string>
+    <string name="make_4thbtn_sol_B1_kor"> L을 제조할수 있다.</string>
+
+    <!-- Dilution 두번째 버튼 부분-->
+    <string name="concentration_1stbtn_title_kor">%농도 용액을 몰농도(M) 으로 환산</string>
+    <string name="concentration_1stbtn_weight_kor">용액의 % 농도</string>
+    <string name="concentration_1stbtn_concen_kor">시료의 분자량(MW)</string>
+    <string name="concentration_1stbtn_density_kor">용액의 밀도</string>
+    <string name="concentration_1stbtn_alldel_kor">모두삭제</string>
+    <string name="concentration_1stbtn_cal_kor">계산하기</string>
+    <string name="concentration_1stbtn_amount_kor">% 농도로 된 용액을 몰농도 (M)로 환산할 수 있습니다</string>
+    <string name="concentration_1stbtn_sol_D_kor"> 용액은 몰농도로 환산하면 </string>
+    <string name="concentration_1stbtn_sol_C_kor"> 농도의 용액입니다. </string>
+
+    <!-- Dilution 세번째 버튼 부분-->
+    <string name="concentration_2ndbtn_title_kor">몰농도 (M)농도 용액으로 % 용액 환산</string>
+    <string name="concentration_2ndbtn_weight_kor">용액의 몰농도</string>
+    <string name="concentration_2ndbtn_concen_kor">시료의 분자량</string>
+    <string name="concentration_2ndbtn_density_kor">용액의 밀도</string>
+    <string name="concentration_2ndbtn_alldel_kor">모두삭제</string>
+    <string name="concentration_2ndbtn_cal_kor">계산하기</string>
+    <string name="concentration_2ndbtn_amount_kor"> </string>
+    <string name="concentration_2ndbtn_sol_D_kor"> 용액은 % 농도로 환산 시에</string>
+    <string name="concentration_2ndbtn_sol_C_kor"> 용액입니다. </string>
+
+    <!-- Dilution 네번째 버튼 부분-->
+    <string name="concentration_3rdbtn_title_kor"> % 농도를 ppm 농도로 환산 </string>
+    <string name="concentration_3rdbtn_density_kor">용액의 % 농도</string>
+    <string name="concentration_3rdbtn_alldel_kor">모두삭제</string>
+    <string name="concentration_3rdbtn_cal_kor">계산하기</string>
+
+    <string name="concentration_3rdbtn_sol_S_kor"> 위 </string>
+    <string name="concentration_3rdbtn_sol_A_kor"> 용액은 </string>
+    <string name="concentration_3rdbtn_sol_B_kor"> 용액입니다. </string>
+
+    <!-- Dilution 다섯번째 버튼 부분-->
+    <string name="concentration_4thbtn_title_kor"> 몰농도 (M) 를 ppm 농도로 환산 </string>
+    <string name="concentration_4thbtn_water_kor">용액의 몰 농도</string>
+    <string name="concentration_4thbtn_weight_kor">시료의 분자량</string>
+    <string name="concentration_4thbtn_alldel_kor">모두삭제</string>
+    <string name="concentration_4thbtn_cal_kor">계산하기</string>
+
+    <string name="concentration_4thbtn_sol_S_kor"> 위 (M) </string>
+    <string name="concentration_4thbtn_sol_A_kor"> 용액은 </string>
+    <string name="concentration_4thbtn_sol_B_kor"> 용액입니다. </string>
+
+    <!-- Dilution 여섯번째 버튼 부분-->
+    <string name="concentration_5thbtn_title_kor"> 몰농도 (M)를 노르말 (N) 로 환산 </string>
+    <string name="concentration_5thbtn_water_kor">용액의 몰 농도</string>
+    <string name="concentration_5thbtn_weight_kor">용질의 g 당량수</string>
+    <string name="concentration_5thbtn_alldel_kor">모두삭제</string>
+    <string name="concentration_5thbtn_cal_kor">계산하기</string>
+    <string name="concentration_5thbtn_amount_kor">당량수의 예) H2SO4의 당량수 = 2  NaOH의 당량수 = 1 </string>
+
+    <string name="concentration_5thbtn_sol_S_kor"> 위 (M) </string>
+    <string name="concentration_5thbtn_sol_A_kor"> 용액의 노르말 농도는 </string>
+    <string name="concentration_5thbtn_sol_B_kor"> 입니다. </string>
+
+
+    <!-- Dilution 첫번째 버튼 부분-->
+    <string name="dilution_1stbtn_title_kor">몰농도(M) 용액 희석하기</string>
+    <string name="dilution_1stbtn_weight_kor">stock 용액 농도</string>
+    <string name="dilution_1stbtn_concen_kor">원하는 몰 농도</string>
+    <string name="dilution_1stbtn_volume_kor">원하는 볼륨</string>
+    <string name="dilution_1stbtn_alldel_kor">모두삭제</string>
+    <string name="dilution_1stbtn_cal_kor">계산하기</string>
+    <string name="dilution_1stbtn_amount_kor">진한용액 (stock solution) 농도를 입력 하고 만들고자 하는 희석용액의 농도 및 볼륨을 입력 후 계산하기 버튼을 누른다</string>
+    <string name="dilution_1stbtn_sol_D_kor"> Stock solution  </string>
+    <string name="dilution_1stbtn_sol_C_kor"> 과 증류수 또는 희석하고자 하는 용액 </string>
+    <string name="dilution_1stbtn_sol_B_kor"> 을 혼합하면 </string>
+    <string name="dilution_1stbtn_sol_A1_kor"> 의 용액 </string>
+    <string name="dilution_1stbtn_sol_A2_kor"> 을 제조할 수 있다.</string>
+
+    <!-- Dilution 일곱번째 버튼 부분-->
+    <string name="dilution_2ndbtn_title_kor"> 6x, 4x등 진한용액 1x로 섞어쓰기</string>
+    <string name="dilution_2ndbtn_weight_kor">진한 용액 배수</string>
+    <string name="dilution_2ndbtn_concen_kor">희망 배수</string>
+    <string name="dilution_2ndbtn_density_kor">섞어 쓸 시료 양</string>
+    <string name="dilution_2ndbtn_alldel_kor">모두삭제</string>
+    <string name="dilution_2ndbtn_cal_kor">계산하기</string>
+    <string name="dilution_2ndbtn_amount_kor">Loading dye 와 같은 진한용액 (stock solution) 농도를 입력 하고, 섞어 쓰고자 하는 시료의 용량에 대한 stock 용액을 계산하는 기능입니다..
+</string>
+    <string name="dilution_2ndbtn_sol_D_kor"> Stock solution </string>
+    <string name="dilution_2ndbtn_sol_C_kor"> 배 진한 용액 </string>
+    <string name="dilution_2ndbtn_sol_B_kor"> 와 시료 </string>
+    <string name="dilution_2ndbtn_sol_A_kor"> 을 혼합하여 쓰면 1x 로 혼합될 수 있다 </string>
+
+    <!-- Dilution 세번째 버튼 부분-->
+    <string name="dilution_3rdbtn_title_kor">몰농도(%) 용액 희석하기</string>
+    <string name="dilution_3rdbtn_weight_kor">stock 용액 농도</string>
+    <string name="dilution_3rdbtn_concen_kor">원하는 몰 농도</string>
+    <string name="dilution_3rdbtn_volume_kor">원하는 볼륨</string>
+    <string name="dilution_3rdbtn_density_kor">원하는 밀도</string>
+    <string name="dilution_3rdbtn_alldel_kor">모두삭제</string>
+    <string name="dilution_3rdbtn_cal_kor">계산하기</string>
+    <string name="dilution_3rdbtn_amount_kor">진한용액 (stock solution) 농도를 입력 하고 만들고자 하는 희석용액의 농도 및 볼륨을 입력 후 계산하기 버튼을 누른다</string>
+    <string name="dilution_3rdbtn_sol_D_kor"> Stock solution  </string>
+    <string name="dilution_3rdbtn_sol_C_kor"> 과 증류수 또는 희석하고자 하는 용액 </string>
+    <string name="dilution_3rdbtn_sol_B_kor"> 을 혼합하면 </string>
+    <string name="dilution_3rdbtn_sol_A1_kor"> 의 용액 </string>
+    <string name="dilution_3rdbtn_sol_A2_kor"> 을 제조할 수 있다.</string>
+
+
+    <!--Dilution Fragment 부분-->
+    <string name="dilution_fragment_1stbtn_text_kor">몰농도(M) 용액의 희석\n Preparation M from M</string>
+    <string name="dilution_fragment_3rdbtn_text_kor">몰농도(%) 용액의 희석\nPreparation % from %</string>
+    <string name="dilution_fragment_2ndbtn_text_kor">6x등의 진한용액 1x로 섞어쓰기(loading dye등)\nPreparation 1X buffer from stock</string>
+
+    <string name="dilution_fragment_1stbtn_text_eng">Dilution (Molarity)\n Preparation M from M</string>
+    <string name="dilution_fragment_3rdbtn_text_eng">Dilution (% soln.)\nPreparation % from %</string>
+    <string name="dilution_fragment_2ndbtn_text_eng">Dilution for 1 x soln.\nPreparation 1X buffer from stock</string>
+
+
+    <!--Cell Culture 부분-->
+    <string name="cellculture_fragment_1stbtn_text_kor">세포 수 계산기\n Calculate cell seeding number </string>
+    <string name="cellculture_fragment_2ndbtn_text_kor">세포 시약처리\n Calculate cell seeding number</string>
+    <string name="cellculture_fragment_3rdbtn_text_kor">세포배양 용기 및 세포 밀도\n Area and cell density</string>
+    <string name="cellculture_fragment_4thbtn_text_kor">세포 카운터 \n Touch screen cell counter</string>
+
+    <string name="cellculture_fragment_1stbtn_text_eng">Cell seeding calculator\n Calculate cell seeding number</string>
+    <string name="cellculture_fragment_2ndbtn_text_eng">Drug treated calculator\n Calculate cell seeding number</string>
+    <string name="cellculture_fragment_3rdbtn_text_eng">Cell culture plate area\n Area and cell density</string>
+    <string name="cellculture_fragment_4thbtn_text_eng">Cell counter\n Touch screen cell counter </string>
+
+    <!-- Cell 첫번째 버튼 부분-->
+    <string name="cell_1stbtn_title_kor"> 세포 분주 계산기 (Cell seeking calculator)</string>
+    <string name="cell_1stbtn_weight_kor">부유 세포 농도</string>
+    <string name="cell_1stbtn_concen_kor">Well당 분주할 세포수</string>
+    <string name="cell_1stbtn_media_kor">Well당 필요한 media</string>
+    <string name="cell_1stbtn_wells_kor">분주할 Well수</string>
+    <string name="cell_1stbtn_alldel_kor">모두삭제</string>
+    <string name="cell_1stbtn_cal_kor">계산하기</string>
+    <string name="cell_1stbtn_amount_kor">분주 시 여유분을 위해서 실제 값 산출에서는  seeding  할 well 개수 보다 +1 만큼 계산 되도록 하였습니다. 더 여유분을 늘리려면 분주할 well 수의 숫자를 높여 계산하세요
+</string>
+    <string name="cell_1stbtn_sol_F_kor"> 세포 부유 액 </string>
+    <string name="cell_1stbtn_sol_E_kor"> 에 media </string>
+    <string name="cell_1stbtn_sol_D_kor"> 을 잘 혼합하여 각 well 당 </string>
+    <string name="cell_1stbtn_sol_C_kor"> 씩 분주하면 </string>
+    <string name="cell_1stbtn_sol_B_kor"> x  104 cells/well 농도로  </string>
+    <string name="cell_1stbtn_sol_A_kor">  well(s) 개수 만큼  seeding  할 수 있습니다. </string>
+
+    <!-- Cell 두번째 버튼 부분-->
+    <string name="cell_2ndbtn_title_kor"> 세포 시약 처리 계산기 </string>
+    <string name="cell_2ndbtn_weight_kor">Stock 용액 농도</string>
+    <string name="cell_2ndbtn_concen_kor">처리할 농도</string>
+    <string name="cell_2ndbtn_media_kor">Well당 필요한 media</string>
+    <string name="cell_2ndbtn_wells_kor">Seeding할 Well수</string>
+    <string name="cell_2ndbtn_alldel_kor">모두삭제</string>
+    <string name="cell_2ndbtn_cal_kor">계산하기</string>
+    <string name="cell_2ndbtn_amount_kor">분주 시 여유분을 위해서 실제 값 산출에서는 처리할 well 개수 보다 +1 만큼 계산 되도록 하였습니다.</string>
+    <string name="cell_2ndbtn_sol_F_kor"> Stock 용액 </string>
+    <string name="cell_2ndbtn_sol_E_kor"> mL에 media </string>
+    <string name="cell_2ndbtn_sol_D_kor"> 을 잘 혼합하여 각 well 당 </string>
+    <string name="cell_2ndbtn_sol_C_kor"> 씩 처리한다. </string>
+
+    <string name="cell_3rdbtn_title_kor"> cell culture plate area </string>
+    <string name="cell_3rdbtn_help_kor"> 위 cell seeding density 는 HeLa 세포를 기준으로 작성된 것이므로 실제 실험에서는 각 세포의 크기를 고려하여 seeding 하시길 바랍니다. </string>
+
+
+    <!--UnitConverter Fragment 부분-->
+    <string name="unit_converter_fragment_1stbtn_text_kor">용액의 농축</string>
+    <string name="unit_converter_fragment_2ndbtn_text_kor">원심분리 속도</string>
+    <string name="unit_converter_fragment_1stbtn_text_eng">Concentration</string>
+    <string name="unit_converter_fragment_2ndbtn_text_eng">Centrifuge Speed</string>
+
+    <string name="centspeed_mm_a">Radius of rotor (mm)</string>
+    <string name="centspeed_present_unit_a">Present Unit</string>
+
+    <!--Concentration Fragment 부분-->
+    <string name="concentration_fragment_1stbtn_text_kor">%농도를 몰농도(M) 으로 변환</string>
+    <string name="concentration_fragment_2ndbtn_text_kor">몰농도(M)를 %농도로 변환</string>
+    <string name="concentration_fragment_3rdbtn_text_kor">%농도를 ppm농도로 변환</string>
+    <string name="concentration_fragment_4thbtn_text_kor">몰농도(M)를 ppm농도로 변환</string>
+    <string name="concentration_fragment_5thbtn_text_kor">몰농도(M)를 노르말 농도(N)로 변환</string>
+
+    <string name="concentration_fragment_1stbtn_text_eng">%농도를 몰농도(M) 으로 변환</string>
+    <string name="concentration_fragment_2ndbtn_text_eng">몰농도(M)를 %농도로 변환</string>
+    <string name="concentration_fragment_3rdbtn_text_eng">%농도를 ppm농도로 변환</string>
+    <string name="concentration_fragment_4thbtn_text_eng">몰농도(M)를 ppm농도로 변환</string>
+    <string name="concentration_fragment_5thbtn_text_eng">몰농도(M)를 노르말 농도(N)로 변환</string>
+
+    <!--Protein Fragment 부분-->
+    <string name="protein_fragment_1stbtn_text_kor">SDS-PAGE gel\n Calculate gel composition</string>
+    <string name="protein_fragment_2ndbtn_text_kor">Protein size and gel % \n Protein size and gel percentage</string>
+    <string name="protein_fragment_3rdbtn_text_kor">Flurochromes</string>
+
+    <string name="protein_fragment_1stbtn_text_eng">SDS-PAGE gel\n Calculate gel composition</string>
+    <string name="protein_fragment_2ndbtn_text_eng">Protein size and gel % \n Protein size and gel percentage</string>
+    <string name="protein_fragment_3rdbtn_text_eng">Flurochromes</string>
+
+
+    <string name="protein_2nd1_help_kor"> The following is a rough guide for choosing an appropriate gel percentage based on protein size.   Gradient gels are also available. </string>
+    <string name="protein_2nd2_help_kor"> Acrylamide is a potent cumulative neurotoxin: wear gloves at all times. </string>
+
+
+    <string name="dnarna_fragment_1stbtn_text_kor">O.D and purity\n OD value and purity</string>
+    <string name="dnarna_fragment_2ndbtn_text_kor">Gel %  and loading dyes \n Agarose gel conc. %</string>
+    <string name="dnarna_fragment_3rdbtn_text_kor">Real-time PCR (ΔΔCt ) \n Calculate fold change</string>
+    <string name="dnarna_fragment_4thbtn_text_kor">Dilution stock solution \n Calculate 1 x solution</string>
+    <string name="dnarna_fragment_5thbtn_text_kor">Probe information \n Fluorophore probe</string>
+    <string name="dnarna_fragment_6thbtn_text_kor">Tm Calculator \n Calculator Tm, GC %</string>
+
+    <string name="dnarna_fragment_1stbtn_text_eng">O.D and purity\n OD value and purity</string>
+    <string name="dnarna_fragment_2ndbtn_text_eng">Gel %  and loading dyes \n Agarose gel conc. %</string>
+    <string name="dnarna_fragment_3rdbtn_text_eng">Real-time PCR (ΔΔCt ) \n Calculate fold change</string>
+    <string name="dnarna_fragment_4thbtn_text_eng">Dilution stock solution \n Calculate 1 x solution</string>
+    <string name="dnarna_fragment_5thbtn_text_eng">Probe information \n Fluorophore probe</string>
+    <string name="dnarna_fragment_6thbtn_text_eng">Tm Calculator \n Calculator Tm, GC %</string>
+
+
+    <!--PCR Fragment 부분-->
+    <string name="pcr_title_kor">유전자 발현량 ΔΔCt 방법으로 계산하기 </string>
+    <string name="pcr_ct1_text_kor">실험군 (n=1)\n Ct 값</string>
+    <string name="pcr_ct2_text_kor">실험군 (n=2)\n Ct 값</string>
+    <string name="pcr_ct3_text_kor">실험군 (n=3)\n Ct 값</string>
+    <string name="pcr_target_text_kor">타겟 유전자 \nex) Collagen</string>
+    <string name="pcr_house_text_kor">Housekeeping\nEx) GAPDH</string>
+    <string name="pcr_alldel_kor">모두 삭제</string>
+    <string name="pcr_cal_kor">계산하기</string>
+    <string name="pcr_ctresult_kor">ΔΔCt 값</string>
+    <string name="pcr_foldchange_kor">Fold Change (2^-ΔΔCt)</string>
+    <string name="pcr_sol_a_kor">Control 군과 실험군의 타겟 유전자 발현량은 (</string>
+    <string name="pcr_sol_b_kor">) 배 차이가 난다.</string>
+
 </resources>

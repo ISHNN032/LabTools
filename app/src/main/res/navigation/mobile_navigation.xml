@@ -23,7 +23,7 @@
 
     <fragment
         android:id="@+id/inner_calculator"
-        android:name="com.ishnn.labtools.ui.calculator.CalculatorInnerFragment"
+        android:name="com.ishnn.labtools.ui.calculator.FunctionFragment.MainFragment"
         android:label="@string/title_calculator">
     </fragment>
 
