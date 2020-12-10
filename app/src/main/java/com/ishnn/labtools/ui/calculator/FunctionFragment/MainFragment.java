@@ -72,15 +72,11 @@ public class MainFragment extends Fragment {
 
     SharedPreferences pref;
 
-    public MainFragment() {
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_calculator_content_main, container, false);
         ButterKnife.bind(this, view);
-
         pref = this.getActivity().getSharedPreferences("lan", Context.MODE_PRIVATE);
         main_make_text.setText(getString(R.string.main_fragment_make_text_kor));
         main_dilution_text.setText(getString(R.string.main_fragment_dil_text_kor));
@@ -152,8 +148,6 @@ public class MainFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ActionBar actionBar = ((MainActivity) getActivity()).getSupportActionBar();
-        actionBar.setBackgroundDrawable(new ColorDrawable(Color.rgb(237, 125, 49)));
     }
 
 }

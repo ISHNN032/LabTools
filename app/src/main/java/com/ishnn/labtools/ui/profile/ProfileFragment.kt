@@ -13,6 +13,7 @@ import com.ishnn.labtools.R
 import com.kakao.sdk.auth.LoginClient
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.user.UserApiClient
+import kotlinx.android.synthetic.main.activity_main.*
 
 class ProfileFragment : Fragment() {
     private lateinit var mTextView: TextView
@@ -23,6 +24,8 @@ class ProfileFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        activity?.toolbar_title?.text = getString(R.string.title_profile)
+
         val root = inflater.inflate(R.layout.fragment_profile, container, false)
         val textView: TextView = root.findViewById(R.id.text_profile)
         mTextView = textView
@@ -41,6 +44,8 @@ class ProfileFragment : Fragment() {
                                         "\n이메일: ${user.kakaoAccount?.email}" +
                                         "\n닉네임: ${user.kakaoAccount?.profile?.nickname}" +
                                         "\n프로필사진: ${user.kakaoAccount?.profile?.thumbnailImageUrl}"
+                                kakao_loginbtn.visibility = View.GONE
+                                mTextView.visibility = View.VISIBLE
                                 mTextView.text = user.kakaoAccount?.profile?.nickname
                             }
                         }

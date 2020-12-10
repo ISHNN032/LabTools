@@ -30,8 +30,7 @@ public class BufferFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_calculator_content_buffer, container, false);
 
-        ActionBar actionBar = ((MainActivity) getActivity()).getSupportActionBar();
-        actionBar.setBackgroundDrawable(new ColorDrawable(Color.rgb(47, 85, 151)));
+
 
         return view;
     }

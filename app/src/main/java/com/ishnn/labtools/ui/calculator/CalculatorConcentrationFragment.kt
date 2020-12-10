@@ -37,43 +37,43 @@ class CalculatorConcentrationFragment: Fragment(), CalculatorConcentrationAdapte
             1,
             R.drawable.ic_nav_calculator_black_24dp,
             "물(M)농도",
-            R.id.action_nav_calculator_to_a
+            R.id.action_nav_calculator_to_calcontent
         ),
         DesignItem(
             2,
             R.drawable.ic_nav_calculator_black_24dp,
             "%농도",
-            R.id.action_nav_calculator_to_a
+            R.id.action_nav_calculator_to_calcontent
         ),
         DesignItem(
             3,
             R.drawable.ic_nav_calculator_black_24dp,
             "%->M",
-            R.id.action_nav_calculator_to_a
+            R.id.action_nav_calculator_to_calcontent
         ),
         DesignItem(
             4,
             R.drawable.ic_nav_calculator_black_24dp,
             "M->%",
-            R.id.action_nav_calculator_to_a
+            R.id.action_nav_calculator_to_calcontent
         ),
         DesignItem(
             5,
             R.drawable.ic_nav_calculator_black_24dp,
             "물(M)희석",
-            R.id.action_nav_calculator_to_a
+            R.id.action_nav_calculator_to_calcontent
         ),
         DesignItem(
             6,
             R.drawable.ic_nav_calculator_black_24dp,
             "%농도희석",
-            R.id.action_nav_calculator_to_a
+            R.id.action_nav_calculator_to_calcontent
         ),
         DesignItem(
             7,
             R.drawable.ic_nav_calculator_black_24dp,
             "농도배수",
-            R.id.action_nav_calculator_to_a
+            R.id.action_nav_calculator_to_calcontent
         )
     )
 

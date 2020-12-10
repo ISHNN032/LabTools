@@ -14,6 +14,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.ishnn.labtools.R
 import com.ishnn.labtools.util.adapter.*
 import com.rnnzzo.uxdesign.model.RvItem
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.*
 
 class NotificationFragment : Fragment(){
@@ -29,6 +30,8 @@ class NotificationFragment : Fragment(){
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        activity?.toolbar_title?.text = getString(R.string.title_notification)
+
         val root = inflater.inflate(R.layout.fragment_notification, container, false)
         mSwipe = root.findViewById<SwipeRefreshLayout>(R.id.swiperefresh)
         mSwipe!!.setOnRefreshListener {

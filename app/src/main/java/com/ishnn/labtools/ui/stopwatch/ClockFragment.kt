@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import com.ishnn.labtools.R
+import kotlinx.android.synthetic.main.activity_main.*
 
 /**
  * A placeholder fragment containing a simple view.
@@ -23,6 +24,8 @@ class ClockFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        activity?.toolbar_title?.text = getString(R.string.title_clock)
+
         val root = inflater.inflate(R.layout.fragment_clock, container, false)
         mTabLayout = root.findViewById<TabLayout>(R.id.tabLayout)
         mViewPager = root.findViewById(R.id.viewPager)

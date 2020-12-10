@@ -9,7 +9,17 @@
         android:id="@+id/navigation_home"
         android:name="com.ishnn.labtools.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_nav_home_to_notification"
+            app:destination="@id/navigation_notification" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_notification"
+        android:name="com.ishnn.labtools.ui.notification.NotificationFragment"
+        android:label="@string/title_notification"
+        tools:layout="@layout/fragment_notification" />
 
     <fragment
         android:id="@+id/navigation_calculator"
@@ -17,7 +27,7 @@
         android:label="@string/title_calculator"
         tools:layout="@layout/fragment_calculator">
         <action
-            android:id="@+id/action_nav_calculator_to_a"
+            android:id="@+id/action_nav_calculator_to_calcontent"
             app:destination="@id/inner_calculator" />
     </fragment>
 
@@ -33,15 +43,15 @@
         android:label="@string/title_clock"
         tools:layout="@layout/fragment_stopwatch" />
 
-    <fragment
-        android:id="@+id/navigation_notification"
-        android:name="com.ishnn.labtools.ui.notification.NotificationFragment"
-        android:label="@string/title_notification"
-        tools:layout="@layout/fragment_stopwatch" />
+<!--    <fragment-->
+<!--        android:id="@+id/navigation_notification"-->
+<!--        android:name="com.ishnn.labtools.ui.notification.NotificationFragment"-->
+<!--        android:label="@string/title_notification"-->
+<!--        tools:layout="@layout/fragment_stopwatch" />-->
 
     <fragment
         android:id="@+id/navigation_profile"
         android:name="com.ishnn.labtools.ui.profile.ProfileFragment"
         android:label="@string/title_profile"
-        tools:layout="@layout/fragment_stopwatch" />
+        tools:layout="@layout/fragment_profile" />
 </navigation>

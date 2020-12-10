@@ -7,39 +7,57 @@
     android:orientation="vertical"
     tools:context=".ui.profile.ProfileFragment">
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="280dp"
+        android:layout_height="200dp"
         android:background="@color/colorPrimaryDark">
 
-        <LinearLayout
-            android:layout_marginTop="45dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+        <ImageView
+            android:id="@+id/profile_icon"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_marginStart="@dimen/large_margin"
+            android:src="@drawable/splash"
             android:gravity="center_horizontal"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/profile_cardview"/>
 
-            <ImageView
-                android:layout_width="64dp"
-                android:layout_height="64dp"
-                android:src="@drawable/splash" />
-
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginStart="@dimen/large_margin"
+            app:layout_constraintTop_toTopOf="@id/profile_icon"
+            app:layout_constraintBottom_toBottomOf="@id/profile_icon"
+            app:layout_constraintLeft_toRightOf="@id/profile_icon">
             <TextView
                 android:id="@+id/text_profile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="Wiliam Snoe"
+                android:text="로그인 안됨"
+                android:visibility="gone"
                 android:textColor="#fff"
                 android:textSize="21sp"
                 android:textStyle="bold" />
+            <Button
+                android:id="@+id/kakao_loginbtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/kakao_login_medium_narrow" />
         </LinearLayout>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/profile_cardview"
             android:layout_width="400dp"
             android:layout_height="60dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="200dp">
+            android:layout_marginBottom="12dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -117,7 +135,7 @@
                 </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
-    </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -135,15 +153,15 @@
             android:paddingLeft="25dp">
 
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_profile_settings" />
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_setting_question" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="20dp"
-                android:text="내 게시글"
+                android:text="내 질문"
                 android:textSize="18sp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -156,15 +174,15 @@
             android:paddingLeft="25dp">
 
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_profile_settings" />
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_setting_comment" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="20dp"
-                android:text="내 댓글"
+                android:text="내 답변"
                 android:textSize="18sp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -177,9 +195,9 @@
             android:paddingLeft="25dp">
 
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_profile_settings" />
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_setting_bookmark" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -207,9 +225,9 @@
             android:paddingLeft="25dp">
 
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_profile_settings" />
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_setting_license" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -228,9 +246,9 @@
             android:paddingLeft="25dp">
 
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_profile_settings" />
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_setting_help" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -249,9 +267,9 @@
             android:paddingLeft="25dp">
 
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_profile_settings" />
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_setting_app_setting" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -270,12 +288,5 @@
         android:orientation="horizontal"
         android:paddingLeft="25dp">
 
-        <Button
-            android:id="@+id/kakao_loginbtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="10dp"
-            android:background="@drawable/kakao_login_medium_narrow" />
     </LinearLayout>
 </LinearLayout>

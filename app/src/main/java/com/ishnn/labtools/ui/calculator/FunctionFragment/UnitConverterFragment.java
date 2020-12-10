@@ -48,8 +48,7 @@ public class UnitConverterFragment extends Fragment {
 
         ButterKnife.bind(this, view);
 
-        ActionBar actionBar = ((MainActivity) getActivity()).getSupportActionBar();
-        actionBar.setBackgroundDrawable(new ColorDrawable(Color.rgb(47, 85, 151)));
+
 
         pref = this.getActivity().getSharedPreferences("lan", Context.MODE_PRIVATE);
         if(pref.getString("lan","").equals("kor")){

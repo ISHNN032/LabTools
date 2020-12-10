@@ -37,31 +37,31 @@ class CalculatorRNAFragment: Fragment(), CalculatorConcentrationAdapter.ClickLis
             1,
             R.drawable.ic_nav_profile_black_24dp,
             "O.D",
-            R.id.action_nav_calculator_to_a
+            R.id.action_nav_calculator_to_calcontent
         ),
         DesignItem(
             2,
             R.drawable.ic_nav_profile_black_24dp,
             "Gel%",
-            R.id.action_nav_calculator_to_a
+            R.id.action_nav_calculator_to_calcontent
         ),
         DesignItem(
             3,
             R.drawable.ic_nav_profile_black_24dp,
             "PCR",
-            R.id.action_nav_calculator_to_a
+            R.id.action_nav_calculator_to_calcontent
         ),
         DesignItem(
             4,
             R.drawable.ic_nav_profile_black_24dp,
             "Probe",
-            R.id.action_nav_calculator_to_a
+            R.id.action_nav_calculator_to_calcontent
         ),
         DesignItem(
             5,
             R.drawable.ic_nav_profile_black_24dp,
             "Tim",
-            R.id.action_nav_calculator_to_a
+            R.id.action_nav_calculator_to_calcontent
         )
     )
 

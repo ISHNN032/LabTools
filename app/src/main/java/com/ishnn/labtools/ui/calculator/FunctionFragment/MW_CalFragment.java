@@ -155,8 +155,7 @@ public class MW_CalFragment extends Fragment implements Button.OnClickListener {
         View view = inflater.inflate(R.layout.fragment_calculator_content_mw__cal, container, false);
         ButterKnife.bind(this, view);
 
-        ActionBar actionBar = ((MainActivity) getActivity()).getSupportActionBar();
-        actionBar.setBackgroundDrawable(new ColorDrawable(Color.rgb(47, 85, 151)));
+
 
         mw_del_btn.setOnClickListener(this);
         mw_delall_btn.setOnClickListener(this);
