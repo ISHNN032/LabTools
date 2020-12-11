@@ -24,8 +24,6 @@ class CalculatorFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        activity?.toolbar_title?.text = getString(R.string.title_calculator)
-
         val root = inflater.inflate(R.layout.fragment_calculator, container, false)
         mTabLayout = root.findViewById<TabLayout>(R.id.tabLayout)
         mViewPager = root.findViewById(R.id.viewPager)

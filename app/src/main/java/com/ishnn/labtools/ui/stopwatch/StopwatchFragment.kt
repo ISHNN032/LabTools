@@ -23,8 +23,9 @@ class StopwatchFragment : Fragment(), View.OnClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        stopwatchViewModel = ViewModelProviders.of(this).get(StopwatchViewModel::class.java)
+        setHasOptionsMenu(true)
 
+        stopwatchViewModel = ViewModelProviders.of(this).get(StopwatchViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_stopwatch, container, false)
         val textView: TextView = root.findViewById(R.id.stopwatch_time)
         stopwatchViewModel.text.observe(viewLifecycleOwner, Observer {
@@ -68,8 +69,18 @@ class StopwatchFragment : Fragment(), View.OnClickListener {
 //            override fun onStartTrackingTouch(seekBar: SeekBar) {}
 //            override fun onStopTrackingTouch(seekBar: SeekBar) {}
 //        })
-
         return root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        activity?.invalidateOptionsMenu()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        menu.clear()
+        inflater.inflate(R.menu.main_menu, menu)
     }
 
     override fun onClick(view: View?) {
@@ -127,10 +138,6 @@ class StopwatchFragment : Fragment(), View.OnClickListener {
                 stopwatch_progressBar.progress = elapsedSec
             }
         }
-    }
-
-    private fun addStopwatch(){
-
     }
 
     private fun pauseStopwatch(){

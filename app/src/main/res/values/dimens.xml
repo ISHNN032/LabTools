@@ -6,8 +6,6 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="appbar_padding_top">8dp</dimen>
 
-    <item name="toolbar_elevation" type="dimen">8dp</item>
-
     <item name="dimen_card_design" type="dimen">50dp</item>
     <item name="dimen_card_grid_design" type="dimen">120dp</item>
 
@@ -20,4 +18,7 @@
     <item name="mid_card_size" type="dimen">40dp</item>
 
     <dimen name="progressBar_dimen">300dp</dimen>
+
+    <dimen name="list_item_spacing">16dp</dimen>
+    <dimen name="list_item_spacing_half">8dp</dimen>
 </resources>

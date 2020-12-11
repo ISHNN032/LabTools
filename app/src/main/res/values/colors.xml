@@ -322,6 +322,19 @@
     <color name="grey_900">#212121</color>
     <color name="grey_1000">#1a1a1a</color>
 
+    <color name="colorCalculatorBackground">@android:color/white</color>
+    <color name="colorCalculatorNumberCurrentText">@android:color/black</color>
+    <color name="colorCalculatorNumberHistoryText">@android:color/darker_gray</color>
+    <color name="colorCalculatorButtonMemory">@color/colorTeal</color>
+    <color name="colorCalculatorButtonNumber">@android:color/black</color>
+    <color name="colorCalculatorButtonAction">@color/colorBlueGrey</color>
+    <color name="colorCalculatorButtonsArea">@color/colorLightGrey</color>
+    <color name="colorCalculatorButtonsText">@android:color/white</color>
+
+    <color name="colorTeal">#009688</color>
+    <color name="colorLightGrey">#E0E0E0</color>
+    <color name="colorBlueGrey">#607D8B</color>
+
     <color name="colorTab">#506379</color>
     <color name="white">#FFFFFF</color>
     <color name="gridBackdground">#FCFCFC</color>

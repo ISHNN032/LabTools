@@ -24,11 +24,6 @@ class HomeFragment : Fragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        activity?.toolbar_title?.text = getString(R.string.title_home)
-        activity?.toolbar_button_notification?.setOnClickListener {
-            findNavController().navigate(R.id.action_nav_home_to_notification, null, animOptions)
-        }
-
         homeViewModel =
                 ViewModelProviders.of(this).get(HomeViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_home, container, false)

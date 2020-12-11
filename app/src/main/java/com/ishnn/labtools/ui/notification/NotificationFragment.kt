@@ -30,8 +30,6 @@ class NotificationFragment : Fragment(){
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        activity?.toolbar_title?.text = getString(R.string.title_notification)
-
         val root = inflater.inflate(R.layout.fragment_notification, container, false)
         mSwipe = root.findViewById<SwipeRefreshLayout>(R.id.swiperefresh)
         mSwipe!!.setOnRefreshListener {
@@ -97,24 +95,4 @@ class NotificationFragment : Fragment(){
             }
         }
     }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-
-            // Check if user triggered a refresh:
-            R.id.menu_refresh -> {
-                Log.i("notification", "Refresh menu item selected")
-
-                // Signal SwipeRefreshLayout to start the progress indicator
-                mSwipe!!.isRefreshing = true
-                // Start the refresh background task.
-                // This method calls setRefreshing(false) when it's finished.
-                return true
-            }
-        }
-
-        // User didn't trigger a refresh, let the superclass handle this action
-        return super.onOptionsItemSelected(item)
-    }
-
 }

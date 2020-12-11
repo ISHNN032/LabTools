@@ -24,8 +24,6 @@ class ProfileFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        activity?.toolbar_title?.text = getString(R.string.title_profile)
-
         val root = inflater.inflate(R.layout.fragment_profile, container, false)
         val textView: TextView = root.findViewById(R.id.text_profile)
         mTextView = textView

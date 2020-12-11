@@ -24,8 +24,6 @@ class ClockFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        activity?.toolbar_title?.text = getString(R.string.title_clock)
-
         val root = inflater.inflate(R.layout.fragment_clock, container, false)
         mTabLayout = root.findViewById<TabLayout>(R.id.tabLayout)
         mViewPager = root.findViewById(R.id.viewPager)

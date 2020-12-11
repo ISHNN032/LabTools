@@ -6,8 +6,13 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Base64
 import android.util.Log
+import android.view.ContextMenu
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.navigation.ActivityNavigator
 import androidx.navigation.NavHost
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
@@ -28,6 +33,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setTheme(R.style.AppTheme)
         setContentView(R.layout.activity_main)
+
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
         val navController = findNavController(R.id.nav_host_fragment)
         // Passing each menu ID as a set of Ids because each
@@ -57,9 +63,8 @@ class MainActivity : AppCompatActivity() {
         } catch (e: NoSuchAlgorithmException) {
         }
 
-        //setupActionBarWithNavController(navController, appBarConfiguration)
+        setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-
 
         val REQUEST_CODE = 1
         ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_CODE)
