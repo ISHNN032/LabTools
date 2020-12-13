@@ -39,12 +39,11 @@ class CalculatorFragment : Fragment() {
         mTabLayout.setupWithViewPager(mViewPager)
         mTabLayout.addTab(mTabLayout.newTab())
         mTabLayout.addTab(mTabLayout.newTab())
-        mTabLayout.addTab(mTabLayout.newTab())
         mViewPager.adapter = FabAdapter(childFragmentManager, mTabLayout.tabCount)
     }
 
     inner class FabAdapter( fm: FragmentManager?, var tabCount: Int) : FragmentStatePagerAdapter(fm!!) {
-        private val pageTitles = arrayOf("계산기","농도", "RNA")
+        private val pageTitles = arrayOf("계산기","수식")
 
         override fun getItem(position: Int): Fragment {
             return when (position) {
@@ -52,10 +51,7 @@ class CalculatorFragment : Fragment() {
                     CalculatorMainFragment()
                 }
                 1 -> {
-                    CalculatorConcentrationFragment()
-                }
-                2 -> {
-                    CalculatorRNAFragment()
+                    CalculatorContentFragment()
                 }
                 else -> CalculatorMainFragment()
             }

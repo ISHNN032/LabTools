@@ -63,13 +63,6 @@ public class MainFragment extends Fragment {
 //    @BindView(R.id.main_qa_text)
 //    TextView main_qa_text;
 
-    @BindView(R.id.calculator_btn)
-    ImageButton calculator_btn;
-    @BindView(R.id.timer_btn)
-    ImageButton timer_btn;
-    @BindView(R.id.q_a_btn)
-    ImageButton q_a_btn;
-
     SharedPreferences pref;
 
     @Override
@@ -142,7 +135,7 @@ public class MainFragment extends Fragment {
     private void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.main_fragment, fragment).addToBackStack(null).commit();
+        fragmentTransaction.replace(R.id.calculator_content, fragment).addToBackStack(null).commit();
     }
 
     @Override

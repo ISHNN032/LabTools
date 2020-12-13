@@ -12,10 +12,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.ishnn.labtools.R
-import com.ishnn.labtools.util.adapter.*
+import com.ishnn.labtools.util.adapter.ItemTouchHelperCallback
 import com.rnnzzo.uxdesign.model.RvItem
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.*
+
 
 class NotificationFragment : Fragment(){
     private val adapter by lazy { NotificationItemAdapter(ArrayList(), this) }
@@ -30,6 +30,8 @@ class NotificationFragment : Fragment(){
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        setHasOptionsMenu(true)
+
         val root = inflater.inflate(R.layout.fragment_notification, container, false)
         mSwipe = root.findViewById<SwipeRefreshLayout>(R.id.swiperefresh)
         mSwipe!!.setOnRefreshListener {
@@ -94,5 +96,12 @@ class NotificationFragment : Fragment(){
                 isLoading = false
             }
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(item.itemId ==android.R.id.home){
+            activity?.onBackPressed()
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

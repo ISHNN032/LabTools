@@ -23,7 +23,7 @@ class StopwatchFragment : Fragment(), View.OnClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        setHasOptionsMenu(true)
+        setHasOptionsMenu(false)
 
         stopwatchViewModel = ViewModelProviders.of(this).get(StopwatchViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_stopwatch, container, false)
@@ -80,7 +80,7 @@ class StopwatchFragment : Fragment(), View.OnClickListener {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         menu.clear()
-        inflater.inflate(R.menu.main_menu, menu)
+        inflater.inflate(R.menu.action_menu_calculator, menu)
     }
 
     override fun onClick(view: View?) {

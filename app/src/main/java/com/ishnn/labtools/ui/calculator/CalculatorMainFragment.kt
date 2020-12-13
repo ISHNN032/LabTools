@@ -559,19 +559,18 @@ class CalculatorMainFragment : Fragment(), HistoryActionListDialogFragment.Liste
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         menu.clear()
-        inflater.inflate(R.menu.main_menu, menu)
+        inflater.inflate(R.menu.action_menu_calculator, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Safe call operator ? added to the variable before invoking the property instructs the compiler to invoke the property only if the value isn't null.
         when (item?.itemId) {
-            R.id.menu_item_history -> {
+            R.id.action_calculator_history -> {
                 HistoryActionListDialogFragment.newInstance(historyActionList).show(childFragmentManager, "dialog")
                 return true
             }
             else -> return super.onOptionsItemSelected(item)
         }
-
     }
 
     override fun onHistoryItemClicked(resultText: String) {

@@ -12,38 +12,6 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_rowWeight="1"
-            android:layout_columnWeight="1"
-            android:layout_margin="2dp"
-            android:orientation="horizontal">
-
-            <ImageButton
-                android:id="@+id/timer_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:layout_weight="1"
-                android:src="@android:drawable/ic_lock_idle_alarm" />
-
-            <ImageButton
-                android:id="@+id/calculator_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:layout_weight="1"
-                android:src="@android:drawable/ic_dialog_dialer" />
-
-            <ImageButton
-                android:id="@+id/q_a_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:layout_weight="1"
-                android:src="@android:drawable/ic_menu_edit"
-                tools:src="@android:drawable/stat_notify_chat" />
-
-        </LinearLayout>
-
-        <LinearLayout
             android:id="@+id/make"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -250,9 +218,4 @@
                 android:textColor="@color/white" />
         </LinearLayout>
     </LinearLayout>
-    <FrameLayout
-        android:id="@+id/main_fragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

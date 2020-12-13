@@ -1,4 +1,4 @@
-package com.ishnn.labtools.ui.home
+package com.ishnn.labtools.ui.memo
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -13,7 +13,7 @@ import com.ishnn.labtools.R
 import com.ishnn.labtools.util.animOptions
 
 
-class HomeFragment : Fragment() {
+class MemoFragment : Fragment() {
     private var mWebView // 웹뷰 선언
             : WebView? = null
     private var mWebSettings //웹뷰세팅
@@ -64,15 +64,6 @@ class HomeFragment : Fragment() {
         when (item?.itemId) {
             R.id.action_home_search -> {
                 Log.e("ACTION", "search")
-                return true
-            }
-            R.id.action_home_bookmark -> {
-                Log.e("ACTION", "bookmark")
-                return true
-            }
-            R.id.action_home_notification -> {
-                Log.e("ACTION", "notification")
-                findNavController().navigate(R.id.action_nav_home_to_notification, null, animOptions)
                 return true
             }
             else -> return super.onOptionsItemSelected(item)

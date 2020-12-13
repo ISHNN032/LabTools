@@ -6,24 +6,9 @@
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeFragment">
 
-    <ImageView
+    <WebView
+        android:id="@+id/webView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="fitStart"
-        android:src="@drawable/community" />
+        android:layout_height="match_parent"/>
 
-    <TextView
-        android:background="@color/colorBlur"
-        android:id="@+id/text_home"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        android:text="준비중"
-        android:textColor="@color/colorWhite"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

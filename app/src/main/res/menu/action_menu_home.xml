@@ -19,11 +19,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/menu_item_history"
+        android:id="@+id/action_home_search"
+        android:icon="@drawable/ic_toolbar_search"
+        app:iconTint="@android:color/white"
+        android:tint="@color/colorAccent"
+        android:title="@string/search"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_home_bookmark"
+        android:icon="@drawable/ic_setting_bookmark"
+        app:iconTint="@android:color/white"
+        android:tint="@color/colorAccent"
+        android:title="@string/bookmark"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_home_notification"
         android:icon="@drawable/ic_toolbar_notification"
         app:iconTint="@android:color/white"
         android:tint="@color/colorAccent"
-        android:title="@string/menu_item_history"
+        android:title="@string/notification"
         app:showAsAction="always" />
-
 </menu>

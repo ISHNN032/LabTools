@@ -391,5 +391,8 @@
     <string name="pcr_foldchange_kor">Fold Change (2^-ΔΔCt)</string>
     <string name="pcr_sol_a_kor">Control 군과 실험군의 타겟 유전자 발현량은 (</string>
     <string name="pcr_sol_b_kor">) 배 차이가 난다.</string>
+    <string name="search">search</string>
+    <string name="bookmark">bookmark</string>
+    <string name="home">home</string>
 
 </resources>
