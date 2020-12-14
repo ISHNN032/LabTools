@@ -1,23 +1,18 @@
-package com.ishnn.labtools.ui.calculator.contentfragment;
+package com.ishnn.labtools.ui.home.contentfragment;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.ishnn.labtools.MainActivity;
 import com.ishnn.labtools.R;
 
 import butterknife.BindView;

@@ -1,4 +1,4 @@
-package com.ishnn.labtools.ui.calculator.contentfragment;
+package com.ishnn.labtools.ui.home.contentfragment;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -13,10 +13,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.ishnn.labtools.ui.calculator.contentfragment.MakeTabFragment.MakeFirstBtnFragment;
-import com.ishnn.labtools.ui.calculator.contentfragment.MakeTabFragment.MakeFourthBtnFragment;
-import com.ishnn.labtools.ui.calculator.contentfragment.MakeTabFragment.MakeSecondBtnFragment;
-import com.ishnn.labtools.ui.calculator.contentfragment.MakeTabFragment.MakeThirdBtnFragment;
+import com.ishnn.labtools.ui.home.contentfragment.MakeTabFragment.MakeFirstBtnFragment;
+import com.ishnn.labtools.ui.home.contentfragment.MakeTabFragment.MakeFourthBtnFragment;
+import com.ishnn.labtools.ui.home.contentfragment.MakeTabFragment.MakeSecondBtnFragment;
+import com.ishnn.labtools.ui.home.contentfragment.MakeTabFragment.MakeThirdBtnFragment;
 import com.ishnn.labtools.R;
 
 import butterknife.BindView;

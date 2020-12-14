@@ -1,4 +1,4 @@
-package com.ishnn.labtools.ui.calculator.contentfragment.MakeTabFragment;
+package com.ishnn.labtools.ui.home.contentfragment.MakeTabFragment;
 
 
 import android.content.Context;
