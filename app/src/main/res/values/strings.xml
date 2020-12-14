@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">LabTools</string>
-    <string name="title_home">홈</string>
+    <string name="title_community">커뮤니티</string>
     <string name="title_notification">알림</string>
-    <string name="title_calculator">계산기</string>
-    <string name="title_clock">시계</string>
+    <string name="title_home">홈</string>
+    <string name="title_tools">도구</string>
     <string name="title_memo">메모</string>
     <string name="title_profile">프로필</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -394,6 +394,6 @@
     <string name="pcr_sol_b_kor">) 배 차이가 난다.</string>
     <string name="search">search</string>
     <string name="bookmark">bookmark</string>
-    <string name="home">home</string>
+    <string name="commu">commu</string>
 
 </resources>

@@ -2,6 +2,7 @@ package com.ishnn.labtools
 
 import android.Manifest
 import android.app.Application
+import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Base64
@@ -10,15 +11,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.ishnn.labtools.util.IOnBackPressed
-import com.ishnn.labtools.util.animOptions
 import com.kakao.sdk.common.KakaoSdk
-import kotlinx.android.synthetic.main.activity_main.*
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 
@@ -35,13 +33,19 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_home,
+                R.id.navigation_community,
                 R.id.navigation_calculator,
                 R.id.navigation_stopwatch,
-                R.id.navigation_memo,
-                R.id.navigation_profile
+                R.id.navigation_memo
             )
         )
+
+        val sharedPref = getSharedPreferences("lan",Context.MODE_PRIVATE) ?: return
+        with (sharedPref.edit()) {
+            putString("lan", "kor")
+            commit()
+        }
+
 
         try {
             val info = packageManager.getPackageInfo(

@@ -3,28 +3,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/navigation_calculator">
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.ishnn.labtools.ui.home.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home">
+        android:id="@+id/navigation_community"
+        android:name="com.ishnn.labtools.ui.commu.CommuFragment"
+        android:label="@string/title_community"
+        tools:layout="@layout/fragment_commu">
         <action
-            android:id="@+id/action_nav_home_to_notification"
+            android:id="@+id/action_nav_commu_to_notification"
             app:destination="@id/navigation_notification" />
     </fragment>
 
     <fragment
         android:id="@+id/navigation_notification"
-        android:name="com.ishnn.labtools.ui.notification.NotificationFragment"
+        android:name="com.ishnn.labtools.ui.commu.notification.NotificationFragment"
         android:label="@string/title_notification"
         tools:layout="@layout/fragment_notification" />
 
     <fragment
         android:id="@+id/navigation_calculator"
-        android:name="com.ishnn.labtools.ui.calculator.CalculatorFragment"
-        android:label="@string/title_calculator"
+        android:name="com.ishnn.labtools.ui.home.CalculatorFragment"
+        android:label="@string/title_home"
         tools:layout="@layout/fragment_calculator">
         <action
             android:id="@+id/action_nav_calculator_to_calcontent"
@@ -33,32 +33,32 @@
 
     <fragment
         android:id="@+id/inner_calculator"
-        android:name="com.ishnn.labtools.ui.calculator.contentfragment.MainFragment"
-        android:label="@string/title_calculator">
+        android:name="com.ishnn.labtools.ui.home.contentfragment.MainFragment"
+        android:label="@string/title_home">
     </fragment>
 
     <fragment
         android:id="@+id/navigation_stopwatch"
-        android:name="com.ishnn.labtools.ui.stopwatch.ClockFragment"
-        android:label="@string/title_clock"
-        tools:layout="@layout/fragment_stopwatch" />
+        android:name="com.ishnn.labtools.ui.tools.ToolsFragment"
+        android:label="@string/title_tools"
+        tools:layout="@layout/fragment_tools_stopwatch" />
 
 <!--    <fragment-->
 <!--        android:id="@+id/navigation_notification"-->
-<!--        android:name="com.ishnn.labtools.ui.notification.NotificationFragment"-->
+<!--        android:name="com.ishnn.labtools.ui.commu.notification.NotificationFragment"-->
 <!--        android:label="@string/title_notification"-->
-<!--        tools:layout="@layout/fragment_stopwatch" />-->
+<!--        tools:layout="@layout/fragment_tools_stopwatch" />-->
 
     <fragment
         android:id="@+id/navigation_memo"
         android:name="com.ishnn.labtools.ui.memo.MemoFragment"
         android:label="@string/title_memo"
-        tools:layout="@layout/fragment_home">
+        tools:layout="@layout/fragment_commu">
     </fragment>
 
     <fragment
         android:id="@+id/navigation_profile"
-        android:name="com.ishnn.labtools.ui.profile.ProfileFragment"
+        android:name="com.ishnn.labtools.ui.home.profile.ProfileFragment"
         android:label="@string/title_profile"
         tools:layout="@layout/fragment_profile" />
 </navigation>

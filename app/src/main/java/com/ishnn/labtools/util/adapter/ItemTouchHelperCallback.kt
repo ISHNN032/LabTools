@@ -2,7 +2,7 @@ package com.ishnn.labtools.util.adapter
 
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.ishnn.labtools.ui.notification.TYPE_ITEM
+import com.ishnn.labtools.ui.commu.notification.TYPE_ITEM
 
 
 class ItemTouchHelperCallback(listener: OnMoveAndSwipedListener) :
