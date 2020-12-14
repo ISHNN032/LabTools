@@ -14,8 +14,6 @@ import kotlinx.coroutines.*
 import java.text.DecimalFormat
 
 class StopwatchFragment : Fragment(), View.OnClickListener {
-
-    private lateinit var stopwatchViewModel: StopwatchViewModel
     private lateinit var StopwatchScope: CoroutineScope
 
     override fun onCreateView(
@@ -24,13 +22,7 @@ class StopwatchFragment : Fragment(), View.OnClickListener {
         savedInstanceState: Bundle?
     ): View? {
         setHasOptionsMenu(false)
-
-        stopwatchViewModel = ViewModelProviders.of(this).get(StopwatchViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_stopwatch, container, false)
-        val textView: TextView = root.findViewById(R.id.stopwatch_time)
-        stopwatchViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
 
         val startButton: ImageButton = root.findViewById(R.id.stopwatch_btn_start)
         startButton.setOnClickListener(this)
@@ -42,33 +34,6 @@ class StopwatchFragment : Fragment(), View.OnClickListener {
         resumeButton.setOnClickListener(this)
         val stopButton: ImageButton = root.findViewById(R.id.stopwatch_btn_stop)
         stopButton.setOnClickListener(this)
-
-//        val seekBarProgress: SeekBar
-//        val seekBarThickness: SeekBar
-//        seekBarProgress = root.findViewById<View>(R.id.seekBar_progress) as SeekBar
-//        seekBarThickness = root.findViewById<View>(R.id.seekBar_thickness) as SeekBar
-//        val circleProgressBar =
-//            root.findViewById<View>(R.id.custom_progressBar) as CircleProgressBar
-//        //Using ColorPickerLibrary to pick color for our CustomProgressbar
-//        seekBarProgress.progress = circleProgressBar.progress.toInt()
-//        seekBarProgress.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
-//            override fun onProgressChanged(seekBar: SeekBar, i: Int, b: Boolean) {
-//                if (b) circleProgressBar.setProgressWithAnimation(i.toFloat()) else circleProgressBar.progress =
-//                    i.toFloat()
-//            }
-//
-//            override fun onStartTrackingTouch(seekBar: SeekBar) {}
-//            override fun onStopTrackingTouch(seekBar: SeekBar) {}
-//        })
-//        seekBarThickness.progress = circleProgressBar.strokeWidth.toInt()
-//        seekBarThickness.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
-//            override fun onProgressChanged(seekBar: SeekBar, i: Int, b: Boolean) {
-//                circleProgressBar.strokeWidth = i.toFloat()
-//            }
-//
-//            override fun onStartTrackingTouch(seekBar: SeekBar) {}
-//            override fun onStopTrackingTouch(seekBar: SeekBar) {}
-//        })
         return root
     }
 

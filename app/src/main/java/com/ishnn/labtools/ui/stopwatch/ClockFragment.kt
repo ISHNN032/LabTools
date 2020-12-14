@@ -58,7 +58,7 @@ class ClockFragment : Fragment(), IOnBackPressed {
                     StopwatchFragment()
                 }
                 1 -> {
-                    StopwatchFragment()
+                    TimerFragment()
                 }
                 else -> StopwatchFragment()
             }
