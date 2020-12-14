@@ -10,10 +10,10 @@ import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.ishnn.labtools.R
+import com.ishnn.labtools.util.IOnBackPressed
 import com.ishnn.labtools.util.animOptions
 
-
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), IOnBackPressed {
     private var mWebView // 웹뷰 선언
             : WebView? = null
     private var mWebSettings //웹뷰세팅
@@ -21,9 +21,9 @@ class HomeFragment : Fragment() {
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         setHasOptionsMenu(true)
         val root = inflater.inflate(R.layout.fragment_home, container, false)
@@ -46,6 +46,17 @@ class HomeFragment : Fragment() {
 
         mWebView!!.loadUrl("https://m.cafe.naver.com/schezade") // 웹뷰에 표시할 웹사이트 주소, 웹뷰 시작
         return root
+    }
+
+    override fun onBackPressed(): Boolean {
+        Log.e("a","b")
+        return if (mWebView?.canGoBack() == true) {
+            Log.e("b","b")
+            mWebView?.goBack()
+            true
+        }else{
+            false
+        }
     }
 
     override fun onResume() {
@@ -72,7 +83,11 @@ class HomeFragment : Fragment() {
             }
             R.id.action_home_notification -> {
                 Log.e("ACTION", "notification")
-                findNavController().navigate(R.id.action_nav_home_to_notification, null, animOptions)
+                findNavController().navigate(
+                    R.id.action_nav_home_to_notification,
+                    null,
+                    animOptions
+                )
                 return true
             }
             else -> return super.onOptionsItemSelected(item)

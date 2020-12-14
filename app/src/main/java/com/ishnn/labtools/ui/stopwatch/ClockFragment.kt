@@ -1,6 +1,7 @@
 package com.ishnn.labtools.ui.stopwatch
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,12 +11,13 @@ import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import com.ishnn.labtools.R
+import com.ishnn.labtools.util.IOnBackPressed
 import kotlinx.android.synthetic.main.activity_main.*
 
 /**
  * A placeholder fragment containing a simple view.
  */
-class ClockFragment : Fragment() {
+class ClockFragment : Fragment(), IOnBackPressed {
     private lateinit var mTabLayout: TabLayout
     private lateinit var mViewPager: ViewPager
     
@@ -28,6 +30,11 @@ class ClockFragment : Fragment() {
         mTabLayout = root.findViewById<TabLayout>(R.id.tabLayout)
         mViewPager = root.findViewById(R.id.viewPager)
         return root
+    }
+
+    override fun onBackPressed(): Boolean {
+        Log.e("a","b")
+        return false
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

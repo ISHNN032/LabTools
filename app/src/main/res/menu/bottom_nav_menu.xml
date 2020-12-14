@@ -18,6 +18,10 @@
 <!--        android:icon="@drawable/ic_nav_notification_black_24dp"-->
 <!--        android:title="@string/notification" />-->
     <item
+        android:id="@+id/navigation_memo"
+        android:icon="@drawable/ic_nav_memo_black_24dp"
+        android:title="@string/title_memo" />
+    <item
         android:id="@+id/navigation_profile"
         android:icon="@drawable/ic_nav_profile_black_24dp"
         android:title="@string/title_profile" />

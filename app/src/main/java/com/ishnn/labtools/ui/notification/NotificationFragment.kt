@@ -12,12 +12,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.ishnn.labtools.R
+import com.ishnn.labtools.util.IOnBackPressed
 import com.ishnn.labtools.util.adapter.ItemTouchHelperCallback
 import com.rnnzzo.uxdesign.model.RvItem
 import kotlinx.coroutines.*
 
 
-class NotificationFragment : Fragment(){
+class NotificationFragment : Fragment(), IOnBackPressed{
     private val adapter by lazy { NotificationItemAdapter(ArrayList(), this) }
     private var headerCount = 0
     private var isLoading = false
@@ -43,6 +44,11 @@ class NotificationFragment : Fragment(){
         }
         mRecyclerView = root.findViewById(R.id.recyclerView)
         return root
+    }
+
+    override fun onBackPressed(): Boolean {
+        Log.e("a","b")
+        return false
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

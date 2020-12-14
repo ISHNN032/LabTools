@@ -6,14 +6,8 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Base64
 import android.util.Log
-import android.view.ContextMenu
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.navigation.ActivityNavigator
-import androidx.navigation.NavHost
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
@@ -21,6 +15,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.ishnn.labtools.util.IOnBackPressed
 import com.ishnn.labtools.util.animOptions
 import com.kakao.sdk.common.KakaoSdk
 import kotlinx.android.synthetic.main.activity_main.*
@@ -43,6 +38,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_home,
                 R.id.navigation_calculator,
                 R.id.navigation_stopwatch,
+                R.id.navigation_memo,
                 R.id.navigation_profile
             )
         )
@@ -67,8 +63,31 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
 
         val REQUEST_CODE = 1
-        ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_CODE)
+        ActivityCompat.requestPermissions(
+            this,
+            arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+            REQUEST_CODE
+        )
 
+    }
+
+    override fun onBackPressed() {
+        val fragment =
+            this.supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as? NavHostFragment
+        val currentFragment = fragment?.childFragmentManager?.primaryNavigationFragment
+        if (currentFragment.toString().contains("MemoFragment") ||
+            currentFragment.toString().contains("HomeFragment")
+        ) {
+            val webBack = currentFragment as IOnBackPressed
+            webBack?.onBackPressed()?.takeIf { !it }?.let {
+                Log.e("c", "b")
+                super.onBackPressed()
+            }
+        }
+        else{
+            Log.e(currentFragment.toString(), "b")
+            super.onBackPressed()
+        }
     }
 
     class GlobalApplication : Application() {

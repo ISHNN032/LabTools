@@ -42,7 +42,7 @@ class CalculatorFragment : Fragment() {
         mViewPager.adapter = FabAdapter(childFragmentManager, mTabLayout.tabCount)
     }
 
-    inner class FabAdapter( fm: FragmentManager?, var tabCount: Int) : FragmentStatePagerAdapter(fm!!) {
+    inner class FabAdapter(fm: FragmentManager?, private var tabCount: Int) : FragmentStatePagerAdapter(fm!!) {
         private val pageTitles = arrayOf("계산기","수식")
 
         override fun getItem(position: Int): Fragment {

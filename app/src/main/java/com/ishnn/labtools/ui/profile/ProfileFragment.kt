@@ -10,12 +10,13 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.ishnn.labtools.MainActivity
 import com.ishnn.labtools.R
+import com.ishnn.labtools.util.IOnBackPressed
 import com.kakao.sdk.auth.LoginClient
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.user.UserApiClient
 import kotlinx.android.synthetic.main.activity_main.*
 
-class ProfileFragment : Fragment() {
+class ProfileFragment : Fragment(), IOnBackPressed {
     private lateinit var mTextView: TextView
     private lateinit var kakao_loginbtn: Button
 
@@ -57,5 +58,10 @@ class ProfileFragment : Fragment() {
             }
         })
         return root
+    }
+
+    override fun onBackPressed(): Boolean {
+        Log.e("a","b")
+        return false
     }
 }

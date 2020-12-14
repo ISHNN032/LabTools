@@ -33,7 +33,7 @@
 
     <fragment
         android:id="@+id/inner_calculator"
-        android:name="com.ishnn.labtools.ui.calculator.FunctionFragment.MainFragment"
+        android:name="com.ishnn.labtools.ui.calculator.contentfragment.MainFragment"
         android:label="@string/title_calculator">
     </fragment>
 
@@ -48,6 +48,13 @@
 <!--        android:name="com.ishnn.labtools.ui.notification.NotificationFragment"-->
 <!--        android:label="@string/title_notification"-->
 <!--        tools:layout="@layout/fragment_stopwatch" />-->
+
+    <fragment
+        android:id="@+id/navigation_memo"
+        android:name="com.ishnn.labtools.ui.memo.MemoFragment"
+        android:label="@string/title_memo"
+        tools:layout="@layout/fragment_home">
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_profile"

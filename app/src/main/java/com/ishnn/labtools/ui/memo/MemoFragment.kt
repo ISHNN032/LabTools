@@ -8,12 +8,11 @@ import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import com.ishnn.labtools.R
-import com.ishnn.labtools.util.animOptions
+import com.ishnn.labtools.util.IOnBackPressed
 
 
-class MemoFragment : Fragment() {
+class MemoFragment : Fragment(), IOnBackPressed {
     private var mWebView // 웹뷰 선언
             : WebView? = null
     private var mWebSettings //웹뷰세팅
@@ -44,8 +43,18 @@ class MemoFragment : Fragment() {
         mWebSettings!!.cacheMode = WebSettings.LOAD_NO_CACHE // 브라우저 캐시 허용 여부
         mWebSettings!!.domStorageEnabled = true // 로컬저장소 허용 여부
 
-        mWebView!!.loadUrl("https://m.cafe.naver.com/schezade") // 웹뷰에 표시할 웹사이트 주소, 웹뷰 시작
+        mWebView!!.loadUrl("https://m.memo.naver.com/") // 웹뷰에 표시할 웹사이트 주소, 웹뷰 시작
         return root
+    }
+    override fun onBackPressed(): Boolean {
+        Log.e("a","b")
+        return if (mWebView?.canGoBack() == true) {
+            Log.e("b","b")
+            mWebView?.goBack()
+            true
+        }else{
+            false
+        }
     }
 
     override fun onResume() {
@@ -60,7 +69,6 @@ class MemoFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Safe call operator ? added to the variable before invoking the property instructs the compiler to invoke the property only if the value isn't null.
         when (item?.itemId) {
             R.id.action_home_search -> {
                 Log.e("ACTION", "search")
