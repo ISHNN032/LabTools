@@ -2,17 +2,26 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:foreground="?attr/selectableItemBackground"
-    android:clickable="true"
-    android:focusable="true"
     android:layout_margin="@dimen/mid_margin"
-    android:layout_width="300dp"
+    android:layout_width="360dp"
     android:layout_height="100dp"
     style="@style/DesignCardView">
 
+    <ImageButton
+        android:id="@+id/timer_btn_delete"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_gravity="right|center_vertical"
+        android:layout_marginHorizontal="@dimen/large_margin"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_timer_delete"
+        tools:ignore="RtlHardcoded" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="280dp"
+        android:layout_height="80dp">
         <TextView
             android:id="@+id/iv_timer_time"
             android:layout_width="wrap_content"
@@ -25,7 +34,7 @@
             app:layout_constraintLeft_toLeftOf="parent"/>
 
         <LinearLayout
-            android:id="@+id/stopwatch_btn_layout"
+            android:id="@+id/timer_btn_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
@@ -33,7 +42,7 @@
             app:layout_constraintBottom_toBottomOf="parent">
 
             <ImageButton
-                android:id="@+id/stopwatch_btn_start"
+                android:id="@+id/timer_btn_start"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_marginHorizontal="@dimen/large_margin"
@@ -41,7 +50,7 @@
                 android:src="@drawable/ic_timer_start"/>
 
             <ImageButton
-                android:id="@+id/stopwatch_btn_pause"
+                android:id="@+id/timer_btn_pause"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_marginHorizontal="@dimen/large_margin"
@@ -49,7 +58,7 @@
                 android:src="@drawable/ic_timer_pause"/>
 
             <ImageButton
-                android:id="@+id/stopwatch_btn_stop"
+                android:id="@+id/timer_btn_stop"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_marginHorizontal="@dimen/large_margin"

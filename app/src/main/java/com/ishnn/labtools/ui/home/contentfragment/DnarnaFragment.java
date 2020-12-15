@@ -116,6 +116,6 @@ public class DnarnaFragment extends Fragment {
     private void replaceFragment(Fragment fragment){
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.calculator_content, fragment).addToBackStack(null).commit();
+        fragmentTransaction.replace(R.id.nav_host_fragment, fragment).addToBackStack(null).commit();
     }
 }

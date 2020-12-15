@@ -30,7 +30,7 @@ public class CellFourthBtnFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_calculator_content_cell_4th, container, false);
+        return inflater.inflate(R.layout.fragment_home_content_cell_4th, container, false);
     }
 
 }

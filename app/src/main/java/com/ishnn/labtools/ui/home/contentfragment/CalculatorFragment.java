@@ -95,7 +95,7 @@
 //    public View onCreateView(LayoutInflater inflater, ViewGroup container,
 //                             Bundle savedInstanceState) {
 //
-//        View view = inflater.inflate(R.layout.fragment_calculator, container, false);
+//        View view = inflater.inflate(R.layout.fragment_home, container, false);
 //
 //        ButterKnife.bind(this, view);
 //

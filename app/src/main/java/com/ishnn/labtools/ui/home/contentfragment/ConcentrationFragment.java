@@ -55,7 +55,7 @@ public class ConcentrationFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_calculator_content_concentration, container, false);
+        View view = inflater.inflate(R.layout.fragment_home_content_concentration, container, false);
 
         ButterKnife.bind(this, view);
 
@@ -104,6 +104,6 @@ public class ConcentrationFragment extends Fragment {
     private void replaceFragment(Fragment fragment){
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.calculator_content, fragment).addToBackStack(null).commit();
+        fragmentTransaction.replace(R.id.nav_host_fragment, fragment).addToBackStack(null).commit();
     }
 }

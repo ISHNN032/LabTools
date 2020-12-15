@@ -1,4 +1,4 @@
-package com.ishnn.labtools.ui.commu
+package com.ishnn.labtools.ui.community
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -6,7 +6,6 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.webkit.WebChromeClient
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
@@ -17,7 +16,7 @@ import com.ishnn.labtools.R
 import com.ishnn.labtools.util.IOnBackPressed
 import com.ishnn.labtools.util.animOptions
 
-class CommuFragment : Fragment(), IOnBackPressed {
+class CommunityFragment : Fragment(), IOnBackPressed {
     private var mWebView // 웹뷰 선언
             : WebView? = null
     private var mWebSettings //웹뷰세팅
@@ -30,7 +29,7 @@ class CommuFragment : Fragment(), IOnBackPressed {
         savedInstanceState: Bundle?
     ): View? {
         setHasOptionsMenu(true)
-        val root = inflater.inflate(R.layout.fragment_commu, container, false)
+        val root = inflater.inflate(R.layout.fragment_community, container, false)
         // 웹뷰 시작
 
         // 웹뷰 시작
@@ -119,15 +118,15 @@ class CommuFragment : Fragment(), IOnBackPressed {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Safe call operator ? added to the variable before invoking the property instructs the compiler to invoke the property only if the value isn't null.
         when (item?.itemId) {
-            R.id.action_commu_search -> {
-                Log.e("ACTION", "search")
-                return true
-            }
-            R.id.action_commu_bookmark -> {
-                Log.e("ACTION", "bookmark")
-                return true
-            }
-            R.id.action_commu_notification -> {
+//            R.id.action_community_search -> {
+//                Log.e("ACTION", "search")
+//                return true
+//            }
+//            R.id.action_community_bookmark -> {
+//                Log.e("ACTION", "bookmark")
+//                return true
+//            }
+            R.id.action_community_notification -> {
                 Log.e("ACTION", "notification")
                 findNavController().navigate(
                     R.id.action_nav_commu_to_notification,

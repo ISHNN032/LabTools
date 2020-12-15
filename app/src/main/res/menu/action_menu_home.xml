@@ -19,7 +19,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_calculator_bookmark"
+        android:id="@+id/action_home_bookmark"
         android:icon="@drawable/ic_setting_bookmark"
         app:iconTint="@android:color/white"
         android:tint="@color/colorAccent"

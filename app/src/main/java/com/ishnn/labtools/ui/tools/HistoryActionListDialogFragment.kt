@@ -45,7 +45,7 @@ class HistoryActionListDialogFragment : BottomSheetDialogFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater!!.inflate(R.layout.fragment_history_action_list_dialog, container, false)
+        return inflater!!.inflate(R.layout.fragment_tools_calculator_history_list_dialog, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -93,7 +93,7 @@ class HistoryActionListDialogFragment : BottomSheetDialogFragment() {
         fun onHistoryItemClicked(resultText: String)
     }
 
-    private inner class ViewHolder internal constructor(inflater: LayoutInflater, parent: ViewGroup) : androidx.recyclerview.widget.RecyclerView.ViewHolder(inflater.inflate(R.layout.fragment_history_action_list_dialog_item, parent, false)) {
+    private inner class ViewHolder internal constructor(inflater: LayoutInflater, parent: ViewGroup) : androidx.recyclerview.widget.RecyclerView.ViewHolder(inflater.inflate(R.layout.fragment_tools_calculator_history_list_item, parent, false)) {
 
         internal val rowLayout: LinearLayout = itemView.findViewById<View>(R.id.row) as LinearLayout
         internal val actionTextView: TextView = itemView.findViewById<View>(R.id.action) as TextView

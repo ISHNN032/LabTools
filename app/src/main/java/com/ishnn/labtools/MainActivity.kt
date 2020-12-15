@@ -17,6 +17,8 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.ishnn.labtools.util.IOnBackPressed
 import com.kakao.sdk.common.KakaoSdk
+import kotlinx.android.synthetic.main.drawer_header.*
+import kotlinx.android.synthetic.main.fragment_home.*
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 
@@ -24,7 +26,6 @@ import java.security.NoSuchAlgorithmException
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setTheme(R.style.AppTheme)
         setContentView(R.layout.activity_main)
 
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
@@ -80,7 +81,7 @@ class MainActivity : AppCompatActivity() {
             this.supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as? NavHostFragment
         val currentFragment = fragment?.childFragmentManager?.primaryNavigationFragment
         if (currentFragment.toString().contains("MemoFragment") ||
-            currentFragment.toString().contains("HomeFragment")
+            currentFragment.toString().contains("CommunityFragment")
         ) {
             val webBack = currentFragment as IOnBackPressed
             webBack?.onBackPressed()?.takeIf { !it }?.let {

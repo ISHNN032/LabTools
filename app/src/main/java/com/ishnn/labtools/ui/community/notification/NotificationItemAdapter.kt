@@ -1,4 +1,4 @@
-package com.ishnn.labtools.ui.commu.notification
+package com.ishnn.labtools.ui.community.notification
 
 import android.view.LayoutInflater
 import android.view.View

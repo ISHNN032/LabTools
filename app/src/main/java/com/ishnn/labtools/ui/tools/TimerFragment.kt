@@ -2,10 +2,8 @@ package com.ishnn.labtools.ui.tools
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.ImageButton
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,12 +17,9 @@ import kotlinx.coroutines.*
 
 
 class TimerFragment : Fragment(), IOnBackPressed{
-    private val adapter by lazy { NotificationItemAdapter(ArrayList(), this) }
-    private var headerCount = 0
-    private var isLoading = false
-
-    private lateinit var mSwipe: SwipeRefreshLayout
+    private val adapter by lazy { TimerItemAdapter(ArrayList(), this) }
     private lateinit var mRecyclerView: RecyclerView
+    private lateinit var mButtonAdd: ImageButton
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,16 +29,32 @@ class TimerFragment : Fragment(), IOnBackPressed{
         setHasOptionsMenu(true)
 
         val root = inflater.inflate(R.layout.fragment_tools_timer, container, false)
-        mSwipe = root.findViewById<SwipeRefreshLayout>(R.id.timerSwiperefresh)
-        mSwipe!!.setOnRefreshListener {
-            Log.d("refresh", "refreshed")
-            GlobalScope.launch {
-                delay(1000)
-                mSwipe!!.isRefreshing = false
-            }
-        }
         mRecyclerView = root.findViewById(R.id.timerRecyclerView)
+        mButtonAdd = root.findViewById(R.id.add_timer_item)
+        mButtonAdd.setOnClickListener {
+            val data: MutableList<RvItem> = ArrayList()
+            data.add(RvItem("$", TYPE_ITEM))
+            adapter.addData(data)
+        }
+
+        val data: MutableList<RvItem> = ArrayList()
+        data.add(RvItem("$", TYPE_ITEM))
+        data.add(RvItem("$", TYPE_ITEM))
+        adapter.addData(data)
+
         return root
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        menu.clear()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(item.itemId ==android.R.id.home){
+            activity?.onBackPressed()
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onBackPressed(): Boolean {
@@ -54,7 +65,6 @@ class TimerFragment : Fragment(), IOnBackPressed{
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         initRecyclerView()
-        addData()
     }
 
     private fun initRecyclerView() {
@@ -62,51 +72,8 @@ class TimerFragment : Fragment(), IOnBackPressed{
         val linearLayoutManager = LinearLayoutManager(requireContext())
         mRecyclerView.layoutManager = linearLayoutManager
 
-        val callback: ItemTouchHelper.Callback = ItemTouchHelperCallback(adapter)
-        val mItemTouchHelper = ItemTouchHelper(callback)
-        mItemTouchHelper.attachToRecyclerView(mRecyclerView)
-
-        mRecyclerView.addOnScrollListener(rvScrollListener)
-    }
-
-    fun addData() {
-        val data: MutableList<RvItem> = ArrayList()
-        headerCount++
-        for (i in 1..15) {
-            data.add(RvItem("${i}", TYPE_ITEM))
-        }
-        //ADD LOADER
-        data.add(RvItem("", TYPE_LOADER))
-        adapter.addData(data)
-    }
-
-    private val rvScrollListener = object : RecyclerView.OnScrollListener() {
-        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-            super.onScrolled(recyclerView, dx, dy)
-
-            val linearLayoutManager = recyclerView.layoutManager as LinearLayoutManager?
-            if (!isLoading && linearLayoutManager!!.itemCount == linearLayoutManager.findLastVisibleItemPosition() + 1) {
-                loadData()
-                isLoading = true
-            }
-        }
-    }
-
-    fun loadData() {
-        CoroutineScope(Dispatchers.IO).launch {
-            delay(2000)
-            withContext(Dispatchers.Main) {
-                adapter.removeLoader()
-                addData()
-                isLoading = false
-            }
-        }
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if(item.itemId ==android.R.id.home){
-            activity?.onBackPressed()
-        }
-        return super.onOptionsItemSelected(item)
+//        val callback: ItemTouchHelper.Callback = ItemTouchHelperCallback(adapter)
+//        val mItemTouchHelper = ItemTouchHelper(callback)
+//        mItemTouchHelper.attachToRecyclerView(mRecyclerView)
     }
 }

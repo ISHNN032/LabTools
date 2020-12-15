@@ -243,31 +243,37 @@ public class MW_CalFragment extends Fragment implements Button.OnClickListener {
         Iterator<String> itr = sik_cal.iterator();
         while (itr.hasNext()) de.offer(itr.next());
 
-        while (!de.isEmpty()) {
-            if (de.peek().equals("(")) {
-                de.poll();
-                while (!de.peek().equals(")")) {
+        try{
+            while (!de.isEmpty()) {
+                if (de.peek().equals("(")) {
+                    de.poll();
+                    while (!de.peek().equals(")")) {
+                        if (de.peek().equals("1.0") || de.peek().equals("2.0") || de.peek().equals("3.0") || de.peek().equals("4.0") || de.peek().equals("5.0") ||
+                                de.peek().equals("6.0") || de.peek().equals("7.0") || de.peek().equals("8.0") || de.peek().equals("9.0") || de.peek().equals("0.0")) {
+                            stack.push(String.valueOf(Double.parseDouble(stack.pop()) * Double.parseDouble(de.poll())));
+                        } else {
+                            stack.push(de.poll());
+                        }
+                    }
+                    de.poll();
+                } else {
                     if (de.peek().equals("1.0") || de.peek().equals("2.0") || de.peek().equals("3.0") || de.peek().equals("4.0") || de.peek().equals("5.0") ||
                             de.peek().equals("6.0") || de.peek().equals("7.0") || de.peek().equals("8.0") || de.peek().equals("9.0") || de.peek().equals("0.0")) {
-                        stack.push(String.valueOf(Double.parseDouble(stack.pop()) * Double.parseDouble(de.poll())));
+                        while (!stack.isEmpty()) result1 += Double.parseDouble(stack.pop());
+                        stack.push(String.valueOf(result1 * Double.parseDouble(de.poll())));
+                        result1 = 0;
                     } else {
-                        stack.push(de.poll());
+                        result += Double.parseDouble(de.poll());
                     }
                 }
-                de.poll();
-            } else {
-                if (de.peek().equals("1.0") || de.peek().equals("2.0") || de.peek().equals("3.0") || de.peek().equals("4.0") || de.peek().equals("5.0") ||
-                        de.peek().equals("6.0") || de.peek().equals("7.0") || de.peek().equals("8.0") || de.peek().equals("9.0") || de.peek().equals("0.0")) {
-                    while (!stack.isEmpty()) result1 += Double.parseDouble(stack.pop());
-                    stack.push(String.valueOf(result1 * Double.parseDouble(de.poll())));
-                    result1 = 0;
-                } else {
-                    result += Double.parseDouble(de.poll());
-                }
             }
+            while(!stack.isEmpty()) result += Double.parseDouble(stack.pop());
+        }catch (NumberFormatException e){
+            sik.clear();
+            sik_cal.clear();
+            text_element.setText(showSik(sik));
+            text_molecular.setText("0.0000");
         }
-
-        while(!stack.isEmpty()) result += Double.parseDouble(stack.pop());
 
         return result;
     }

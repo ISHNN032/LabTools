@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/navigation_community"
-        android:name="com.ishnn.labtools.ui.commu.CommuFragment"
+        android:name="com.ishnn.labtools.ui.community.CommunityFragment"
         android:label="@string/title_community"
-        tools:layout="@layout/fragment_commu">
+        tools:layout="@layout/fragment_community">
         <action
             android:id="@+id/action_nav_commu_to_notification"
             app:destination="@id/navigation_notification" />
@@ -17,24 +17,15 @@
 
     <fragment
         android:id="@+id/navigation_notification"
-        android:name="com.ishnn.labtools.ui.commu.notification.NotificationFragment"
+        android:name="com.ishnn.labtools.ui.community.notification.NotificationFragment"
         android:label="@string/title_notification"
         tools:layout="@layout/fragment_notification" />
 
     <fragment
         android:id="@+id/navigation_calculator"
-        android:name="com.ishnn.labtools.ui.home.CalculatorFragment"
+        android:name="com.ishnn.labtools.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_calculator">
-        <action
-            android:id="@+id/action_nav_calculator_to_calcontent"
-            app:destination="@id/inner_calculator" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/inner_calculator"
-        android:name="com.ishnn.labtools.ui.home.contentfragment.MainFragment"
-        android:label="@string/title_home">
+        tools:layout="@layout/fragment_home">
     </fragment>
 
     <fragment
@@ -45,7 +36,7 @@
 
 <!--    <fragment-->
 <!--        android:id="@+id/navigation_notification"-->
-<!--        android:name="com.ishnn.labtools.ui.commu.notification.NotificationFragment"-->
+<!--        android:name="com.ishnn.labtools.ui.community.notification.NotificationFragment"-->
 <!--        android:label="@string/title_notification"-->
 <!--        tools:layout="@layout/fragment_tools_stopwatch" />-->
 
@@ -53,7 +44,7 @@
         android:id="@+id/navigation_memo"
         android:name="com.ishnn.labtools.ui.memo.MemoFragment"
         android:label="@string/title_memo"
-        tools:layout="@layout/fragment_commu">
+        tools:layout="@layout/fragment_community">
     </fragment>
 
     <fragment

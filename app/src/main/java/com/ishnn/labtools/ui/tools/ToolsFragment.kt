@@ -19,7 +19,7 @@ import com.ishnn.labtools.util.IOnBackPressed
 class ToolsFragment : Fragment(), IOnBackPressed {
     private lateinit var mTabLayout: TabLayout
     private lateinit var mViewPager: ViewPager
-    
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -32,7 +32,7 @@ class ToolsFragment : Fragment(), IOnBackPressed {
     }
 
     override fun onBackPressed(): Boolean {
-        Log.e("a","b")
+        Log.e("a", "b")
         return false
     }
 
@@ -41,16 +41,18 @@ class ToolsFragment : Fragment(), IOnBackPressed {
         setTabs()
     }
 
-    private fun setTabs(){
+    private fun setTabs() {
         mTabLayout.setupWithViewPager(mViewPager)
+        mTabLayout.addTab(mTabLayout.newTab())
         mTabLayout.addTab(mTabLayout.newTab())
         mTabLayout.addTab(mTabLayout.newTab())
         mTabLayout.addTab(mTabLayout.newTab())
         mViewPager.adapter = FabAdapter(parentFragmentManager, mTabLayout.tabCount)
     }
 
-    inner class FabAdapter( fm: FragmentManager?, var tabCount: Int) : FragmentStatePagerAdapter(fm!!) {
-        private val pageTitles = arrayOf("스톱워치","타이머","계산기")
+    inner class FabAdapter(fm: FragmentManager?, var tabCount: Int) :
+        FragmentStatePagerAdapter(fm!!) {
+        private val pageTitles = arrayOf("스톱워치", "타이머", "계산기", "카운터")
 
         override fun getItem(position: Int): Fragment {
             return when (position) {
@@ -60,12 +62,16 @@ class ToolsFragment : Fragment(), IOnBackPressed {
                 1 -> {
                     TimerFragment()
                 }
-                2->{
+                2 -> {
                     CalculatorMainFragment()
+                }
+                3 -> {
+                    CounterFragment()
                 }
                 else -> StopwatchFragment()
             }
         }
+
         override fun getCount(): Int {
             return tabCount
         }

@@ -25,7 +25,7 @@ class MemoFragment : Fragment(), IOnBackPressed {
             savedInstanceState: Bundle?
     ): View? {
         setHasOptionsMenu(true)
-        val root = inflater.inflate(R.layout.fragment_commu, container, false)
+        val root = inflater.inflate(R.layout.fragment_community, container, false)
         // 웹뷰 시작
 
         // 웹뷰 시작
@@ -65,16 +65,5 @@ class MemoFragment : Fragment(), IOnBackPressed {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         menu.clear()
-        inflater.inflate(R.menu.action_menu_commu, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item?.itemId) {
-            R.id.action_commu_search -> {
-                Log.e("ACTION", "search")
-                return true
-            }
-            else -> return super.onOptionsItemSelected(item)
-        }
     }
 }

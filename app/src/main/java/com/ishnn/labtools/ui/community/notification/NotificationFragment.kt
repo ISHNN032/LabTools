@@ -1,4 +1,4 @@
-package com.ishnn.labtools.ui.commu.notification
+package com.ishnn.labtools.ui.community.notification
 
 import android.os.Bundle
 import android.util.Log

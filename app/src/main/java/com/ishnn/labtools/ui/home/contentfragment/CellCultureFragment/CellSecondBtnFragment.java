@@ -93,7 +93,7 @@ public class CellSecondBtnFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_calculator_content_cell_2nd, container, false);
+        View view = inflater.inflate(R.layout.fragment_home_content_cell_2nd, container, false);
         ButterKnife.bind(this, view);
 
 

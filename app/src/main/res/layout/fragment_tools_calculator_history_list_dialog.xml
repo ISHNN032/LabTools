@@ -58,6 +58,6 @@
         android:paddingBottom="@dimen/list_item_spacing_half"
         android:paddingTop="@dimen/list_item_spacing_half"
         tools:context="com.baruckis.calculator.HistoryActionListDialogFragment"
-        tools:listitem="@layout/fragment_history_action_list_dialog_item" />
+        tools:listitem="@layout/fragment_tools_calculator_history_list_item" />
 
 </LinearLayout>

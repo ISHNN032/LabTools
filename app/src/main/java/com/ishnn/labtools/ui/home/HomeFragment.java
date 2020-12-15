@@ -1,24 +1,50 @@
-package com.ishnn.labtools.ui.home.contentfragment;
+package com.ishnn.labtools.ui.home;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.google.android.material.navigation.NavigationView;
 import com.ishnn.labtools.R;
+import com.ishnn.labtools.ui.home.contentfragment.BufferFragment;
+import com.ishnn.labtools.ui.home.contentfragment.Cell_CultureFragment;
+import com.ishnn.labtools.ui.home.contentfragment.DilutionFragment;
+import com.ishnn.labtools.ui.home.contentfragment.DnarnaFragment;
+import com.ishnn.labtools.ui.home.contentfragment.MW_CalFragment;
+import com.ishnn.labtools.ui.home.contentfragment.MakeFragment;
+import com.ishnn.labtools.ui.home.contentfragment.ProteinFragment;
+import com.ishnn.labtools.ui.home.contentfragment.UnitConverterFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainFragment extends Fragment {
+public class HomeFragment extends Fragment {
+    @BindView(R.id.main_button_menu)
+    ImageButton main_button_menu;
+    @BindView(R.id.main_drawer_layout)
+    DrawerLayout main_drawer_layout;
+
+    @BindView(R.id.main_navigationView)
+    NavigationView main_navigationView;
+
+    ImageView main_drawer_close;
 
     @BindView(R.id.make)
     LinearLayout make;
@@ -63,7 +89,9 @@ public class MainFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_calculator_content_main, container, false);
+        setHasOptionsMenu(true);
+
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.bind(this, view);
         pref = this.getActivity().getSharedPreferences("lan", Context.MODE_PRIVATE);
         main_make_text.setText(getString(R.string.main_fragment_make_text_kor));
@@ -75,6 +103,14 @@ public class MainFragment extends Fragment {
         main_pcr_text.setText(getString(R.string.main_fragment_protein_text_kor));
         main_sds_text.setText(getString(R.string.main_fragment_dnarna_text_kor));
 //            main_qa_text.setText(getString(R.string.main_fragment_qa_text_kor));
+
+        main_button_menu.setOnClickListener(view1 -> {
+            main_drawer_layout.open();
+        });
+        main_drawer_close = main_navigationView.getHeaderView(0).findViewById(R.id.btn_exit_main_drawer_activity);
+        main_drawer_close.setOnClickListener(view1 -> {
+            main_drawer_layout.close();
+        });
 
         make.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,7 +166,7 @@ public class MainFragment extends Fragment {
     private void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.calculator_content, fragment).addToBackStack(null).commit();
+        fragmentTransaction.replace(R.id.nav_host_fragment, fragment).addToBackStack(null).commit();
     }
 
     @Override
@@ -138,4 +174,15 @@ public class MainFragment extends Fragment {
         super.onResume();
     }
 
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        menu.clear();
+        inflater.inflate(R.menu.action_menu_home, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        return super.onOptionsItemSelected(item);
+    }
 }
