@@ -11,6 +11,8 @@ import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import com.ishnn.labtools.R
+import com.ishnn.labtools.ui.tools.stopwatch.StopwatchFragment
+import com.ishnn.labtools.ui.tools.timer.TimerFragment
 import com.ishnn.labtools.util.IOnBackPressed
 
 /**

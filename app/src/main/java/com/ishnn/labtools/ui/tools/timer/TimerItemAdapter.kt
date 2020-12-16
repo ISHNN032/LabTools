@@ -1,5 +1,8 @@
-package com.ishnn.labtools.ui.tools
+package com.ishnn.labtools.ui.tools.timer
 
+import android.annotation.SuppressLint
+import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.os.SystemClock
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,21 +13,17 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.ishnn.labtools.R
-import com.ishnn.labtools.util.adapter.OnMoveAndSwipedListener
-import com.rnnzzo.uxdesign.model.RvItem
-import kotlinx.android.synthetic.main.fragment_tools_stopwatch.*
-import kotlinx.android.synthetic.main.item_timer.view.*
+import com.rnnzzo.uxdesign.model.TimerItem
 import kotlinx.coroutines.*
 import java.lang.Exception
 import java.text.DecimalFormat
-import java.util.*
 
 val TYPE_HEADER = 1
 val TYPE_ITEM = 2
 val TYPE_LOADER = 3
 
 class TimerItemAdapter(
-    var items: MutableList<RvItem>,
+    var items: MutableList<TimerItem>,
     val clickListener: TimerFragment
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -54,6 +53,10 @@ class TimerItemAdapter(
             TYPE_ITEM -> {
                 with(holder as ViewHolder) {
                     //Put your logic here
+                    holder.hour = item.hour
+                    holder.min = item.min
+                    holder.sec = item.sec
+                    holder.setTime()
                 }
             }
         }
@@ -64,12 +67,17 @@ class TimerItemAdapter(
     }
 
     inner class ViewHolder(item: View) : RecyclerView.ViewHolder(item) {
+        var hour = 0
+        var min = 0
+        var sec = 0
+
+        var lTotal: Long = 0
         private val tvTime: TextView
-        private var lTotal: Long
         private val btStart: ImageButton
         private val btPause: ImageButton
         private val btStop: ImageButton
         private val btDelete: ImageButton
+        private val originBackGround: Drawable
 
         init {
             with(item) {
@@ -78,26 +86,15 @@ class TimerItemAdapter(
                 btPause = findViewById(R.id.timer_btn_pause)
                 btStop = findViewById(R.id.timer_btn_stop)
                 btDelete = findViewById(R.id.timer_btn_delete)
-                lTotal = 3 * 60 * 1000
-
-                val totalMin = lTotal / (60 * 1000)
-                val totalSec = lTotal % (60 * 1000) / 1000f
-                val df = DecimalFormat("00.00");
-                val formatted = df.format(totalSec);
-                if (tvTime != null) {
-                    tvTime.text = String.format("%02d:%s", totalMin, formatted)
-                }
+                originBackGround = this.background
 
                 btStart.setOnClickListener {
-                    Log.d("btStart", "Clicked")
                     startStopwatch()
                 }
                 btPause.setOnClickListener {
-                    Log.d("btPause", "Clicked")
                     pauseStopwatch()
                 }
                 btStop.setOnClickListener {
-                    Log.d("btStop", "Clicked")
                     stopStopwatch()
                 }
                 btDelete.setOnClickListener {
@@ -110,29 +107,39 @@ class TimerItemAdapter(
             }
         }
 
-        private var StopwatchScope: CoroutineScope? = null
+        fun setTime(){
+            lTotal = (hour * 60 * 60 * 1000) + (min * 60 * 1000) + (sec * 1000).toLong()
+            val df = DecimalFormat("00.00");
+            val formatted = df.format(sec);
+            tvTime.text = String.format("%02d:%02d:%s", hour, min, formatted)
+            itemView.background = originBackGround
+        }
+
+        private var TimerScope: CoroutineScope? = null
         var lElapsed = 0L
         private fun startStopwatch() {
             val start = SystemClock.elapsedRealtime() - lElapsed
-            StopwatchScope = CoroutineScope(Dispatchers.Main)
-            StopwatchScope!!.launch {
+            TimerScope = CoroutineScope(Dispatchers.Main)
+            TimerScope!!.launch {
                 try {
                     while (isActive) {
                         val elapsed = SystemClock.elapsedRealtime() - start
                         lElapsed = elapsed
 
                         val left = lTotal - elapsed
+                        if(left < 0){
+                            stopWatchEnded()
+                            break
+                        }
 
-                        val leftMin = left / (60 * 1000)
-                        val leftSec = left % (60 * 1000) / 1000f
+                        val leftHour = left / (60 * 60 * 1000)
+                        val leftMin = left  % (60 * 60 * 1000) / (60 * 1000)
+                        val leftSec = left % (60 * 60 * 1000) % (60 * 1000) / 1000f
 
                         delay(1)
                         val df = DecimalFormat("00.00");
                         val formatted = df.format(leftSec);
-
-                        if (tvTime != null) {
-                            tvTime.text = String.format("%02d:%s", leftMin, formatted)
-                        }
+                        tvTime.text = String.format("%02d:%02d:%s", leftHour, leftMin, formatted)
                     }
                 } catch (e: Exception) {
                     Log.e("e", e.toString())
@@ -141,13 +148,20 @@ class TimerItemAdapter(
         }
 
         private fun pauseStopwatch() {
-            StopwatchScope?.cancel()
+            TimerScope?.cancel()
         }
 
         private fun stopStopwatch() {
-            StopwatchScope?.cancel()
+            TimerScope?.cancel()
             lElapsed = 0L
-            tvTime.text = "00:00.00"
+            setTime()
+        }
+
+        @SuppressLint("SetTextI18n")
+        private fun stopWatchEnded(){
+            pauseStopwatch()
+            tvTime.text = "00:00:00.00"
+            itemView.setBackgroundColor(Color.RED)
         }
     }
 
@@ -167,12 +181,12 @@ class TimerItemAdapter(
 
     fun getItem(pos: Int) = items[pos]
 
-    fun addItem(extraItem: RvItem, pos: Int) {
+    fun addItem(extraItem: TimerItem, pos: Int) {
         items.add(pos, extraItem)
         notifyItemInserted(pos)
     }
 
-    fun addData(extraItems: List<RvItem>) {
+    fun addData(extraItems: List<TimerItem>) {
         items.addAll(extraItems)
         notifyDataSetChanged()
     }

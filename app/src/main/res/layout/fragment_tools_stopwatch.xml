@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.tools.StopwatchFragment">
+    tools:context=".ui.tools.stopwatch.StopwatchFragment">
 
-    <com.ishnn.labtools.ui.tools.CircleProgressBar
+    <com.ishnn.labtools.ui.tools.stopwatch.CircleProgressBar
         android:id="@+id/stopwatch_progressBar"
         android:layout_width="@dimen/progressBar_dimen"
         android:layout_height="@dimen/progressBar_dimen"

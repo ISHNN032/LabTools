@@ -4,74 +4,103 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.tools.StopwatchFragment">
-
-    <ImageButton
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:src="@drawable/circle_gray_a2"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        />
+    tools:context=".ui.tools.stopwatch.StopwatchFragment">
 
     <LinearLayout
+        android:id="@+id/counter_layout_area"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="horizontal"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/counter_text_average"
         >
 
-        <ImageButton
-            android:id="@+id/stopwatch_btn_start"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_marginHorizontal="@dimen/large_margin"
-            android:src="@drawable/ic_stopwatch_start"
-            android:background="@drawable/circle_gray"
-            />
-
-        <ImageButton
-            android:id="@+id/stopwatch_btn_stop"
-            android:visibility="gone"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_marginHorizontal="@dimen/large_margin"
-            android:src="@drawable/ic_stopwatch_stop"
-            android:background="@drawable/circle_gray"
-            />
-        <ImageButton
-            android:id="@+id/stopwatch_btn_resume"
-            android:visibility="gone"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_marginHorizontal="@dimen/large_margin"
-            android:src="@drawable/ic_stopwatch_start"
-            android:background="@drawable/circle_gray"
-            />
-
-        <ImageButton
-            android:id="@+id/stopwatch_btn_add"
-            android:visibility="gone"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_marginHorizontal="@dimen/large_margin"
-            android:src="@drawable/ic_stopwatch_add"
-            android:background="@drawable/circle_gray"
-            />
-        <ImageButton
-            android:id="@+id/stopwatch_btn_pause"
-            android:visibility="gone"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_marginHorizontal="@dimen/large_margin"
-            android:src="@drawable/ic_stopwatch_pause"
-            android:background="@drawable/circle_gray"
-            />
+        <TextView
+            android:id="@+id/counter_text_area0"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="area0"/>
+        <TextView
+            android:id="@+id/counter_text_area1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="area1"/>
+        <TextView
+            android:id="@+id/counter_text_area2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="area2"/>
+        <TextView
+            android:id="@+id/counter_text_area3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="area3"/>
+        <TextView
+            android:id="@+id/counter_text_area4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="area4"/>
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/counter_text_average"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/average_counts"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@id/counter_button_counter"
+        app:layout_constraintLeft_toLeftOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/counter_average"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/value_0"
+        app:layout_constraintTop_toTopOf="@id/counter_text_average"
+        app:layout_constraintLeft_toRightOf="@id/counter_text_average"
+        />
+
+    <Button
+        android:id="@+id/counter_button_counter"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:text="@string/value_0"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+    <Button
+        android:id="@+id/counter_button_reset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/clear"
+        app:layout_constraintRight_toLeftOf="@id/counter_button_input"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/counter_button_counter" />
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/counter_switcher"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@id/counter_button_input"
+        app:layout_constraintRight_toLeftOf="@id/counter_button_reset"
+        app:layout_constraintTop_toTopOf="@id/counter_button_reset"
+        app:layout_constraintBottom_toBottomOf="@+id/counter_button_reset"/>
+    <Button
+        android:id="@+id/counter_button_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/input"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/counter_button_reset"
+        app:layout_constraintTop_toBottomOf="@+id/counter_button_counter" />
 </androidx.constraintlayout.widget.ConstraintLayout>

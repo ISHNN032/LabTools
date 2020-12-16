@@ -1,4 +1,4 @@
-package com.ishnn.labtools.ui.tools
+package com.ishnn.labtools.ui.tools.stopwatch
 
 import android.os.Bundle
 import android.os.SystemClock

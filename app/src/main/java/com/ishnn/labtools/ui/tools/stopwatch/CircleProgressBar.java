@@ -1,4 +1,4 @@
-package com.ishnn.labtools.ui.tools;/*
+package com.ishnn.labtools.ui.tools.stopwatch;/*
  * Copyright (C) 2015 Pedramrn@gmail.com
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");

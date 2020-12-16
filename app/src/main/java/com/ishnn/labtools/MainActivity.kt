@@ -1,7 +1,6 @@
 package com.ishnn.labtools
 
 import android.Manifest
-import android.app.Application
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -16,9 +15,6 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.ishnn.labtools.util.IOnBackPressed
-import com.kakao.sdk.common.KakaoSdk
-import kotlinx.android.synthetic.main.drawer_header.*
-import kotlinx.android.synthetic.main.fragment_home.*
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 
@@ -27,6 +23,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        GlobalApplication.currentActivity = this
 
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
         val navController = findNavController(R.id.nav_host_fragment)
@@ -92,16 +90,6 @@ class MainActivity : AppCompatActivity() {
         else{
             Log.e(currentFragment.toString(), "b")
             super.onBackPressed()
-        }
-    }
-
-    class GlobalApplication : Application() {
-        override fun onCreate() {
-            super.onCreate()
-            // 다른 초기화 코드들
-
-            // Kakao SDK 초기화
-            KakaoSdk.init(this, "fa80791b0b8cfd763b4894481f6e8638")
         }
     }
 }
