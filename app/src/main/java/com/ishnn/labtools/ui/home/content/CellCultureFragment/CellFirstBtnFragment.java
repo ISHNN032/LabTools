@@ -1,6 +1,7 @@
 package com.ishnn.labtools.ui.home.content.CellCultureFragment;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.inputmethodservice.Keyboard;
@@ -19,8 +20,11 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
+import com.ishnn.labtools.GlobalApplication;
 import com.ishnn.labtools.MainActivity;
 import com.ishnn.labtools.R;
+
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -121,6 +125,12 @@ public class CellFirstBtnFragment extends Fragment {
         cal_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                InputMethodManager imm = (InputMethodManager) requireActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
+                View view = requireActivity().getCurrentFocus();
+                if (view == null) {
+                    view = new View(requireActivity());
+                }
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
 
                 if (cell_ed_a.getText().toString().equals("") || cell_ed_b.getText().toString().equals("") || cell_ed_c.getText().toString().equals("") || cell_ed_d.getText().toString().equals("")) {
                     makeText(getContext(), "Input value!!", Toast.LENGTH_SHORT).show();

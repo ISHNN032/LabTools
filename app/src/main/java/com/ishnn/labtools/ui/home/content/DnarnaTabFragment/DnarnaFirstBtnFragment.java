@@ -1,12 +1,14 @@
 package com.ishnn.labtools.ui.home.content.DnarnaTabFragment;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -92,6 +94,12 @@ public class DnarnaFirstBtnFragment extends Fragment {
         cal_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                InputMethodManager imm = (InputMethodManager) requireActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
+                View view = requireActivity().getCurrentFocus();
+                if (view == null) {
+                    view = new View(requireActivity());
+                }
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 if (concentration_ed_a.getText().toString().equals("") || concentration_ed_b.getText().toString().equals("") || concentration_ed_c.getText().toString().equals("")) {
                     makeText(getContext(), "Input value!!", Toast.LENGTH_SHORT).show();
                 } else {
