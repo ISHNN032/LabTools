@@ -19,10 +19,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_home_bookmark"
-        android:icon="@drawable/ic_setting_bookmark"
+        android:id="@+id/action_home_favorite"
+        android:icon="@drawable/ic_toolbar_favorite"
         app:iconTint="@android:color/white"
         android:tint="@color/colorAccent"
-        android:title="@string/bookmark"
+        android:title="@string/favorite"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_home_share"
+        android:icon="@drawable/ic_toolbar_share"
+        app:iconTint="@android:color/white"
+        android:tint="@color/colorAccent"
+        android:title="@string/share"
         app:showAsAction="always" />
 </menu>

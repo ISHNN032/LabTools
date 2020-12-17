@@ -24,7 +24,7 @@
                 android:layout_width="200dp"
                 android:layout_height="58dp"
                 android:layout_weight="1"
-                android:background="@color/colorMwAtomBtn"
+                android:background="@color/colorPrimary"
                 android:src="@drawable/s_8_1"/>
 
             <TextView
@@ -32,7 +32,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@color/colorMwAtomBtn"
+                android:background="@color/colorPrimary"
                 android:textColor="@color/white"
                 android:gravity="center"
                 android:text="@string/unit_converter_fragment_1stbtn_text_kor" />
@@ -51,7 +51,7 @@
                 android:layout_width="200dp"
                 android:layout_height="58dp"
                 android:layout_weight="1"
-                android:background="@color/colorMwAtomBtn"
+                android:background="@color/colorPrimary"
                 android:src="@drawable/s_8_2"/>
 
             <TextView
@@ -59,7 +59,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@color/colorMwAtomBtn"
+                android:background="@color/colorPrimary"
                 android:textColor="@color/white"
                 android:gravity="center"
                 android:text="@string/unit_converter_fragment_2ndbtn_text_kor" />

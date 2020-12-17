@@ -225,7 +225,7 @@
             android:layout_weight="1">
             <Button
                 android:id="@+id/mw_H"
-                android:background="@color/colorMwAtomBtn"
+                android:background="@color/colorPrimary"
                 android:textColor="@color/white"
                 android:layout_margin="2dp"
                 android:layout_width="match_parent"
@@ -234,7 +234,7 @@
                 android:text="H"/>
             <Button
                 android:id="@+id/mw_C"
-                android:background="@color/colorMwAtomBtn"
+                android:background="@color/colorPrimary"
                 android:textColor="@color/white"
                 android:layout_margin="2dp"
                 android:layout_width="match_parent"
@@ -243,7 +243,7 @@
                 android:text="C"/>
             <Button
                 android:id="@+id/mw_O"
-                android:background="@color/colorMwAtomBtn"
+                android:background="@color/colorPrimary"
                 android:textColor="@color/white"
                 android:layout_margin="2dp"
                 android:layout_width="match_parent"
@@ -252,7 +252,7 @@
                 android:text="O"/>
             <Button
                 android:id="@+id/mw_N"
-                android:background="@color/colorMwAtomBtn"
+                android:background="@color/colorPrimary"
                 android:textColor="@color/white"
                 android:layout_margin="2dp"
                 android:layout_width="match_parent"
@@ -261,7 +261,7 @@
                 android:text="N"/>
             <Button
                 android:id="@+id/mw_P"
-                android:background="@color/colorMwAtomBtn"
+                android:background="@color/colorPrimary"
                 android:textColor="@color/white"
                 android:layout_margin="2dp"
                 android:layout_width="match_parent"
@@ -277,7 +277,7 @@
             android:layout_weight="1">
             <Button
                 android:id="@+id/mw_Li"
-                android:background="@color/colorMwAtomBtn"
+                android:background="@color/colorPrimary"
                 android:textColor="@color/white"
                 android:layout_margin="2dp"
                 android:layout_width="match_parent"
@@ -286,7 +286,7 @@
                 android:text="Li"/>
             <Button
                 android:id="@+id/mw_Na"
-                android:background="@color/colorMwAtomBtn"
+                android:background="@color/colorPrimary"
                 android:textColor="@color/white"
                 android:layout_margin="2dp"
                 android:layout_width="match_parent"
@@ -295,7 +295,7 @@
                 android:text="Na"/>
             <Button
                 android:id="@+id/mw_K"
-                android:background="@color/colorMwAtomBtn"
+                android:background="@color/colorPrimary"
                 android:textColor="@color/white"
                 android:layout_margin="2dp"
                 android:layout_width="match_parent"
@@ -304,7 +304,7 @@
                 android:text="K"/>
             <Button
                 android:id="@+id/mw_Cs"
-                android:background="@color/colorMwAtomBtn"
+                android:background="@color/colorPrimary"
                 android:textColor="@color/white"
                 android:layout_margin="2dp"
                 android:layout_width="match_parent"
@@ -313,7 +313,7 @@
                 android:text="Cs"/>
             <Button
                 android:id="@+id/mw_Ag"
-                android:background="@color/colorMwAtomBtn"
+                android:background="@color/colorPrimary"
                 android:textColor="@color/white"
                 android:layout_margin="2dp"
                 android:layout_width="match_parent"
@@ -329,7 +329,7 @@
             android:layout_weight="1">
             <Button
                 android:id="@+id/mw_Ca"
-                android:background="@color/colorMwAtomBtn"
+                android:background="@color/colorPrimary"
                 android:textColor="@color/white"
                 android:layout_margin="2dp"
                 android:layout_width="match_parent"
@@ -338,7 +338,7 @@
                 android:text="Ca"/>
             <Button
                 android:id="@+id/mw_Mg"
-                android:background="@color/colorMwAtomBtn"
+                android:background="@color/colorPrimary"
                 android:textColor="@color/white"
                 android:layout_margin="2dp"
                 android:layout_width="match_parent"
@@ -347,7 +347,7 @@
                 android:text="Mg"/>
             <Button
                 android:id="@+id/mw_Ba"
-                android:background="@color/colorMwAtomBtn"
+                android:background="@color/colorPrimary"
                 android:textColor="@color/white"
                 android:layout_margin="2dp"
                 android:layout_width="match_parent"
@@ -356,7 +356,7 @@
                 android:text="Ba"/>
             <Button
                 android:id="@+id/mw_B"
-                android:background="@color/colorMwAtomBtn"
+                android:background="@color/colorPrimary"
                 android:textColor="@color/white"
                 android:layout_margin="2dp"
                 android:layout_width="match_parent"
@@ -365,7 +365,7 @@
                 android:text="B"/>
             <Button
                 android:id="@+id/mw_Al"
-                android:background="@color/colorMwAtomBtn"
+                android:background="@color/colorPrimary"
                 android:textColor="@color/white"
                 android:layout_margin="2dp"
                 android:layout_width="match_parent"
@@ -381,7 +381,7 @@
             android:layout_weight="1">
             <Button
                 android:id="@+id/mw_Cr"
-                android:background="@color/colorMwAtomBtn"
+                android:background="@color/colorPrimary"
                 android:textColor="@color/white"
                 android:layout_margin="2dp"
                 android:layout_width="match_parent"
@@ -390,7 +390,7 @@
                 android:text="Cr"/>
             <Button
                 android:id="@+id/mw_Mn"
-                android:background="@color/colorMwAtomBtn"
+                android:background="@color/colorPrimary"
                 android:textColor="@color/white"
                 android:layout_margin="2dp"
                 android:layout_width="match_parent"
@@ -399,7 +399,7 @@
                 android:text="Mn"/>
             <Button
                 android:id="@+id/mw_Fe"
-                android:background="@color/colorMwAtomBtn"
+                android:background="@color/colorPrimary"
                 android:textColor="@color/white"
                 android:layout_margin="2dp"
                 android:layout_width="match_parent"
@@ -408,7 +408,7 @@
                 android:text="Fe"/>
             <Button
                 android:id="@+id/mw_Co"
-                android:background="@color/colorMwAtomBtn"
+                android:background="@color/colorPrimary"
                 android:textColor="@color/white"
                 android:layout_margin="2dp"
                 android:layout_width="match_parent"
@@ -417,7 +417,7 @@
                 android:text="Co"/>
             <Button
                 android:id="@+id/mw_Ni"
-                android:background="@color/colorMwAtomBtn"
+                android:background="@color/colorPrimary"
                 android:textColor="@color/white"
                 android:layout_margin="2dp"
                 android:layout_width="match_parent"
@@ -433,7 +433,7 @@
             android:layout_weight="1">
             <Button
                 android:id="@+id/mw_Cl"
-                android:background="@color/colorMwAtomBtn"
+                android:background="@color/colorPrimary"
                 android:textColor="@color/white"
                 android:layout_margin="2dp"
                 android:layout_width="match_parent"
@@ -442,7 +442,7 @@
                 android:text="Cl"/>
             <Button
                 android:id="@+id/mw_F"
-                android:background="@color/colorMwAtomBtn"
+                android:background="@color/colorPrimary"
                 android:textColor="@color/white"
                 android:layout_margin="2dp"
                 android:layout_width="match_parent"
@@ -451,7 +451,7 @@
                 android:text="F"/>
             <Button
                 android:id="@+id/mw_Br"
-                android:background="@color/colorMwAtomBtn"
+                android:background="@color/colorPrimary"
                 android:textColor="@color/white"
                 android:layout_margin="2dp"
                 android:layout_width="match_parent"
@@ -460,7 +460,7 @@
                 android:text="Br"/>
             <Button
                 android:id="@+id/mw_I"
-                android:background="@color/colorMwAtomBtn"
+                android:background="@color/colorPrimary"
                 android:textColor="@color/white"
                 android:layout_margin="2dp"
                 android:layout_width="match_parent"
@@ -469,7 +469,7 @@
                 android:text="I"/>
             <Button
                 android:id="@+id/mw_S"
-                android:background="@color/colorMwAtomBtn"
+                android:background="@color/colorPrimary"
                 android:textColor="@color/white"
                 android:layout_margin="2dp"
                 android:layout_width="match_parent"
@@ -485,7 +485,7 @@
             android:layout_weight="1">
             <Button
                 android:id="@+id/mw_H2O"
-                android:background="@color/colorMwAtomBtn"
+                android:background="@color/colorPrimary"
                 android:textColor="@color/white"
                 android:layout_margin="2dp"
                 android:layout_width="match_parent"
@@ -494,7 +494,7 @@
                 android:text="H2O"/>
             <Button
                 android:id="@+id/mw_CO3"
-                android:background="@color/colorMwAtomBtn"
+                android:background="@color/colorPrimary"
                 android:textColor="@color/white"
                 android:layout_margin="2dp"
                 android:layout_width="match_parent"
@@ -503,7 +503,7 @@
                 android:text="CO3"/>
             <Button
                 android:id="@+id/mw_PO4"
-                android:background="@color/colorMwAtomBtn"
+                android:background="@color/colorPrimary"
                 android:textColor="@color/white"
                 android:layout_margin="2dp"
                 android:layout_width="match_parent"
@@ -512,7 +512,7 @@
                 android:text="PO4"/>
             <Button
                 android:id="@+id/mw_SO4"
-                android:background="@color/colorMwAtomBtn"
+                android:background="@color/colorPrimary"
                 android:textColor="@color/white"
                 android:layout_margin="2dp"
                 android:layout_width="match_parent"
@@ -521,7 +521,7 @@
                 android:text="SO4"/>
             <Button
                 android:id="@+id/mw_NH4"
-                android:background="@color/colorMwAtomBtn"
+                android:background="@color/colorPrimary"
                 android:textColor="@color/white"
                 android:layout_margin="2dp"
                 android:layout_width="match_parent"
@@ -537,7 +537,7 @@
             android:layout_weight="1">
             <Button
                 android:id="@+id/mw_HPO3"
-                android:background="@color/colorMwAtomBtn"
+                android:background="@color/colorPrimary"
                 android:textColor="@color/white"
                 android:layout_margin="2dp"
                 android:layout_width="match_parent"
@@ -546,7 +546,7 @@
                 android:text="HPO3"/>
             <Button
                 android:id="@+id/mw_SO3"
-                android:background="@color/colorMwAtomBtn"
+                android:background="@color/colorPrimary"
                 android:textColor="@color/white"
                 android:layout_margin="2dp"
                 android:layout_width="match_parent"
@@ -555,7 +555,7 @@
                 android:text="SO3"/>
             <Button
                 android:id="@+id/mw_NO3"
-                android:background="@color/colorMwAtomBtn"
+                android:background="@color/colorPrimary"
                 android:textColor="@color/white"
                 android:layout_margin="2dp"
                 android:layout_width="match_parent"
@@ -564,7 +564,7 @@
                 android:text="NO3"/>
             <Button
                 android:id="@+id/mw_OH"
-                android:background="@color/colorMwAtomBtn"
+                android:background="@color/colorPrimary"
                 android:textColor="@color/white"
                 android:layout_margin="2dp"
                 android:layout_width="match_parent"
@@ -573,7 +573,7 @@
                 android:text="OH"/>
             <Button
                 android:id="@+id/mw_HPO4"
-                android:background="@color/colorMwAtomBtn"
+                android:background="@color/colorPrimary"
                 android:textColor="@color/white"
                 android:layout_margin="2dp"
                 android:layout_width="match_parent"

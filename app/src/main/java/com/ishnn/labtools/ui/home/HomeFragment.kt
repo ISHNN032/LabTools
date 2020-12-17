@@ -6,21 +6,19 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.*
-import android.widget.Button
 import android.widget.ImageView
-import android.widget.NumberPicker
 import android.widget.TextView
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
-import butterknife.ButterKnife
-import com.ishnn.labtools.KakaoLogin
+import androidx.fragment.app.FragmentManager
+import com.ishnn.labtools.Login
 import com.ishnn.labtools.LoginActivity
 import com.ishnn.labtools.MainActivity
 import com.ishnn.labtools.R
-import com.ishnn.labtools.ui.home.contentfragment.*
+import com.ishnn.labtools.ui.home.content.*
 import kotlinx.android.synthetic.main.fragment_home.*
 
-class HomeFragment : Fragment() {
+
+class HomeFragment : Fragment() , Login.OnKakaoLogoutackInterface {
 
     //    @BindView(R.id.main_qa_text)
     //    TextView main_qa_text;
@@ -38,6 +36,13 @@ class HomeFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        //하위 메뉴에서 Navigation을 통해 이동했을 경우, BackStack 이 남아있는 현상 수정
+        val fm: FragmentManager = parentFragmentManager
+        for (i in 0 until fm.backStackEntryCount) {
+            fm.popBackStack()
+        }
+
         main_make_text!!.text = getString(R.string.main_fragment_make_text_kor)
         main_dilution_text!!.text = getString(R.string.main_fragment_dil_text_kor)
         main_mw_text!!.text = getString(R.string.main_fragment_mw_text_kor)
@@ -54,21 +59,40 @@ class HomeFragment : Fragment() {
         main_drawer_close.setOnClickListener {
             main_drawer_layout!!.close()
         }
-        main_button_login.setOnClickListener {
-            val intent = Intent(context, LoginActivity::class.java)
-            requireActivity().startActivity(intent)
-            requireActivity().finish()
-        }
 
 
-        val userdata = KakaoLogin.getUserData()
+        val userdata = Login.getUserData()
         if(userdata != null){
             main_text_info.text = "${userdata.nickName}님 환영합니다."
-            main_button_login.visibility = View.GONE
             val main_user_name = main_navigationView!!.getHeaderView(0).findViewById<TextView>(R.id.home_header_username)
             main_user_name.text = userdata.nickName
             val main_user_id = main_navigationView!!.getHeaderView(0).findViewById<TextView>(R.id.home_header_userId)
             main_user_id.text = userdata.id.toString()
+
+//            val mainScope = CoroutineScope(Dispatchers.Main)
+//            mainScope.launch {
+//                try {
+//                    val bmp = BitmapFactory.decodeStream(userdata.imageUrl.openConnection().getInputStream())
+//                    val main_user_id = main_navigationView!!.getHeaderView(0).findViewById<ImageView>(R.id.home_header_userImage)
+//                    main_user_id.setImageBitmap(bmp)
+//                } catch (e: MalformedURLException) {
+//                    e.printStackTrace()
+//                } catch (e: Exception) {
+//                    e.printStackTrace()
+//                    Log.e("e",e.toString())
+//                }
+//            }
+            main_button_login.text = "로그아웃"
+            main_button_login.setOnClickListener {
+                Login.logout(this)
+            }
+        }else{
+            main_button_login.text = "로그인"
+            main_button_login.setOnClickListener {
+                val intent = Intent(context, LoginActivity::class.java)
+                requireActivity().startActivity(intent)
+                requireActivity().finish()
+            }
         }
 
         make!!.setOnClickListener { replaceFragment(MakeFragment()) }
@@ -91,6 +115,8 @@ class HomeFragment : Fragment() {
         super.onResume()
     }
 
+
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         menu.clear()
@@ -99,5 +125,11 @@ class HomeFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onLogout() {
+        val intent = Intent(this.context, MainActivity::class.java)
+        startActivity(intent)
+        activity?.finish()
     }
 }

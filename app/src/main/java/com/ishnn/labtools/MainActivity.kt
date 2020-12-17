@@ -1,11 +1,14 @@
 package com.ishnn.labtools
 
 import android.Manifest
+import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Base64
 import android.util.Log
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.navigation.findNavController
@@ -23,6 +26,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        overridePendingTransition(R.anim.nav_default_pop_enter_anim, R.anim.fade_out)
 
         GlobalApplication.currentActivity = this
 
@@ -39,8 +43,8 @@ class MainActivity : AppCompatActivity() {
             )
         )
 
-        val sharedPref = getSharedPreferences("lan",Context.MODE_PRIVATE) ?: return
-        with (sharedPref.edit()) {
+        val sharedPref = getSharedPreferences("lan", Context.MODE_PRIVATE) ?: return
+        with(sharedPref.edit()) {
             putString("lan", "kor")
             commit()
         }

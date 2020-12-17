@@ -23,7 +23,7 @@
                 android:layout_width="200dp"
                 android:layout_height="58dp"
                 android:layout_weight="1"
-                android:background="@color/colorMwAtomBtn"
+                android:background="@color/colorPrimary"
                 android:src="@drawable/s_10_1"/>
 
             <TextView
@@ -31,7 +31,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@color/colorMwAtomBtn"
+                android:background="@color/colorPrimary"
                 android:textColor="@color/white"
                 android:gravity="center"
                 android:text="@string/dnarna_fragment_1stbtn_text_kor" />
@@ -49,7 +49,7 @@
                 android:layout_width="200dp"
                 android:layout_height="58dp"
                 android:layout_weight="1"
-                android:background="@color/colorMwAtomBtn"
+                android:background="@color/colorPrimary"
                 android:src="@drawable/s_10_2"/>
 
             <TextView
@@ -57,7 +57,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@color/colorMwAtomBtn"
+                android:background="@color/colorPrimary"
                 android:textColor="@color/white"
                 android:gravity="center"
                 android:text="@string/dnarna_fragment_2ndbtn_text_kor" />
@@ -75,7 +75,7 @@
                 android:layout_width="200dp"
                 android:layout_height="58dp"
                 android:layout_weight="1"
-                android:background="@color/colorMwAtomBtn"
+                android:background="@color/colorPrimary"
                 android:src="@drawable/s_10_3"/>
 
             <TextView
@@ -83,7 +83,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@color/colorMwAtomBtn"
+                android:background="@color/colorPrimary"
                 android:textColor="@color/white"
                 android:gravity="center"
                 android:text="@string/dnarna_fragment_3rdbtn_text_kor" />
@@ -101,7 +101,7 @@
                 android:layout_width="200dp"
                 android:layout_height="58dp"
                 android:layout_weight="1"
-                android:background="@color/colorMwAtomBtn"
+                android:background="@color/colorPrimary"
                 android:src="@drawable/s_10_4"/>
 
             <TextView
@@ -109,7 +109,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@color/colorMwAtomBtn"
+                android:background="@color/colorPrimary"
                 android:textColor="@color/white"
                 android:gravity="center"
                 android:text="@string/dnarna_fragment_4thbtn_text_kor" />
@@ -127,7 +127,7 @@
                 android:layout_width="200dp"
                 android:layout_height="58dp"
                 android:layout_weight="1"
-                android:background="@color/colorMwAtomBtn"
+                android:background="@color/colorPrimary"
                 android:src="@drawable/s_10_5"/>
 
             <TextView
@@ -135,7 +135,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@color/colorMwAtomBtn"
+                android:background="@color/colorPrimary"
                 android:textColor="@color/white"
                 android:gravity="center"
                 android:text="@string/dnarna_fragment_5thbtn_text_kor" />
@@ -153,7 +153,7 @@
                 android:layout_width="200dp"
                 android:layout_height="58dp"
                 android:layout_weight="1"
-                android:background="@color/colorMwAtomBtn"
+                android:background="@color/colorPrimary"
                 android:src="@drawable/s_10_6"/>
 
             <TextView
@@ -161,7 +161,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@color/colorMwAtomBtn"
+                android:background="@color/colorPrimary"
                 android:textColor="@color/white"
                 android:gravity="center"
                 android:text="@string/dnarna_fragment_6thbtn_text_kor" />

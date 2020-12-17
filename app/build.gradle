@@ -35,8 +35,11 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     //kakao login
     implementation "com.kakao.sdk:v2-user:2.0.6" // 카카오 로그인
+    implementation files('libs/naveridlogin_android_sdk_4.2.6.aar') // 네이버 로그인
 
     implementation "com.airbnb.android:lottie:3.4.4"
+
+    implementation 'com.github.chrisbanes:PhotoView:2.3.0'
 
     //noinspection GradleDependency
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"

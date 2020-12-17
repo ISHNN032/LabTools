@@ -2,7 +2,7 @@
     <string name="app_name">LabTools</string>
     <string name="title_community">커뮤니티</string>
     <string name="title_notification">알림</string>
-    <string name="title_home">홈</string>
+    <string name="title_home">LabTools</string>
     <string name="title_tools">도구</string>
     <string name="title_memo">메모</string>
     <string name="title_profile">프로필</string>
@@ -409,5 +409,9 @@
     <string name="login_failed">"Login failed"</string>
     <string name="cancel">cancel</string>
     <string name="save">save</string>
+    <string name="favorite">favorite</string>
+    <string name="share">share</string>
+    <string name="plus">+</string>
+    <string name="minus">-</string>
 
 </resources>

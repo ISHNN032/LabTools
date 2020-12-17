@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:padding="@dimen/large_margin"
         android:orientation="horizontal"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -55,6 +56,7 @@
         android:layout_height="wrap_content"
         android:text="@string/average_counts"
         android:textSize="24sp"
+        android:layout_margin="@dimen/large_margin"
         app:layout_constraintBottom_toTopOf="@id/counter_button_counter"
         app:layout_constraintLeft_toLeftOf="parent"
         />
@@ -73,6 +75,7 @@
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:text="@string/value_0"
+        android:textSize="80sp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -84,11 +87,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/clear"
-        app:layout_constraintRight_toLeftOf="@id/counter_button_input"
+        app:layout_constraintRight_toLeftOf="@id/counter_switcher"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/counter_button_counter" />
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/counter_switcher"
+        android:scaleX="2.0"
+        android:scaleY="2.0"
+        android:textOn="@string/minus"
+        android:textOff="@string/plus"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:showText="true"
+        android:gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toRightOf="@id/counter_button_input"
@@ -101,6 +112,6 @@
         android:layout_height="wrap_content"
         android:text="@string/input"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/counter_button_reset"
+        app:layout_constraintLeft_toRightOf="@id/counter_switcher"
         app:layout_constraintTop_toBottomOf="@+id/counter_button_counter" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -344,6 +344,6 @@
     <color name="colorFunctionBackground">#e7e6e6</color>
     <color name="colorMakeText">#2f5592</color>
     <color name="colorMwNumberBtn">#385723</color>
-    <color name="colorMwAtomBtn">#0071c1</color>
+    <color name="colorMwMenu">#0071c1</color>
     <color name="colorMwCalBtn">#fff2cc</color>
 </resources>
