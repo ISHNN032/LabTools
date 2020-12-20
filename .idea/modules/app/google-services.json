@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "632938820424",
+    "project_id": "labtools-59b01",
+    "storage_bucket": "labtools-59b01.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:632938820424:android:dc243a0e4f111c9cbdf97d",
+        "android_client_info": {
+          "package_name": "com.ishnn.labtools"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "632938820424-1akoo410rf5e15ab2lk4k4a81hrro5q7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ishnn.labtools",
+            "certificate_hash": "a74e599f928b8f2c8a8fa10edbfcb275903ba14f"
+          }
+        },
+        {
+          "client_id": "632938820424-d8a76vpk11tep6aii32aubpb1ar5epb1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6XyiwPOsANF_BsPaJNascsjisOOkgfsE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "632938820424-d8a76vpk11tep6aii32aubpb1ar5epb1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

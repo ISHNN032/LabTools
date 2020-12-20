@@ -4,10 +4,11 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.os.Message
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentActivity
+import com.google.firebase.firestore.FirebaseFirestore
 import com.kakao.sdk.auth.LoginClient
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.user.UserApiClient
@@ -24,6 +25,7 @@ import java.net.URL
 class LoginActivity : AppCompatActivity() {
     lateinit var mOAuthLoginInstance: OAuthLogin
     lateinit var mContext: Context
+    var db = FirebaseFirestore.getInstance()
 
     interface OnKakaoLoginInterface {
         fun onLogin()
@@ -101,7 +103,7 @@ class LoginActivity : AppCompatActivity() {
                 val callback: (token: String?) -> Unit = {
                     try {
                         Log.e("response", it!!)
-                        if(it.isNotEmpty()){
+                        if (it.isNotEmpty()) {
                             val jsonObject = JSONObject(it)
                             val data: JSONObject = jsonObject.getJSONObject("response")
                             val id = data.getString("id")
@@ -144,5 +146,47 @@ class LoginActivity : AppCompatActivity() {
     override fun onBackPressed() {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
+    }
+
+    fun addAccountDB() {
+        // Create a new user with a first and last name
+        val user: MutableMap<String, Any> = HashMap()
+        user["first"] = "Ada"
+        user["last"] = "Lovelace"
+        user["born"] = 1815
+
+        // Add a new document with a generated ID
+        db.collection("users")
+            .add(user)
+            .addOnSuccessListener { documentReference ->
+                Log.d(
+                    "addAccountDB",
+                    "DocumentSnapshot added with ID: " + documentReference.id
+                )
+            }
+            .addOnFailureListener { e ->
+                Log.w(
+                    "addAccountDB",
+                    "Error adding document",
+                    e
+                )
+            }
+
+        // Create a new user with a first, middle, and last name
+        val usesr: MutableMap<String, Any> = HashMap()
+        usesr["first"] = "Alan"
+        usesr["middle"] = "Mathison"
+        usesr["last"] = "Turing"
+        usesr["born"] = 1912
+
+        db.collection("users")
+            .add(usesr)
+            .addOnSuccessListener { documentReference ->
+                Log.d(
+                    "addAccountDB",
+                    "DocumentSnapshot added with ID: " + documentReference.id
+                )
+            }
+            .addOnFailureListener { e -> Log.w("addAccountDB", "Error adding document", e) }
     }
 }
