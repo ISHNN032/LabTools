@@ -25,7 +25,7 @@ class MemoFragment : Fragment(), IOnBackPressed {
             savedInstanceState: Bundle?
     ): View? {
         setHasOptionsMenu(true)
-        val root = inflater.inflate(R.layout.fragment_community, container, false)
+        val root = inflater.inflate(R.layout.fragment_community_webview, container, false)
         // 웹뷰 시작
 
         // 웹뷰 시작

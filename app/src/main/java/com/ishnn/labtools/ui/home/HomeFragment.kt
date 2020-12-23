@@ -10,7 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import com.ishnn.labtools.Login
+import com.ishnn.labtools.GlobalLogin
 import com.ishnn.labtools.LoginActivity
 import com.ishnn.labtools.MainActivity
 import com.ishnn.labtools.R
@@ -18,7 +18,7 @@ import com.ishnn.labtools.ui.home.content.*
 import kotlinx.android.synthetic.main.fragment_home.*
 
 
-class HomeFragment : Fragment() , Login.OnKakaoLogoutackInterface {
+class HomeFragment : Fragment() , GlobalLogin.OnLoginInterface {
 
     //    @BindView(R.id.main_qa_text)
     //    TextView main_qa_text;
@@ -60,8 +60,29 @@ class HomeFragment : Fragment() , Login.OnKakaoLogoutackInterface {
             main_drawer_layout!!.close()
         }
 
+        make!!.setOnClickListener { replaceFragment(MakeFragment()) }
+        dilution!!.setOnClickListener { replaceFragment(DilutionFragment()) }
+        mw_cal!!.setOnClickListener { replaceFragment(MW_CalFragment()) }
+        cell_culture!!.setOnClickListener { replaceFragment(Cell_CultureFragment()) }
+        buffer!!.setOnClickListener { replaceFragment(BufferFragment()) }
+        unit_converter!!.setOnClickListener { replaceFragment(UnitConverterFragment()) }
+        pcr_fold!!.setOnClickListener { replaceFragment(ProteinFragment()) }
+        gel_cal!!.setOnClickListener { replaceFragment(DnarnaFragment()) }
+    }
+    override fun onResume() {
+        super.onResume()
+        checkLoggedIn()
+    }
 
-        val userdata = Login.getUserData()
+
+    private fun replaceFragment(fragment: Fragment) {
+        val fragmentManager = fragmentManager
+        val fragmentTransaction = fragmentManager!!.beginTransaction()
+        fragmentTransaction.replace(R.id.nav_host_fragment, fragment).addToBackStack(null).commit()
+    }
+
+    private fun checkLoggedIn(){
+        val userdata = GlobalLogin.getUserData()
         if(userdata != null){
             main_text_info.text = "${userdata.nickName}님 환영합니다."
             val main_user_name = main_navigationView!!.getHeaderView(0).findViewById<TextView>(R.id.home_header_username)
@@ -84,38 +105,17 @@ class HomeFragment : Fragment() , Login.OnKakaoLogoutackInterface {
 //            }
             main_button_login.text = "로그아웃"
             main_button_login.setOnClickListener {
-                Login.logout(this)
+                GlobalLogin.logoutKakao(this)
+                GlobalLogin.logoutNaver(requireContext(), this)
             }
         }else{
             main_button_login.text = "로그인"
             main_button_login.setOnClickListener {
                 val intent = Intent(context, LoginActivity::class.java)
                 requireActivity().startActivity(intent)
-                requireActivity().finish()
             }
         }
-
-        make!!.setOnClickListener { replaceFragment(MakeFragment()) }
-        dilution!!.setOnClickListener { replaceFragment(DilutionFragment()) }
-        mw_cal!!.setOnClickListener { replaceFragment(MW_CalFragment()) }
-        cell_culture!!.setOnClickListener { replaceFragment(Cell_CultureFragment()) }
-        buffer!!.setOnClickListener { replaceFragment(BufferFragment()) }
-        unit_converter!!.setOnClickListener { replaceFragment(UnitConverterFragment()) }
-        pcr_fold!!.setOnClickListener { replaceFragment(ProteinFragment()) }
-        gel_cal!!.setOnClickListener { replaceFragment(DnarnaFragment()) }
     }
-
-    private fun replaceFragment(fragment: Fragment) {
-        val fragmentManager = fragmentManager
-        val fragmentTransaction = fragmentManager!!.beginTransaction()
-        fragmentTransaction.replace(R.id.nav_host_fragment, fragment).addToBackStack(null).commit()
-    }
-
-    override fun onResume() {
-        super.onResume()
-    }
-
-
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
@@ -123,13 +123,13 @@ class HomeFragment : Fragment() , Login.OnKakaoLogoutackInterface {
         inflater.inflate(R.menu.action_menu_home, menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return super.onOptionsItemSelected(item)
+    override fun onLogin() {
+        TODO("Not yet implemented")
     }
 
     override fun onLogout() {
+        requireActivity().finish()
         val intent = Intent(this.context, MainActivity::class.java)
         startActivity(intent)
-        activity?.finish()
     }
 }
