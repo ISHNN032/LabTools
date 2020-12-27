@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
+import com.ishnn.labtools.Global
 import com.ishnn.labtools.R
 import com.ishnn.labtools.util.IOnBackPressed
 
@@ -19,6 +20,7 @@ import com.ishnn.labtools.util.IOnBackPressed
 class CommunityFragment : Fragment(), IOnBackPressed {
     private lateinit var mTabLayout: TabLayout
     private lateinit var mViewPager: ViewPager
+    private lateinit var mPosts: Posts
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,6 +30,7 @@ class CommunityFragment : Fragment(), IOnBackPressed {
         val root = inflater.inflate(R.layout.fragment_community, container, false)
         mTabLayout = root.findViewById<TabLayout>(R.id.tabLayout)
         mViewPager = root.findViewById(R.id.viewPager)
+        mPosts = Posts()
         return root
     }
 
@@ -46,7 +49,11 @@ class CommunityFragment : Fragment(), IOnBackPressed {
         mTabLayout.addTab(mTabLayout.newTab())
         mTabLayout.addTab(mTabLayout.newTab())
         mTabLayout.addTab(mTabLayout.newTab())
-        mViewPager.adapter = FabAdapter(parentFragmentManager, mTabLayout.tabCount)
+        mViewPager.adapter = FabAdapter(childFragmentManager, mTabLayout.tabCount)
+    }
+
+    fun getPosts():Posts{
+        return mPosts
     }
 
     inner class FabAdapter(fm: FragmentManager?, var tabCount: Int) :
@@ -56,15 +63,15 @@ class CommunityFragment : Fragment(), IOnBackPressed {
         override fun getItem(position: Int): Fragment {
             return when (position) {
                 0 -> {
-                    WebViewFragment()
+                    PostFragment()
                 }
                 1 -> {
-                    WebViewFragment()
+                    PostFragment()
                 }
                 2 -> {
-                    WebViewFragment()
+                    PostFragment()
                 }
-                else -> WebViewFragment()
+                else -> PostFragment()
             }
         }
 

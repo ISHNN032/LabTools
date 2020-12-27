@@ -14,7 +14,7 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/iv_rv_appicon"
+            android:id="@+id/item_iv_icon"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_margin="@dimen/large_margin"
@@ -25,7 +25,7 @@
 
 
         <TextView
-            android:id="@+id/tv_title"
+            android:id="@+id/post_item_tv_title"
             android:layout_width="wrap_content"
             android:layout_height="21dp"
             android:layout_marginLeft="@dimen/large_margin"
@@ -34,20 +34,20 @@
             android:textColor="@color/colorBlack"
             android:textStyle="bold"
             android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@+id/iv_rv_appicon"
-            app:layout_constraintTop_toTopOf="@+id/iv_rv_appicon" />
+            app:layout_constraintStart_toEndOf="@+id/item_iv_icon"
+            app:layout_constraintTop_toTopOf="@+id/item_iv_icon" />
 
         <TextView
-            android:id="@+id/tv_description"
+            android:id="@+id/post_item_tv_nickname"
             android:layout_width="0dp"
             android:layout_height="21dp"
             android:layout_marginLeft="@dimen/large_margin"
             android:layout_marginRight="@dimen/large_margin"
             android:text="2020년 05월 02일"
             android:gravity="center_vertical"
-            app:layout_constraintTop_toTopOf="@+id/tv_title"
+            app:layout_constraintTop_toTopOf="@+id/post_item_tv_title"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tv_title"
+            app:layout_constraintStart_toEndOf="@+id/post_item_tv_title"
             app:layout_constraintVertical_bias="0.185" />
 
         <TextView
@@ -58,10 +58,10 @@
             android:layout_marginStart="24dp"
             android:gravity="center_vertical"
             android:text="질문을 뭐를 적어야 할지 모르겠다\n아무말이나 적어놔야지 아무말아무말"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_rv_appicon"
+            app:layout_constraintBottom_toBottomOf="@+id/item_iv_icon"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/iv_rv_appicon"
-            app:layout_constraintTop_toBottomOf="@+id/tv_description"
+            app:layout_constraintStart_toEndOf="@+id/item_iv_icon"
+            app:layout_constraintTop_toBottomOf="@+id/post_item_tv_nickname"
             app:layout_constraintVertical_bias="0.285" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

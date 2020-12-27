@@ -2,7 +2,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
+    android:layout_height="80dp"
     android:layout_margin="@dimen/mid_margin"
     android:clickable="true"
     android:focusable="true"
@@ -10,55 +10,95 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/large_margin">
 
         <TextView
-            android:id="@+id/tv_title"
+            android:id="@+id/post_item_tv_notice"
             android:layout_width="wrap_content"
-            android:layout_height="21dp"
-            android:layout_marginLeft="@dimen/large_margin"
-            android:layout_marginRight="@dimen/large_margin"
-            android:text="질문제목"
-            android:textColor="@color/colorBlack"
-            android:textSize="18sp"
+            android:layout_height="24dp"
+            android:layout_marginTop="12dp"
+            android:text="@string/notice"
+            android:visibility="gone"
+            android:textColor="@color/red_A700"
+            android:textSize="16sp"
             android:textStyle="bold"
+            android:gravity="center_vertical"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/iv_rv_appicon" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_description"
+            android:id="@+id/post_item_tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginRight="@dimen/large_margin"
+            android:text="질문이런제목제목이너무길면..으로표시"
+            android:textColor="@color/colorBlack"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:gravity="center_vertical"
+            app:layout_constraintStart_toEndOf="@+id/post_item_tv_notice"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/post_item_tv_time"
             android:layout_width="0dp"
-            android:layout_height="21dp"
-            android:layout_marginLeft="@dimen/large_margin"
-            android:layout_marginRight="@dimen/large_margin"
+            android:layout_height="24dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="@dimen/large_margin"
             android:gravity="center_vertical"
-            android:text="2020년 05월 02일"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tv_title"
-            app:layout_constraintTop_toTopOf="@+id/tv_title"
-            app:layout_constraintVertical_bias="0.185" />
+            android:text="@string/default_time"
+            app:layout_constraintTop_toBottomOf="@+id/post_item_tv_title"
+            app:layout_constraintStart_toEndOf="@+id/post_item_tv_nickname"/>
 
         <TextView
-            android:layout_width="284dp"
-            android:layout_height="38dp"
-            android:layout_marginStart="24dp"
+            android:id="@+id/post_item_tv_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="center_vertical"
+            android:text="@string/default_num"
+            app:layout_constraintTop_toTopOf="@+id/post_item_tv_favorite"
+            app:layout_constraintStart_toEndOf="@+id/post_item_tv_time"
+            app:drawableLeftCompat="@drawable/ic_post_comment" />
+
+        <TextView
+            android:id="@+id/post_item_tv_favorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:gravity="center_vertical"
+            android:text="@string/default_num"
+            app:layout_constraintTop_toTopOf="@+id/post_item_tv_time"
+            app:layout_constraintStart_toEndOf="@+id/post_item_tv_comment"
+            app:drawableLeftCompat="@drawable/ic_post_favorite" />
+
+        <TextView
+            android:id="@+id/post_item_tv_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:layout_marginStart="@dimen/mid_margin"
             android:layout_marginLeft="@dimen/large_margin"
             android:layout_marginRight="@dimen/large_margin"
             android:gravity="center_vertical"
-            android:text="질문을 뭐를 적어야 할지 모르겠다\n아무말이나 적어놔야지 아무말아무말"
+            android:text="@string/default_nickname"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_description"
-            app:layout_constraintVertical_bias="0.285" />
+            app:layout_constraintTop_toBottomOf="@+id/post_item_tv_title"/>
 
         <ImageView
-            android:id="@+id/iv_rv_appicon"
+            android:id="@+id/post_item_iv_image"
+            android:visibility="gone"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_margin="@dimen/large_margin"
-            android:src="@drawable/test_icon"
+            android:layout_marginEnd="68dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.6"
+            android:contentDescription="@string/desc_post_item_iv_image" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

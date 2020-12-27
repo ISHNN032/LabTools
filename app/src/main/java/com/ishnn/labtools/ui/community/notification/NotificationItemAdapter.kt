@@ -84,9 +84,9 @@ class NotificationItemAdapter(
 
         init {
             with(item) {
-                ivIcon = findViewById(R.id.iv_rv_appicon)
-                tvTitle = findViewById(R.id.tv_title)
-                tvDescription = findViewById(R.id.tv_description)
+                ivIcon = findViewById(R.id.item_iv_icon)
+                tvTitle = findViewById(R.id.post_item_tv_title)
+                tvDescription = findViewById(R.id.post_item_tv_nickname)
             }
         }
     }

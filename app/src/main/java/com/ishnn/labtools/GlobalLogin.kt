@@ -16,8 +16,6 @@ import org.json.JSONObject
 import java.net.URL
 
 object GlobalLogin {
-    var db = FirebaseFirestore.getInstance()
-
     private var mProfile: UserProfile? = null
     lateinit var mOAuthLoginInstance: OAuthLogin
 
@@ -109,7 +107,7 @@ object GlobalLogin {
         GlobalScope.launch {
             delay(1000)
             callback(mOAuthLoginInstance.requestApi(context, at, url))
-            db.collection("user").document(mProfile!!.id.toString()).set(mProfile!!)
+            Global.db.collection("user").document(mProfile!!.id.toString()).set(mProfile!!)
             callbacks.onLogin()
         }
     }

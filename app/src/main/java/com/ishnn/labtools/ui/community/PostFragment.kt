@@ -21,8 +21,6 @@ import kotlinx.coroutines.*
 class PostFragment : Fragment(), IOnBackPressed{
     private val adapter by lazy { PostItemAdapter(ArrayList(), this) }
     private var isLoading = false
-
-    private lateinit var mSwipe: SwipeRefreshLayout
     private lateinit var mRecyclerView: RecyclerView
 
     override fun onCreateView(
@@ -31,16 +29,7 @@ class PostFragment : Fragment(), IOnBackPressed{
         savedInstanceState: Bundle?
     ): View? {
         setHasOptionsMenu(true)
-
-        val root = inflater.inflate(R.layout.fragment_notification, container, false)
-        mSwipe = root.findViewById<SwipeRefreshLayout>(R.id.swiperefresh)
-        mSwipe!!.setOnRefreshListener {
-            Log.d("refresh", "refreshed")
-            GlobalScope.launch {
-                delay(1000)
-                mSwipe!!.isRefreshing = false
-            }
-        }
+        val root = inflater.inflate(R.layout.fragment_post, container, false)
         mRecyclerView = root.findViewById(R.id.recyclerView)
         return root
     }
@@ -60,34 +49,11 @@ class PostFragment : Fragment(), IOnBackPressed{
         mRecyclerView.adapter = adapter
         val linearLayoutManager = LinearLayoutManager(requireContext())
         mRecyclerView.layoutManager = linearLayoutManager
-
-        val callback: ItemTouchHelper.Callback = ItemTouchHelperCallback(adapter)
-        val mItemTouchHelper = ItemTouchHelper(callback)
-        mItemTouchHelper.attachToRecyclerView(mRecyclerView)
-
-        mRecyclerView.addOnScrollListener(rvScrollListener)
     }
 
     fun addData() {
-        val data: MutableList<RvItem> = ArrayList()
-        for (i in 1..15) {
-            data.add(RvItem("${i}", TYPE_ITEM))
-        }
-        //ADD LOADER
-        data.add(RvItem("", TYPE_LOADER))
+        val data = (parentFragment as CommunityFragment).getPosts()
         adapter.addData(data)
-    }
-
-    private val rvScrollListener = object : RecyclerView.OnScrollListener() {
-        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-            super.onScrolled(recyclerView, dx, dy)
-
-            val linearLayoutManager = recyclerView.layoutManager as LinearLayoutManager?
-            if (!isLoading && linearLayoutManager!!.itemCount == linearLayoutManager.findLastVisibleItemPosition() + 1) {
-                loadData()
-                isLoading = true
-            }
-        }
     }
 
     fun loadData() {

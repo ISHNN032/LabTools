@@ -10,6 +10,8 @@
     <string name="kakao_app_key">fa80791b0b8cfd763b4894481f6e8638</string>
     <string name="notification">알림</string>
 
+    <string name="notice">공지:</string>
+
     <!--  Calculator  -->
     <string name="memory_clear">MC</string>
     <string name="memory_recall">MR</string>
@@ -502,5 +504,9 @@
         "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
         "when a user tries to pick up one of cards.\n\n"
     </string>
+    <string name="default_num">0</string>
+    <string name="desc_post_item_iv_image">post_item_iv_image</string>
+    <string name="default_nickname">작성자</string>
+    <string name="default_time">2021년 01월 01일</string>
 
 </resources>

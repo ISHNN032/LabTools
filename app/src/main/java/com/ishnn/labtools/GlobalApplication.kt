@@ -5,6 +5,7 @@ import android.app.Application
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import com.google.firebase.firestore.FirebaseFirestore
 import com.kakao.sdk.common.KakaoSdk.init
 import com.kakao.sdk.common.util.Utility
 
@@ -30,6 +31,8 @@ class GlobalApplication : Application() {
 }
 
 object Global {
+    var db = FirebaseFirestore.getInstance()
+
     fun hideKeyboard(activity: Activity){
         val imm: InputMethodManager = activity.getSystemService(Application.INPUT_METHOD_SERVICE) as InputMethodManager
         //Find the currently focused view, so we can grab the correct window token from it.
