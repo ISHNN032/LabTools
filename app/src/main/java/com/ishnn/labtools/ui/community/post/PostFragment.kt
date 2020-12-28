@@ -1,4 +1,4 @@
-package com.ishnn.labtools.ui.community
+package com.ishnn.labtools.ui.community.post
 
 import android.os.Bundle
 import android.util.Log
@@ -7,21 +7,20 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.ishnn.labtools.R
+import com.ishnn.labtools.ui.community.CommunityFragment
 import com.ishnn.labtools.util.IOnBackPressed
-import com.ishnn.labtools.util.adapter.ItemTouchHelperCallback
-import com.rnnzzo.uxdesign.model.RvItem
 import kotlinx.coroutines.*
 
 
 class PostFragment : Fragment(), IOnBackPressed{
-    private val adapter by lazy { PostItemAdapter(ArrayList(), this) }
+    private val adapter by lazy { PostItemAdapter((parentFragment as CommunityFragment).getPosts(), ArrayList(), this) }
     private var isLoading = false
     private lateinit var mRecyclerView: RecyclerView
+    private lateinit var mSwipe: SwipeRefreshLayout
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,6 +30,14 @@ class PostFragment : Fragment(), IOnBackPressed{
         setHasOptionsMenu(true)
         val root = inflater.inflate(R.layout.fragment_post, container, false)
         mRecyclerView = root.findViewById(R.id.recyclerView)
+        mSwipe = root.findViewById<SwipeRefreshLayout>(R.id.swiperefresh)
+        mSwipe!!.setOnRefreshListener {
+            Log.d("refresh", "refreshed")
+            GlobalScope.launch {
+                adapter.refreshData()
+                mSwipe!!.isRefreshing = false
+            }
+        }
         return root
     }
 
@@ -52,8 +59,7 @@ class PostFragment : Fragment(), IOnBackPressed{
     }
 
     fun addData() {
-        val data = (parentFragment as CommunityFragment).getPosts()
-        adapter.addData(data)
+        adapter.addData()
     }
 
     fun loadData() {

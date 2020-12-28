@@ -55,8 +55,17 @@ object GlobalLogin {
                         this.mProfile = UserProfile(
                             user.id,
                             user.kakaoAccount!!.profile!!.nickname,
-                            URL(user.kakaoAccount?.profile?.thumbnailImageUrl)
+                            //null
+                            user.kakaoAccount?.profile?.thumbnailImageUrl
                         )
+                        GlobalScope.launch {
+                            try {
+                                Global.db.collection("user").document(mProfile!!.id.toString()).set(mProfile!!)
+                            }catch (e: Exception){
+                                e.printStackTrace()
+                                Log.e("Firebase error", e.toString())
+                            }
+                        }
                         callbacks.onLogin()
                     }
                 }
@@ -105,7 +114,6 @@ object GlobalLogin {
             }
         }
         GlobalScope.launch {
-            delay(1000)
             callback(mOAuthLoginInstance.requestApi(context, at, url))
             Global.db.collection("user").document(mProfile!!.id.toString()).set(mProfile!!)
             callbacks.onLogin()
@@ -139,7 +147,7 @@ object GlobalLogin {
 }
 
 data class UserProfile(
-    var id: Long,
-    var nickName: String,
-    var imageUrl: URL?
+    var id: Long? = null,
+    var nickName: String? = null,
+    var imageUrl: String? = null
 )

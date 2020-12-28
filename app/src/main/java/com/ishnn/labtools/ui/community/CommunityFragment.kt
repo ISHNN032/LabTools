@@ -10,8 +10,8 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
-import com.ishnn.labtools.Global
 import com.ishnn.labtools.R
+import com.ishnn.labtools.ui.community.post.PostFragment
 import com.ishnn.labtools.util.IOnBackPressed
 
 /**
@@ -20,7 +20,7 @@ import com.ishnn.labtools.util.IOnBackPressed
 class CommunityFragment : Fragment(), IOnBackPressed {
     private lateinit var mTabLayout: TabLayout
     private lateinit var mViewPager: ViewPager
-    private lateinit var mPosts: Posts
+    private lateinit var mPosts: CommunityPosts
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,7 +30,7 @@ class CommunityFragment : Fragment(), IOnBackPressed {
         val root = inflater.inflate(R.layout.fragment_community, container, false)
         mTabLayout = root.findViewById<TabLayout>(R.id.tabLayout)
         mViewPager = root.findViewById(R.id.viewPager)
-        mPosts = Posts()
+        mPosts = CommunityPosts()
         return root
     }
 
@@ -46,22 +46,27 @@ class CommunityFragment : Fragment(), IOnBackPressed {
 
     private fun setTabs() {
         mTabLayout.setupWithViewPager(mViewPager)
-        mTabLayout.addTab(mTabLayout.newTab())
-        mTabLayout.addTab(mTabLayout.newTab())
-        mTabLayout.addTab(mTabLayout.newTab())
+        mTabLayout.addTab(mTabLayout.newTab().setTag("all"))
+        mTabLayout.addTab(mTabLayout.newTab().setTag("favorite"))
+        mTabLayout.addTab(mTabLayout.newTab().setTag("notice"))
         mViewPager.adapter = FabAdapter(childFragmentManager, mTabLayout.tabCount)
     }
 
-    fun getPosts():Posts{
+    fun getCurrentTab():String{
+        return mTabLayout.getTabAt(mTabLayout.selectedTabPosition)!!.tag.toString()
+    }
+
+    fun getPosts():CommunityPosts{
         return mPosts
     }
 
-    inner class FabAdapter(fm: FragmentManager?, var tabCount: Int) :
+    inner class FabAdapter(fm: FragmentManager?, private var tabCount: Int) :
         FragmentStatePagerAdapter(fm!!) {
-        private val pageTitles = arrayOf("전체글", "즐겨찾기", "전체공지")
+        private val pageTitles = arrayOf("전체글", "즐겨찾기", "전체공지", "카페")
 
         override fun getItem(position: Int): Fragment {
-            return when (position) {
+            val fragment:Fragment =
+            when (position) {
                 0 -> {
                     PostFragment()
                 }
@@ -71,8 +76,13 @@ class CommunityFragment : Fragment(), IOnBackPressed {
                 2 -> {
                     PostFragment()
                 }
+                3 -> {
+                    WebViewFragment()
+                }
                 else -> PostFragment()
             }
+            fragment.arguments = Bundle().apply { putString("Tag", pageTitles[position])}
+            return fragment
         }
 
         override fun getCount(): Int {
