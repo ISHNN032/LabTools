@@ -507,6 +507,6 @@
     <string name="default_num">0</string>
     <string name="desc_post_item_iv_image">post_item_iv_image</string>
     <string name="default_nickname">작성자</string>
-    <string name="default_time">2021년 01월 01일</string>
+    <string name="default_time">2021–01–01</string>
 
 </resources>

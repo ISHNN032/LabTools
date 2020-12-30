@@ -1,13 +1,17 @@
 package com.ishnn.labtools.model
+import java.io.Serializable
 import java.net.URL
 import java.util.*
 
 data class PostItem(
-    val title: String? = null,
+    val postId: String? = null,
+    val title: String? = "없는 게시물입니다.",
     val time: Date? = null,
     val user: Long? = null,
-    val notice: Boolean? = null,
-    val commentCount: Int? = null,
-    val favoriteCount: Int? = null,
+    val notice: Boolean? = false,
+    val commentCount: Int? = 0,
+    val favoriteCount: Int? = 0,
     val imageUrl: URL? = null
-)
+) : Serializable
+
+val deletedPostItem = PostItem(null, "삭제된게시물입니다.", null, null, false, null, null, null)

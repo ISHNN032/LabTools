@@ -17,7 +17,7 @@ import kotlinx.coroutines.*
 
 
 class PostFragment : Fragment(), IOnBackPressed{
-    private val adapter by lazy { PostItemAdapter((parentFragment as CommunityFragment).getPosts(), ArrayList(), this) }
+    private val adapter by lazy { PostItemAdapter(ArrayList(), this) }
     private var isLoading = false
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var mSwipe: SwipeRefreshLayout
@@ -38,6 +38,8 @@ class PostFragment : Fragment(), IOnBackPressed{
                 mSwipe!!.isRefreshing = false
             }
         }
+        initRecyclerView()
+        adapter.refreshData()
         return root
     }
 
@@ -46,28 +48,17 @@ class PostFragment : Fragment(), IOnBackPressed{
         return false
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        initRecyclerView()
-        addData()
-    }
-
     private fun initRecyclerView() {
         mRecyclerView.adapter = adapter
         val linearLayoutManager = LinearLayoutManager(requireContext())
         mRecyclerView.layoutManager = linearLayoutManager
     }
 
-    fun addData() {
-        adapter.addData()
-    }
-
     fun loadData() {
         CoroutineScope(Dispatchers.IO).launch {
-            delay(2000)
             withContext(Dispatchers.Main) {
                 adapter.removeLoader()
-                addData()
+                adapter.refreshData()
                 isLoading = false
             }
         }

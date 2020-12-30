@@ -35,8 +35,8 @@ class TimerFragment : Fragment(), IOnBackPressed{
         }
 
         val data: MutableList<TimerItem> = ArrayList()
-        data.add(TimerItem(TYPE_ITEM, 0, 3, 0))
-        data.add(TimerItem(TYPE_ITEM, 0, 5, 0))
+        data.add(TimerItem(0, 3, 0))
+        data.add(TimerItem(0, 5, 0))
         adapter.addData(data)
 
         return root
@@ -109,7 +109,7 @@ class TimerFragment : Fragment(), IOnBackPressed{
         //  완료 버튼 클릭 시
         save.setOnClickListener {
             val data: MutableList<TimerItem> = ArrayList()
-            data.add(TimerItem(TYPE_ITEM, hour.value, min.value, sec.value))
+            data.add(TimerItem(hour.value, min.value, sec.value))
             adapter.addData(data)
             dialog.dismiss()
             dialog.cancel()

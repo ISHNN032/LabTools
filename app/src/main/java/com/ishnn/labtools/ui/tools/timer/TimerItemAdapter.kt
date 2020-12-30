@@ -18,28 +18,15 @@ import kotlinx.coroutines.*
 import java.lang.Exception
 import java.text.DecimalFormat
 
-val TYPE_HEADER = 1
-val TYPE_ITEM = 2
-val TYPE_LOADER = 3
-
 class TimerItemAdapter(
     var items: MutableList<TimerItem>,
     val clickListener: TimerFragment
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        when (viewType) {
-            TYPE_ITEM -> {
-                val view: View = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.item_timer, parent, false)
-                return ViewHolder(view)
-            }
-            else -> {
-                val view: View = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.item_rv_loader, parent, false)
-                return LoadingViewHolder(view)
-            }
-        }
+        val view: View = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_timer, parent, false)
+        return ViewHolder(view)
     }
 
     override fun getItemCount(): Int {
@@ -48,22 +35,13 @@ class TimerItemAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = items[position]
-
-        when (item.type) {
-            TYPE_ITEM -> {
-                with(holder as ViewHolder) {
-                    //Put your logic here
-                    holder.hour = item.hour
-                    holder.min = item.min
-                    holder.sec = item.sec
-                    holder.setTime()
-                }
-            }
+        with(holder as ViewHolder) {
+            //Put your logic here
+            holder.hour = item.hour
+            holder.min = item.min
+            holder.sec = item.sec
+            holder.setTime()
         }
-    }
-
-    override fun getItemViewType(position: Int): Int {
-        return items[position].type
     }
 
     inner class ViewHolder(item: View) : RecyclerView.ViewHolder(item) {
@@ -98,7 +76,7 @@ class TimerItemAdapter(
                     stopStopwatch()
                 }
                 btDelete.setOnClickListener {
-                    if(adapterPosition != -1){
+                    if (adapterPosition != -1) {
                         stopStopwatch()
                         items.removeAt(adapterPosition)
                         notifyItemRemoved(adapterPosition)
@@ -107,7 +85,7 @@ class TimerItemAdapter(
             }
         }
 
-        fun setTime(){
+        fun setTime() {
             lTotal = (hour * 60 * 60 * 1000) + (min * 60 * 1000) + (sec * 1000).toLong()
             val df = DecimalFormat("00.00");
             val formatted = df.format(sec);
@@ -127,13 +105,13 @@ class TimerItemAdapter(
                         lElapsed = elapsed
 
                         val left = lTotal - elapsed
-                        if(left < 0){
+                        if (left < 0) {
                             stopWatchEnded()
                             break
                         }
 
                         val leftHour = left / (60 * 60 * 1000)
-                        val leftMin = left  % (60 * 60 * 1000) / (60 * 1000)
+                        val leftMin = left % (60 * 60 * 1000) / (60 * 1000)
                         val leftSec = left % (60 * 60 * 1000) % (60 * 1000) / 1000f
 
                         delay(1)
@@ -158,7 +136,7 @@ class TimerItemAdapter(
         }
 
         @SuppressLint("SetTextI18n")
-        private fun stopWatchEnded(){
+        private fun stopWatchEnded() {
             pauseStopwatch()
             tvTime.text = "00:00:00.00"
             itemView.setBackgroundColor(Color.RED)

@@ -12,14 +12,22 @@
         tools:layout="@layout/fragment_community">
         <action
             android:id="@+id/action_nav_commu_to_notification"
-            app:destination="@id/navigation_notification" />
+            app:destination="@id/community_notification" />
+        <action
+            android:id="@+id/action_nav_commu_to_postcontent"
+            app:destination="@id/community_postcontent" />
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_notification"
+        android:id="@+id/community_notification"
         android:name="com.ishnn.labtools.ui.community.notification.NotificationFragment"
         android:label="@string/title_notification"
         tools:layout="@layout/fragment_notification" />
+    <fragment
+        android:id="@+id/community_postcontent"
+        android:name="com.ishnn.labtools.ui.community.post.PostContentFragment"
+        android:label="@string/title_community"
+        tools:layout="@layout/fragment_postcontent" />
 
     <fragment
         android:id="@+id/navigation_calculator"
