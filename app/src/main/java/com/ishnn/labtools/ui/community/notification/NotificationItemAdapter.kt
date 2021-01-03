@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.ishnn.labtools.R
 import com.ishnn.labtools.util.adapter.OnMoveAndSwipedListener
-import com.rnnzzo.uxdesign.model.RvItem
+import com.ishnn.labtools.model.RvItem
 import java.util.*
 
 val TYPE_HEADER = 1
@@ -115,7 +115,7 @@ class NotificationItemAdapter(
 
     fun getItem(pos: Int) = items[pos]
 
-    fun addItem(extraItem:RvItem, pos: Int){
+    fun addItem(extraItem: RvItem, pos: Int){
         items.add(pos, extraItem)
         notifyItemInserted(pos)
     }

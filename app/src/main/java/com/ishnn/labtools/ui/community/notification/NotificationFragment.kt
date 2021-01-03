@@ -14,7 +14,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.ishnn.labtools.R
 import com.ishnn.labtools.util.IOnBackPressed
 import com.ishnn.labtools.util.adapter.ItemTouchHelperCallback
-import com.rnnzzo.uxdesign.model.RvItem
+import com.ishnn.labtools.model.RvItem
 import kotlinx.coroutines.*
 
 
