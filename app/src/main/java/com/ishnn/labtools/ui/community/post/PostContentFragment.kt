@@ -1,6 +1,8 @@
 package com.ishnn.labtools.ui.community.post
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -13,7 +15,6 @@ import com.ishnn.labtools.R
 import com.ishnn.labtools.model.PostContent
 import com.ishnn.labtools.model.PostItem
 import com.ishnn.labtools.util.IOnBackPressed
-import com.ishnn.labtools.util.animOptions
 import kotlinx.android.synthetic.main.fragment_postcontent.*
 import kotlinx.coroutines.*
 import java.text.SimpleDateFormat
@@ -42,13 +43,13 @@ class PostContentFragment : Fragment(), IOnBackPressed {
 
         mPost = arguments?.getSerializable("post") as PostItem
         if(mPost.user == null){
+            dialogNoPost()
             return null
-            //Todo 없는 게시물입니다.
         }
 
         val callbackContent: (content: PostContent?) -> Unit = { content ->
             if(content == null){
-                //Todo 없는 게시물입니다.
+                dialogNoPost()
             }else{
                 parseContent(content!!.content!!, post_content_layout_content)
                 mPostContent = content
@@ -66,32 +67,8 @@ class PostContentFragment : Fragment(), IOnBackPressed {
         return root
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        post_content_btn_menu.setOnClickListener { view ->
-            val popupMenu = PopupMenu(context, view)
-            inflater.inflate(R.menu.post_menu, popupMenu.menu)
-            popupMenu.show()
-            popupMenu.setOnMenuItemClickListener {
-                when(it!!.itemId){
-                    R.id.menu_post_modify -> {
-
-                    }
-                    R.id.menu_post_delete -> {
-                        PostManager.deletePost(mPost.postId!!, mPostContent.hasImage!!)
-                        parentFragmentManager.popBackStack()
-                        NavHostFragment.findNavController(this).navigateUp()
-                    }
-                }
-                return@setOnMenuItemClickListener false
-            }
-        }
-    }
-
     @SuppressLint("SimpleDateFormat")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
         if(mPost.notice!!){
             post_content_tv_notice.visibility = View.VISIBLE
         }else{
@@ -118,7 +95,7 @@ class PostContentFragment : Fragment(), IOnBackPressed {
     fun parseContent(content: String, layout: LinearLayout){
         val split = content.split("[", "]")
         for(s in split){
-            if(s.startsWith("  ")){
+            if(s.startsWith("#IMAGE:")){
                 val image = ImageView(context)
                 val lp = LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.WRAP_CONTENT,
@@ -157,6 +134,39 @@ class PostContentFragment : Fragment(), IOnBackPressed {
 //            }
 //        }
     }
+
+    private fun dialogNoPost(){
+        val builder: AlertDialog.Builder = AlertDialog.Builder(context)
+        builder.setTitle("게시물을 찾을 수 없습니다.")
+        builder.setMessage("삭제되었거나, 없는 게시물입니다.")
+        NavHostFragment.findNavController(this).navigateUp()
+        builder.show()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        if(post_content_btn_menu != null){
+            post_content_btn_menu.setOnClickListener { view ->
+                val popupMenu = PopupMenu(context, view)
+                inflater.inflate(R.menu.post_menu, popupMenu.menu)
+                popupMenu.show()
+                popupMenu.setOnMenuItemClickListener {
+                    when(it!!.itemId){
+                        R.id.menu_post_modify -> {
+
+                        }
+                        R.id.menu_post_delete -> {
+                            PostManager.deletePost(mPost.postId!!, mPostContent.hasImage!!)
+                            //parentFragmentManager.popBackStack()
+                            NavHostFragment.findNavController(this).navigateUp()
+                        }
+                    }
+                    return@setOnMenuItemClickListener false
+                }
+            }
+        }
+    }
+
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) {
