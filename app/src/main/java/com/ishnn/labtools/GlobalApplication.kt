@@ -40,8 +40,11 @@ class GlobalApplication : Application() {
 }
 
 object Global {
+    val STORAGE_POST_CONTENT = "post/content/"
+    val STORAGE_POST_CROPPED = "post/cropped/"
+
     var db = FirebaseFirestore.getInstance()
-    var storage = FirebaseStorage.getInstance("gs://labtools-59b01.appspot.com");
+    var storage = FirebaseStorage.getInstance("gs://labtools-59b01.appspot.com")
 
     fun hideKeyboard(activity: Activity){
         val imm: InputMethodManager = activity.getSystemService(Application.INPUT_METHOD_SERVICE) as InputMethodManager

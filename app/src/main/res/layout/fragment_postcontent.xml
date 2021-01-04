@@ -66,6 +66,17 @@
             app:layout_constraintStart_toEndOf="@+id/post_content_tv_nickname"
             app:layout_constraintTop_toTopOf="@+id/post_content_tv_nickname" />
 
+        <ImageButton
+            android:id="@+id/post_content_btn_menu"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:scaleType="center"
+            android:src="@drawable/ic_post_menu"
+            android:background="@color/transparent"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="@id/post_content_tv_nickname"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
         <View
             android:id="@+id/post_content_line_title"
             android:layout_width="match_parent"

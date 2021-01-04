@@ -3,21 +3,17 @@ package com.ishnn.labtools.ui.community.post
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.view.*
+import android.widget.*
 import androidx.fragment.app.Fragment
-import com.bumptech.glide.Glide
-import com.firebase.ui.storage.images.FirebaseImageLoader
+import androidx.navigation.fragment.NavHostFragment
 import com.ishnn.labtools.Global
+import com.ishnn.labtools.GlobalLogin
 import com.ishnn.labtools.R
 import com.ishnn.labtools.model.PostContent
 import com.ishnn.labtools.model.PostItem
 import com.ishnn.labtools.util.IOnBackPressed
+import com.ishnn.labtools.util.animOptions
 import kotlinx.android.synthetic.main.fragment_postcontent.*
 import kotlinx.coroutines.*
 import java.text.SimpleDateFormat
@@ -33,6 +29,7 @@ class PostContentFragment : Fragment(), IOnBackPressed {
 //    }
 //    private lateinit var mRecyclerView: RecyclerView
     private lateinit var mPost: PostItem
+    private lateinit var mPostContent: PostContent
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,14 +47,45 @@ class PostContentFragment : Fragment(), IOnBackPressed {
         }
 
         val callbackContent: (content: PostContent?) -> Unit = { content ->
-            parseContent(content!!.content!!, post_content_layout_content)
+            if(content == null){
+                //Todo 없는 게시물입니다.
+            }else{
+                parseContent(content!!.content!!, post_content_layout_content)
+                mPostContent = content
+            }
         }
         val callbackName: (String?) -> Unit = { name ->
             post_content_tv_nickname.text = name
         }
         PostManager.getPostContent(mPost.postId!!, callback = callbackContent)
         PostManager.getUserName(mPost.user!!, callback = callbackName)
+
+        if(mPost.user == GlobalLogin.getUserData()?.id){
+            root.findViewById<ImageButton>(R.id.post_content_btn_menu).visibility = View.VISIBLE
+        }
         return root
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        post_content_btn_menu.setOnClickListener { view ->
+            val popupMenu = PopupMenu(context, view)
+            inflater.inflate(R.menu.post_menu, popupMenu.menu)
+            popupMenu.show()
+            popupMenu.setOnMenuItemClickListener {
+                when(it!!.itemId){
+                    R.id.menu_post_modify -> {
+
+                    }
+                    R.id.menu_post_delete -> {
+                        PostManager.deletePost(mPost.postId!!, mPostContent.hasImage!!)
+                        parentFragmentManager.popBackStack()
+                        NavHostFragment.findNavController(this).navigateUp()
+                    }
+                }
+                return@setOnMenuItemClickListener false
+            }
+        }
     }
 
     @SuppressLint("SimpleDateFormat")
@@ -90,14 +118,14 @@ class PostContentFragment : Fragment(), IOnBackPressed {
     fun parseContent(content: String, layout: LinearLayout){
         val split = content.split("[", "]")
         for(s in split){
-            if(s.startsWith("#IMAGE:")){
+            if(s.startsWith("  ")){
                 val image = ImageView(context)
                 val lp = LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT
                 )
                 image.layoutParams = lp
-                val ref = Global.storage.reference.child("post/content/${mPost.postId}/Sample.png")
+                val ref = Global.storage.reference.child("${Global.STORAGE_POST_CONTENT}${mPost.postId}/Sample.png")
                 GlideApp.with(requireContext())
                     .load(ref)
                     .into(image)

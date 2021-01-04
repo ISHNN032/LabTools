@@ -39,6 +39,20 @@ object PostManager {
         }
     }
 
+    fun deletePost(postId: String, hasImage: Boolean){
+        if(hasImage){
+            Global.storage.reference.child("${Global.STORAGE_POST_CONTENT}${postId}").listAll().addOnSuccessListener {
+                for(item in it.items){
+                    Global.storage.reference.child(item.path).delete()
+                }
+            }
+        }
+        Global.db.collection("postContent").document(postId).delete()
+            .addOnSuccessListener {
+            Global.db.collection("post").document(postId).delete()
+        }
+    }
+
     fun getPosts(callback: (List<PostItem>) -> Unit) {
         Global.db.collection("post").orderBy("time", Query.Direction.DESCENDING)
             .get()
