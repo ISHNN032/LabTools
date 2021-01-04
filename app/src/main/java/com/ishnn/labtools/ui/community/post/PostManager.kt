@@ -46,6 +46,11 @@ object PostManager {
                     Global.storage.reference.child(item.path).delete()
                 }
             }
+            Global.storage.reference.child("${Global.STORAGE_POST_CROPPED}${postId}").listAll().addOnSuccessListener {
+                for(item in it.items){
+                    Global.storage.reference.child(item.path).delete()
+                }
+            }
         }
         Global.db.collection("postContent").document(postId).delete()
             .addOnSuccessListener {

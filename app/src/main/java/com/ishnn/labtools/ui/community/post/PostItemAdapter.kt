@@ -1,6 +1,7 @@
 package com.ishnn.labtools.ui.community.post
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,6 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.ishnn.labtools.Global
 import com.ishnn.labtools.R
 import com.ishnn.labtools.model.PostItem
 import com.ishnn.labtools.util.animOptions
@@ -20,7 +22,8 @@ import java.util.*
 
 class PostItemAdapter(
     var items: MutableList<PostItem>,
-    val fragment: PostFragment
+    val fragment: PostFragment,
+    val mContext: Context?
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -127,7 +130,15 @@ class PostItemAdapter(
 
         (holder as ViewHolder).tvCommentCount.text = item.commentCount.toString()
         (holder as ViewHolder).tvFavorateCount.text = item.favoriteCount.toString()
-        //(holder as ViewHolder).ivImage.setImageBitmap(item.imageUrl)
+
+        if (item.imageUrl != null && mContext != null){
+            val imageView = (holder as ViewHolder).ivImage
+            imageView.visibility = View.VISIBLE
+            val ref = Global.storage.reference.child("${Global.STORAGE_POST_CROPPED}${item.postId}/Sample.png")
+            GlideApp.with(mContext)
+                .load(ref)
+                .into(imageView)
+        }
 
         holder.itemView.setOnClickListener {
             if(position != -1){

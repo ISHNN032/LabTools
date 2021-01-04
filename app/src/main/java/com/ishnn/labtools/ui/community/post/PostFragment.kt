@@ -17,7 +17,7 @@ import kotlinx.coroutines.*
 
 
 class PostFragment : Fragment(), IOnBackPressed{
-    private val adapter by lazy { PostItemAdapter(ArrayList(), this) }
+    private val adapter by lazy { PostItemAdapter(ArrayList(), this, context) }
     private var isLoading = false
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var mSwipe: SwipeRefreshLayout
