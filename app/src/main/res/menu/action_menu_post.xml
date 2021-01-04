@@ -17,20 +17,9 @@
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
     <item
-        android:id="@+id/action_home_favorite"
-        android:icon="@drawable/ic_toolbar_favorite_off"
-        app:iconTint="@android:color/white"
-        android:tint="@color/colorAccent"
+        android:id="@+id/action_post_favorite"
+        android:icon="@drawable/ic_toolbar_favorite"
         android:title="@string/favorite"
-        app:showAsAction="always" />
-
-    <item
-        android:id="@+id/action_home_share"
-        android:icon="@drawable/ic_toolbar_share"
-        app:iconTint="@android:color/white"
-        android:tint="@color/colorAccent"
-        android:title="@string/share"
         app:showAsAction="always" />
 </menu>
