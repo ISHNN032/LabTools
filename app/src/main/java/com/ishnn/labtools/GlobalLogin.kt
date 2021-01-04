@@ -19,9 +19,8 @@ object GlobalLogin {
     private var mProfile: UserProfile? = null
     lateinit var mOAuthLoginInstance: OAuthLogin
 
-
     interface OnLoginInterface {
-        fun onLogin()
+        fun onLogin(platform: LoginPlatform)
         fun onLogout()
     }
 
@@ -35,7 +34,7 @@ object GlobalLogin {
         mOAuthLoginInstance.showDevelopersLog(true)
     }
 
-    fun loginKakao(context: Context, callbacks: OnLoginInterface) {
+    fun loginKakao(context: Context, callbacks: OnLoginInterface?) {
         val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
             if (error != null) {
                 Log.e("Kakao", "로그인 실패", error)
@@ -66,7 +65,7 @@ object GlobalLogin {
                                 Log.e("Firebase error", e.toString())
                             }
                         }
-                        callbacks.onLogin()
+                        callbacks?.onLogin(LoginPlatform.KAKAO)
                     }
                 }
             }
@@ -90,7 +89,7 @@ object GlobalLogin {
         }
     }
 
-    fun loginNaver(context: Context, callbacks: OnLoginInterface) {
+    fun loginNaver(context: Context, callbacks: OnLoginInterface?) {
         val accessToken: String = mOAuthLoginInstance.getAccessToken(context)
         val refreshToken: String = mOAuthLoginInstance.getRefreshToken(context)
         val expiresAt: Long = mOAuthLoginInstance.getExpiresAt(context)
@@ -116,7 +115,7 @@ object GlobalLogin {
         GlobalScope.launch {
             callback(mOAuthLoginInstance.requestApi(context, at, url))
             Global.db.collection("user").document(mProfile!!.id.toString()).set(mProfile!!)
-            callbacks.onLogin()
+            callbacks?.onLogin(LoginPlatform.NAVER)
         }
     }
     fun getLoginError(context: Context){
@@ -151,3 +150,7 @@ data class UserProfile(
     var nickName: String? = null,
     var imageUrl: String? = null
 )
+
+enum class LoginPlatform{
+    KAKAO, NAVER
+}

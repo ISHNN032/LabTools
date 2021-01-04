@@ -3,6 +3,7 @@ package com.ishnn.labtools
 import android.Manifest
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Base64
@@ -29,6 +30,7 @@ class MainActivity : AppCompatActivity() {
         overridePendingTransition(R.anim.nav_default_pop_enter_anim, R.anim.fade_out)
 
         GlobalApplication.currentActivity = this
+        AutoLogin()
 
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
         val navController = findNavController(R.id.nav_host_fragment)
@@ -72,6 +74,21 @@ class MainActivity : AppCompatActivity() {
             arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
             REQUEST_CODE
         )
+    }
+
+    fun AutoLogin(){
+        val sharedPref = getPreferences(Context.MODE_PRIVATE) ?: return
+        val lastLogin = sharedPref.getString(getString(R.string.shared_last_login_platform), null)
+        if(lastLogin != null){
+            when(lastLogin){
+                LoginPlatform.NAVER.name -> {
+                    GlobalLogin.loginNaver(this, null)
+                }
+                LoginPlatform.KAKAO.name -> {
+                    GlobalLogin.loginKakao(this, null)
+                }
+            }
+        }
     }
 
     override fun onBackPressed() {
