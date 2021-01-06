@@ -10,10 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import com.ishnn.labtools.GlobalLogin
-import com.ishnn.labtools.LoginActivity
-import com.ishnn.labtools.MainActivity
-import com.ishnn.labtools.R
+import com.ishnn.labtools.*
 import com.ishnn.labtools.ui.home.content.*
 import kotlinx.android.synthetic.main.fragment_home.*
 
@@ -123,7 +120,7 @@ class HomeFragment : Fragment() , GlobalLogin.OnLoginInterface {
         inflater.inflate(R.menu.action_menu_home, menu)
     }
 
-    override fun onLogin() {
+    override fun onLogin(platform: LoginPlatform) {
         TODO("Not yet implemented")
     }
 

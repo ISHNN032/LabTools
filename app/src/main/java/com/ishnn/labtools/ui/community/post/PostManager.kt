@@ -7,9 +7,9 @@ import com.google.firebase.firestore.Source
 import com.ishnn.labtools.Global
 import com.ishnn.labtools.GlobalLogin
 import com.ishnn.labtools.UserProfile
+import com.ishnn.labtools.model.CommentItem
 import com.ishnn.labtools.model.PostContent
 import com.ishnn.labtools.model.PostItem
-import com.ishnn.labtools.model.deletedPostItem
 import java.util.*
 
 object PostManager {
@@ -76,6 +76,20 @@ object PostManager {
         Global.db.collection("postContent").document(postId).get().addOnSuccessListener { result ->
             callback(result.toObject(PostContent::class.java))
         }
+    }
+
+    fun getPostComments(callback: (List<CommentItem>) -> Unit){
+        Global.db.collection("post").orderBy("time", Query.Direction.DESCENDING)
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    Log.d("TAG", "${document.id} => ${document.data}")
+                }
+                callback(result.toObjects(CommentItem::class.java))
+            }
+            .addOnFailureListener { exception ->
+                Log.d("TAG", "Error getting documents: ", exception)
+            }
     }
 
     fun getFavorites(callback: (PostItem) -> Unit) {

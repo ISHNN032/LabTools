@@ -13,5 +13,3 @@ data class PostItem(
     val favoriteCount: Int? = 0,
     val imageUrl: URL? = null
 ) : Serializable
-
-val deletedPostItem = PostItem(null, "삭제된게시물입니다.", null, null, false, null, null, null)

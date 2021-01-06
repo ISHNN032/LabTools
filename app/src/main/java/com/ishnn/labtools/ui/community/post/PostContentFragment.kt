@@ -9,11 +9,13 @@ import android.view.*
 import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.ishnn.labtools.Global
 import com.ishnn.labtools.GlobalLogin
 import com.ishnn.labtools.R
 import com.ishnn.labtools.model.PostContent
 import com.ishnn.labtools.model.PostItem
+import com.ishnn.labtools.ui.community.post.comment.CommentItemAdapter
 import com.ishnn.labtools.util.IOnBackPressed
 import kotlinx.android.synthetic.main.fragment_postcontent.*
 import kotlinx.coroutines.*
@@ -29,6 +31,7 @@ class PostContentFragment : Fragment(), IOnBackPressed {
 //        )
 //    }
 //    private lateinit var mRecyclerView: RecyclerView
+    private val commentAdapter by lazy { CommentItemAdapter(ArrayList()) }
     private lateinit var mPost: PostItem
     private lateinit var mPostContent: PostContent
 
@@ -79,6 +82,9 @@ class PostContentFragment : Fragment(), IOnBackPressed {
         post_content_tv_time.text = time.format(mPost.time!!)
         post_content_tv_comment.text = mPost.commentCount.toString()
         post_content_tv_favorite.text = mPost.favoriteCount.toString()
+
+        initRecyclerView()
+        commentAdapter.refreshData()
     }
 
     override fun onBackPressed(): Boolean {
@@ -87,10 +93,11 @@ class PostContentFragment : Fragment(), IOnBackPressed {
     }
 
     private fun initRecyclerView() {
-//        mRecyclerView.adapter = adapter
-//        val linearLayoutManager = LinearLayoutManager(requireContext())
-//        mRecyclerView.layoutManager = linearLayoutManager
+        post_content_lv_comment.adapter = commentAdapter
+        val linearLayoutManager = LinearLayoutManager(requireContext())
+        post_content_lv_comment.layoutManager = linearLayoutManager
     }
+
 
     fun parseContent(content: String, layout: LinearLayout){
         val split = content.split("[", "]")

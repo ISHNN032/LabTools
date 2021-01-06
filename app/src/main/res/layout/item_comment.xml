@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/mid_margin"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/large_margin">
+
+        <TextView
+            android:id="@+id/post_item_tv_notice"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:layout_marginTop="12dp"
+            android:text="@string/notice"
+            android:visibility="gone"
+            android:textColor="@color/red_A700"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:gravity="center_vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/comment_item_tv_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:layout_marginRight="@dimen/large_margin"
+            android:text="@string/default_nickname"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textColor="@color/colorBlack"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:gravity="center_vertical"
+            app:layout_constraintStart_toEndOf="@+id/post_item_tv_notice"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/comment_item_iv_image"
+            android:visibility="gone"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_margin="@dimen/large_margin"
+            android:layout_marginEnd="68dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.6"
+            android:contentDescription="@string/desc_post_item_iv_image" />
+
+        <TextView
+            android:id="@+id/comment_item_tv_content"
+            android:layout_width="0dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="@dimen/large_margin"
+            android:gravity="center_vertical"
+            android:text="내용이없습니다."
+            app:layout_constraintTop_toBottomOf="@+id/comment_item_tv_nickname"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/comment_item_tv_time"
+            android:layout_width="0dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="@dimen/large_margin"
+            android:gravity="center_vertical"
+            android:text="@string/default_time"
+            app:layout_constraintTop_toBottomOf="@+id/comment_item_tv_content"
+            app:layout_constraintStart_toStartOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

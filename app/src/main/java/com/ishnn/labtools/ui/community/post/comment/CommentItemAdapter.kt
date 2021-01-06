@@ -1,4 +1,4 @@
-package com.ishnn.labtools.ui.community.post
+package com.ishnn.labtools.ui.community.post.comment
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -8,13 +8,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.ishnn.labtools.R
-import com.ishnn.labtools.model.PostItem
+import com.ishnn.labtools.model.CommentItem
+import com.ishnn.labtools.ui.community.post.PostManager
 import java.text.SimpleDateFormat
 import java.util.*
 
 class CommentItemAdapter(
-    var items: MutableList<PostItem>,
-    val fragment: PostContentFragment
+    var items: MutableList<CommentItem>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -54,7 +54,7 @@ class CommentItemAdapter(
 
     fun getItem(pos: Int) = items[pos]
 
-    fun addItem(extraItem: PostItem, pos: Int){
+    fun addItem(extraItem: CommentItem, pos: Int){
         items.add(pos, extraItem)
         notifyItemInserted(pos)
     }
@@ -65,25 +65,11 @@ class CommentItemAdapter(
     }
 
     fun addData(){
-        val callbackAll: (List<PostItem>) -> Unit = { data ->
+        val callbackAll: (List<CommentItem>) -> Unit = { data ->
             items.addAll(data)
             notifyDataSetChanged()
         }
-        val callback: (PostItem) -> Unit = { data ->
-            items.add(data)
-            notifyDataSetChanged()
-        }
-        when(fragment.requireArguments().get("Tag").toString()){
-            "전체글" ->{
-                PostManager.getPosts(callback = callbackAll)
-            }
-            "즐겨찾기"->{
-                PostManager.getFavorites(callback = callback)
-            }
-            "전체공지"->{
-                PostManager.getNotices(callback = callbackAll)
-            }
-        }
+        PostManager.getPostComments(callback = callbackAll)
     }
 
     fun removeLoader() {
@@ -94,12 +80,12 @@ class CommentItemAdapter(
     @SuppressLint("SimpleDateFormat")
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = items[position]
-        if(item.notice!!){
-            (holder as ViewHolder).tvNotice.visibility = View.VISIBLE
+
+        if(item.replyOfId.isNullOrEmpty()){
+
         }else{
-            (holder as ViewHolder).tvNotice.visibility = View.GONE
+
         }
-        (holder as ViewHolder).tvTitle.text = item.title
 
         val callback: (String?) -> Unit = { name ->
             (holder as ViewHolder).tvNickname.text = name
@@ -107,16 +93,8 @@ class CommentItemAdapter(
         PostManager.getUserName(item.user!!, callback = callback)
 
 
-        val date = SimpleDateFormat("yyyy-MM-dd")
-        val time = SimpleDateFormat("HH:mm")
-        if(date.format(item.time!!) == date.format(Date())){
-            (holder as ViewHolder).tvTime.text = time.format(item.time)
-        }else{
-            (holder as ViewHolder).tvTime.text = date.format(item.time)
-        }
 
-        (holder as ViewHolder).tvCommentCount.text = item.commentCount.toString()
-        (holder as ViewHolder).tvFavorateCount.text = item.favoriteCount.toString()
-        //(holder as ViewHolder).ivImage.setImageBitmap(item.imageUrl)
+        val time = SimpleDateFormat("yyyy-MM-dd HH:mm")
+        (holder as ViewHolder).tvTime.text = time.format(item.time!!)
     }
 }
