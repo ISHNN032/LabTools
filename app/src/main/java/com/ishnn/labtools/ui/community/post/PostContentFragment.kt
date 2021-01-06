@@ -85,6 +85,10 @@ class PostContentFragment : Fragment(), IOnBackPressed {
 
         initRecyclerView()
         commentAdapter.refreshData()
+
+        PostManager.addPostComment(mPost.postId, mPost.postId, "댓글입니다.")
+        PostManager.addPostComment(mPost.postId, mPost.postId, "댓글입니다.")
+        PostManager.addPostComment(mPost.postId, mPost.postId, "댓글입니다.")
     }
 
     override fun onBackPressed(): Boolean {

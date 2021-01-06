@@ -18,7 +18,7 @@ object PostManager {
             return
             //Todo 로그인하지 않은 유저가 포스트 버튼을 눌렀을 경우
         }
-            Global.db.collection("postContent").add(
+        Global.db.collection("postContent").add(
             PostContent(
                 "포스트내용입니다.",
                 false
@@ -39,23 +39,40 @@ object PostManager {
         }
     }
 
-    fun deletePost(postId: String, hasImage: Boolean){
-        if(hasImage){
-            Global.storage.reference.child("${Global.STORAGE_POST_CONTENT}${postId}").listAll().addOnSuccessListener {
-                for(item in it.items){
-                    Global.storage.reference.child(item.path).delete()
+    fun addPostComment(postId: String?, replyOfId: String?, content: String?) {
+        if (!GlobalLogin.getUserLoggedIn()) {
+            return
+            //Todo 로그인하지 않은 유저가 댓글작성을 눌렀을 경우
+        }
+        Global.db.collection("comment").add(
+            CommentItem(
+                postId, replyOfId, content,
+                Date(System.currentTimeMillis()),
+                GlobalLogin.getUserData()!!.id,
+                ""
+            )
+        )
+    }
+
+    fun deletePost(postId: String, hasImage: Boolean) {
+        if (hasImage) {
+            Global.storage.reference.child("${Global.STORAGE_POST_CONTENT}${postId}").listAll()
+                .addOnSuccessListener {
+                    for (item in it.items) {
+                        Global.storage.reference.child(item.path).delete()
+                    }
                 }
-            }
-            Global.storage.reference.child("${Global.STORAGE_POST_CROPPED}${postId}").listAll().addOnSuccessListener {
-                for(item in it.items){
-                    Global.storage.reference.child(item.path).delete()
+            Global.storage.reference.child("${Global.STORAGE_POST_CROPPED}${postId}").listAll()
+                .addOnSuccessListener {
+                    for (item in it.items) {
+                        Global.storage.reference.child(item.path).delete()
+                    }
                 }
-            }
         }
         Global.db.collection("postContent").document(postId).delete()
             .addOnSuccessListener {
-            Global.db.collection("post").document(postId).delete()
-        }
+                Global.db.collection("post").document(postId).delete()
+            }
     }
 
     fun getPosts(callback: (List<PostItem>) -> Unit) {
@@ -78,8 +95,8 @@ object PostManager {
         }
     }
 
-    fun getPostComments(callback: (List<CommentItem>) -> Unit){
-        Global.db.collection("post").orderBy("time", Query.Direction.DESCENDING)
+    fun getPostComments(callback: (List<CommentItem>) -> Unit) {
+        Global.db.collection("comment").orderBy("time", Query.Direction.DESCENDING)
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
@@ -106,9 +123,9 @@ object PostManager {
                 val list = result.get("favorites") as List<DocumentReference>
                 for (data in list) {
                     data.get().addOnSuccessListener {
-                        if(it.exists()){
+                        if (it.exists()) {
                             callback(it.toObject(PostItem::class.java)!!)
-                        }else{
+                        } else {
                             callback(PostItem())
                         }
                     }

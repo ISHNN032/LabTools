@@ -8,5 +8,6 @@ data class CommentItem(
     val replyOfId: String? = null,
     val content: String? = null,
     val time: Date? = null,
-    val user: Long? = null
+    val user: Long? = null,
+    val imageUrl: URL? = null
 ) : Serializable

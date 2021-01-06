@@ -19,7 +19,7 @@ class CommentItemAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view: View = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_post, parent, false)
+            .inflate(R.layout.item_comment, parent, false)
         return ViewHolder(view)
     }
 
@@ -28,22 +28,16 @@ class CommentItemAdapter(
     }
 
     inner class ViewHolder(item: View) : RecyclerView.ViewHolder(item) {
-        val tvNotice: TextView
-        val tvTitle: TextView
         val tvNickname: TextView
         val tvTime: TextView
-        val tvCommentCount: TextView
-        val tvFavorateCount: TextView
+        val tvContent: TextView
         val ivImage: ImageView
         init {
             with(item) {
-                tvNotice = findViewById(R.id.post_item_tv_notice)
-                tvTitle = findViewById(R.id.post_item_tv_title)
-                tvNickname = findViewById(R.id.post_item_tv_nickname)
-                tvTime = findViewById(R.id.post_item_tv_time)
-                tvCommentCount = findViewById(R.id.post_item_tv_comment)
-                tvFavorateCount = findViewById(R.id.post_item_tv_favorite)
-                ivImage = findViewById(R.id.post_item_iv_image)
+                tvNickname = findViewById(R.id.comment_item_tv_nickname)
+                tvTime = findViewById(R.id.comment_item_tv_time)
+                tvContent = findViewById(R.id.comment_item_tv_content)
+                ivImage = findViewById(R.id.comment_item_iv_image)
             }
         }
     }
@@ -92,7 +86,7 @@ class CommentItemAdapter(
         }
         PostManager.getUserName(item.user!!, callback = callback)
 
-
+        (holder as ViewHolder).tvContent.text = item.content
 
         val time = SimpleDateFormat("yyyy-MM-dd HH:mm")
         (holder as ViewHolder).tvTime.text = time.format(item.time!!)
