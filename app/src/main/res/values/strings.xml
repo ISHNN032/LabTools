@@ -513,5 +513,6 @@
     <string name="default_time">2021–01–01</string>
     <string name="modify">수정하기</string>
     <string name="delete">삭제하기</string>
+    <string name="desc_comment_menu">comment_menu</string>
 
 </resources>

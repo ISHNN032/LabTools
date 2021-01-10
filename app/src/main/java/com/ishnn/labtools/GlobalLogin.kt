@@ -40,9 +40,9 @@ object GlobalLogin {
                 Log.e("Kakao", "로그인 실패", error)
             } else if (token != null) {
                 Log.i("Kakao", "로그인 성공 ${token.accessToken}")
-                UserApiClient.instance.me { user, error ->
-                    if (error != null) {
-                        Log.e("Kakao", "사용자 정보 요청 실패", error)
+                UserApiClient.instance.me { user, info_error ->
+                    if (info_error != null) {
+                        Log.e("Kakao", "사용자 정보 요청 실패", info_error)
                     } else if (user != null) {
                         Log.i(
                             "Kakao", "사용자 정보 요청 성공" +

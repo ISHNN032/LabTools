@@ -2,21 +2,22 @@ package com.ishnn.labtools
 
 import android.app.Activity
 import android.app.Application
-import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import com.bumptech.glide.Glide
-import com.bumptech.glide.Registry
-import com.bumptech.glide.annotation.GlideModule
-import com.bumptech.glide.module.AppGlideModule
-import com.firebase.ui.storage.images.FirebaseImageLoader
+import androidx.core.content.ContextCompat.startActivity
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.tasks.Task
+import com.google.firebase.dynamiclinks.DynamicLink.AndroidParameters
+import com.google.firebase.dynamiclinks.DynamicLink.SocialMetaTagParameters
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks
+import com.google.firebase.dynamiclinks.ShortDynamicLink
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
 import com.kakao.sdk.common.KakaoSdk.init
 import com.kakao.sdk.common.util.Utility
-import java.io.InputStream
 
 
 class GlobalApplication : Application() {
@@ -40,8 +41,8 @@ class GlobalApplication : Application() {
 }
 
 object Global {
-    val STORAGE_POST_CONTENT = "post/content/"
-    val STORAGE_POST_CROPPED = "post/cropped/"
+    const val STORAGE_POST_CONTENT = "post/content/"
+    const val CROPPED_IMAGE = "cropped.png"
 
     var db = FirebaseFirestore.getInstance()
     var storage = FirebaseStorage.getInstance("gs://labtools-59b01.appspot.com")

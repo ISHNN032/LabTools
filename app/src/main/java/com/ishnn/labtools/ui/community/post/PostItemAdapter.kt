@@ -100,7 +100,7 @@ class PostItemAdapter(
     @SuppressLint("SimpleDateFormat")
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = items[position]
-        if(item.notice!!){
+        if(item.notice){
             (holder as ViewHolder).tvNotice.visibility = View.VISIBLE
         }else{
             (holder as ViewHolder).tvNotice.visibility = View.GONE
@@ -119,7 +119,7 @@ class PostItemAdapter(
         if(item.time != null){
             val date = SimpleDateFormat("yyyy-MM-dd")
             val time = SimpleDateFormat("HH:mm")
-            if(date.format(item.time!!) == date.format(Date())){
+            if(date.format(item.time) == date.format(Date())){
                 (holder as ViewHolder).tvTime.text = time.format(item.time)
             }else{
                 (holder as ViewHolder).tvTime.text = date.format(item.time)
@@ -131,16 +131,16 @@ class PostItemAdapter(
         (holder as ViewHolder).tvCommentCount.text = item.commentCount.toString()
         (holder as ViewHolder).tvFavorateCount.text = item.favoriteCount.toString()
 
-        if (item.imageUrl != null && mContext != null){
+        if (item.hasImage && mContext != null){
             val imageView = (holder as ViewHolder).ivImage
             imageView.visibility = View.VISIBLE
-            val ref = Global.storage.reference.child("${Global.STORAGE_POST_CROPPED}${item.postId}/Sample.png")
+            val ref = Global.storage.reference.child("${Global.STORAGE_POST_CONTENT}${item.postId}/${Global.CROPPED_IMAGE}")
             GlideApp.with(mContext)
                 .load(ref)
                 .into(imageView)
         }
 
-        holder.itemView.setOnClickListener {
+            holder.itemView.setOnClickListener {
             if(position != -1){
                 Log.e("Click", "${items[position].postId}")
                 val bundle = Bundle()

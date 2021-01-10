@@ -1,23 +1,27 @@
 package com.ishnn.labtools
 
 import android.Manifest
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.util.Base64
 import android.util.Log
-import android.view.View
-import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.tasks.Task
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.dynamiclinks.DynamicLink
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks
+import com.google.firebase.dynamiclinks.ShortDynamicLink
 import com.ishnn.labtools.util.IOnBackPressed
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
@@ -30,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         overridePendingTransition(R.anim.nav_default_pop_enter_anim, R.anim.fade_out)
 
         GlobalApplication.currentActivity = this
-        AutoLogin()
+        autoLogin()
 
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
         val navController = findNavController(R.id.nav_host_fragment)
@@ -76,11 +80,11 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
-    fun AutoLogin(){
+    private fun autoLogin() {
         val sharedPref = getPreferences(Context.MODE_PRIVATE) ?: return
         val lastLogin = sharedPref.getString(getString(R.string.shared_last_login_platform), null)
-        if(lastLogin != null){
-            when(lastLogin){
+        if (lastLogin != null) {
+            when (lastLogin) {
                 LoginPlatform.NAVER.name -> {
                     GlobalLogin.loginNaver(this, null)
                 }
@@ -99,12 +103,11 @@ class MainActivity : AppCompatActivity() {
             currentFragment.toString().contains("CommunityFragment")
         ) {
             val webBack = currentFragment as IOnBackPressed
-            webBack?.onBackPressed()?.takeIf { !it }?.let {
+            webBack.onBackPressed().takeIf { !it }?.let {
                 Log.e("c", "b")
                 super.onBackPressed()
             }
-        }
-        else{
+        } else {
             Log.e(currentFragment.toString(), "b")
             super.onBackPressed()
         }

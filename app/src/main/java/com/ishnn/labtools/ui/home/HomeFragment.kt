@@ -4,18 +4,25 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.dynamiclinks.DynamicLink
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks
+import com.google.firebase.dynamiclinks.ShortDynamicLink
 import com.ishnn.labtools.*
 import com.ishnn.labtools.ui.home.content.*
 import kotlinx.android.synthetic.main.fragment_home.*
 
 
-class HomeFragment : Fragment() , GlobalLogin.OnLoginInterface {
+class HomeFragment : Fragment(), GlobalLogin.OnLoginInterface {
 
     //    @BindView(R.id.main_qa_text)
     //    TextView main_qa_text;
@@ -52,9 +59,39 @@ class HomeFragment : Fragment() , GlobalLogin.OnLoginInterface {
         main_button_menu!!.setOnClickListener {
             main_drawer_layout!!.open()
         }
-        val main_drawer_close = main_navigationView!!.getHeaderView(0).findViewById<ImageView>(R.id.btn_exit_main_drawer_activity)
+        val main_drawer_close = main_navigationView!!.getHeaderView(0)
+            .findViewById<ImageView>(R.id.btn_exit_main_drawer_activity)
         main_drawer_close.setOnClickListener {
             main_drawer_layout!!.close()
+        }
+        main_navigationView.setNavigationItemSelectedListener {
+            when(it.itemId){
+                R.id.drawer_item_stopwatch -> {
+
+                }
+                R.id.drawer_item_timer -> {
+
+                }
+                R.id.drawer_item_calculator -> {
+
+                }
+                R.id.drawer_item_counter -> {
+
+                }
+                R.id.drawer_item_memo -> {
+
+                }
+                R.id.drawer_item_community -> {
+
+                }
+                R.id.drawer_item_license -> {
+
+                }
+                R.id.drawer_item_setting -> {
+
+                }
+            }
+            true
         }
 
         make!!.setOnClickListener { replaceFragment(MakeFragment()) }
@@ -66,6 +103,7 @@ class HomeFragment : Fragment() , GlobalLogin.OnLoginInterface {
         pcr_fold!!.setOnClickListener { replaceFragment(ProteinFragment()) }
         gel_cal!!.setOnClickListener { replaceFragment(DnarnaFragment()) }
     }
+
     override fun onResume() {
         super.onResume()
         checkLoggedIn()
@@ -74,17 +112,20 @@ class HomeFragment : Fragment() , GlobalLogin.OnLoginInterface {
 
     private fun replaceFragment(fragment: Fragment) {
         val fragmentManager = fragmentManager
-        val fragmentTransaction = fragmentManager!!.beginTransaction()
-        fragmentTransaction.replace(R.id.nav_host_fragment, fragment).addToBackStack(null).commit()
+        val fragmentTransaction = fragmentManager?.beginTransaction()
+        fragmentTransaction?.replace(R.id.nav_host_fragment, fragment)?.addToBackStack(null)
+            ?.commit()
     }
 
-    private fun checkLoggedIn(){
+    private fun checkLoggedIn() {
         val userdata = GlobalLogin.getUserData()
-        if(userdata != null){
+        if (userdata != null) {
             main_text_info.text = "${userdata.nickName}님 환영합니다."
-            val main_user_name = main_navigationView!!.getHeaderView(0).findViewById<TextView>(R.id.home_header_username)
+            val main_user_name = main_navigationView!!.getHeaderView(0)
+                .findViewById<TextView>(R.id.home_header_username)
             main_user_name.text = userdata.nickName
-            val main_user_id = main_navigationView!!.getHeaderView(0).findViewById<TextView>(R.id.home_header_userId)
+            val main_user_id = main_navigationView!!.getHeaderView(0)
+                .findViewById<TextView>(R.id.home_header_userId)
             main_user_id.text = userdata.id.toString()
 
 //            val mainScope = CoroutineScope(Dispatchers.Main)
@@ -105,7 +146,7 @@ class HomeFragment : Fragment() , GlobalLogin.OnLoginInterface {
                 GlobalLogin.logoutKakao(this)
                 GlobalLogin.logoutNaver(requireContext(), this)
             }
-        }else{
+        } else {
             main_button_login.text = "로그인"
             main_button_login.setOnClickListener {
                 val intent = Intent(context, LoginActivity::class.java)
@@ -118,6 +159,30 @@ class HomeFragment : Fragment() , GlobalLogin.OnLoginInterface {
         super.onCreateOptionsMenu(menu, inflater)
         menu.clear()
         inflater.inflate(R.menu.action_menu_home, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_home_favorite -> {
+
+                return true
+            }
+            R.id.action_home_share -> {
+                //createLink("test", "", null)
+                val msg = Intent(Intent.ACTION_SEND)
+
+                msg.addCategory(Intent.CATEGORY_DEFAULT)
+                msg.putExtra(
+                    Intent.EXTRA_TEXT,
+                    "https://trello.com/b/0Xj4wtZY/labtools"
+                )
+                msg.putExtra(Intent.EXTRA_TITLE, "제목")
+                msg.type = "text/plain"
+                startActivity(Intent.createChooser(msg, "앱을 선택해 주세요"))
+                return true
+            }
+            else -> return super.onOptionsItemSelected(item)
+        }
     }
 
     override fun onLogin(platform: LoginPlatform) {

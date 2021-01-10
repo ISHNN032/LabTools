@@ -115,7 +115,7 @@ class WebViewFragment : Fragment(), IOnBackPressed {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Safe call operator ? added to the variable before invoking the property instructs the compiler to invoke the property only if the value isn't null.
-        when (item?.itemId) {
+        when (item.itemId) {
 //            R.id.action_community_search -> {
 //                Log.e("ACTION", "search")
 //                return true

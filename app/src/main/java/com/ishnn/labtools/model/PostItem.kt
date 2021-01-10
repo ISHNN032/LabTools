@@ -8,8 +8,8 @@ data class PostItem(
     val title: String? = "없는 게시물입니다.",
     val time: Date? = null,
     val user: Long? = null,
-    val notice: Boolean? = false,
+    val notice: Boolean = false,
     val commentCount: Int? = 0,
     val favoriteCount: Int? = 0,
-    val imageUrl: URL? = null
+    val hasImage: Boolean = false
 ) : Serializable

@@ -31,9 +31,9 @@ class PostContentFragment : Fragment(), IOnBackPressed {
 //        )
 //    }
 //    private lateinit var mRecyclerView: RecyclerView
-    private val commentAdapter by lazy { CommentItemAdapter(ArrayList()) }
     private lateinit var mPost: PostItem
     private lateinit var mPostContent: PostContent
+    private val commentAdapter by lazy { CommentItemAdapter(ArrayList(), mPost.postId!!, context)}
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -72,7 +72,7 @@ class PostContentFragment : Fragment(), IOnBackPressed {
 
     @SuppressLint("SimpleDateFormat")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        if(mPost.notice!!){
+        if(mPost.notice){
             post_content_tv_notice.visibility = View.VISIBLE
         }else{
             post_content_tv_notice.visibility = View.GONE
@@ -86,9 +86,30 @@ class PostContentFragment : Fragment(), IOnBackPressed {
         initRecyclerView()
         commentAdapter.refreshData()
 
-        PostManager.addPostComment(mPost.postId, mPost.postId, "댓글입니다.")
-        PostManager.addPostComment(mPost.postId, mPost.postId, "댓글입니다.")
-        PostManager.addPostComment(mPost.postId, mPost.postId, "댓글입니다.")
+        PostManager.addPostComment(mPost.postId!!, "0", "댓글입니다. 0",
+            hasImage = false,
+            isNested = false
+        )
+        PostManager.addPostComment(mPost.postId!!, "0a", "대댓글입니다. 0a",
+            hasImage = false,
+            isNested = true
+        )
+        PostManager.addPostComment(mPost.postId!!, "0b", "대댓글입니다. 0b",
+            hasImage = false,
+            isNested = true
+        )
+        PostManager.addPostComment(mPost.postId!!, "1", "댓글입니다. 1",
+            hasImage = false,
+            isNested = false
+        )
+        PostManager.addPostComment(mPost.postId!!, "2", "댓글입니다. 2",
+            hasImage = false,
+            isNested = false
+        )
+        PostManager.addPostComment(mPost.postId!!, "2a", "대댓글입니다. 2a",
+            hasImage = false,
+            isNested = true
+    )
     }
 
     override fun onBackPressed(): Boolean {

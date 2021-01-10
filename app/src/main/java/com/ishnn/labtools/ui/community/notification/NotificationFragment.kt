@@ -35,11 +35,11 @@ class NotificationFragment : Fragment(), IOnBackPressed{
 
         val root = inflater.inflate(R.layout.fragment_notification, container, false)
         mSwipe = root.findViewById<SwipeRefreshLayout>(R.id.swiperefresh)
-        mSwipe!!.setOnRefreshListener {
+        mSwipe.setOnRefreshListener {
             Log.d("refresh", "refreshed")
             GlobalScope.launch {
                 delay(1000)
-                mSwipe!!.isRefreshing = false
+                mSwipe.isRefreshing = false
             }
         }
         mRecyclerView = root.findViewById(R.id.recyclerView)

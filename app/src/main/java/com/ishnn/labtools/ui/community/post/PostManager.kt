@@ -33,23 +33,24 @@ object PostManager {
                     false,
                     0,
                     0,
-                    null
+                    false
                 )
             )
         }
     }
 
-    fun addPostComment(postId: String?, replyOfId: String?, content: String?) {
+    fun addPostComment(postId: String, commentId: String, content: String?, hasImage: Boolean, isNested: Boolean) {
         if (!GlobalLogin.getUserLoggedIn()) {
             return
             //Todo 로그인하지 않은 유저가 댓글작성을 눌렀을 경우
         }
-        Global.db.collection("comment").add(
+
+        Global.db.collection("postContent").document(postId).collection("comment").document(commentId).set(
             CommentItem(
-                postId, replyOfId, content,
+                commentId, content,
                 Date(System.currentTimeMillis()),
                 GlobalLogin.getUserData()!!.id,
-                ""
+                hasImage, isNested
             )
         )
     }
@@ -62,17 +63,18 @@ object PostManager {
                         Global.storage.reference.child(item.path).delete()
                     }
                 }
-            Global.storage.reference.child("${Global.STORAGE_POST_CROPPED}${postId}").listAll()
-                .addOnSuccessListener {
-                    for (item in it.items) {
-                        Global.storage.reference.child(item.path).delete()
-                    }
-                }
         }
         Global.db.collection("postContent").document(postId).delete()
             .addOnSuccessListener {
                 Global.db.collection("post").document(postId).delete()
             }
+    }
+
+    fun deleteComment(postId: String, commentId: String, hasImage: Boolean) {
+        if (hasImage) {
+            Global.storage.reference.child("${Global.STORAGE_POST_CONTENT}${postId}/${commentId}").delete()
+        }
+        Global.db.collection("postContent").document(postId).collection("comment").document(commentId).delete()
     }
 
     fun getPosts(callback: (List<PostItem>) -> Unit) {
@@ -95,8 +97,9 @@ object PostManager {
         }
     }
 
-    fun getPostComments(callback: (List<CommentItem>) -> Unit) {
-        Global.db.collection("comment").orderBy("time", Query.Direction.DESCENDING)
+    fun getPostComments(postId: String, callback: (List<CommentItem>) -> Unit) {
+        Global.db.collection("postContent").document(postId).collection("comment").
+        orderBy("commentId", Query.Direction.ASCENDING)
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
