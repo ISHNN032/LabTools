@@ -67,28 +67,32 @@ class HomeFragment : Fragment(), GlobalLogin.OnLoginInterface {
         main_navigationView.setNavigationItemSelectedListener {
             when(it.itemId){
                 R.id.drawer_item_stopwatch -> {
-
+                    Log.e("drawer", "goto stopwatch")
                 }
                 R.id.drawer_item_timer -> {
-
+                    Log.e("drawer", "goto timer")
                 }
                 R.id.drawer_item_calculator -> {
-
+                    Log.e("drawer", "goto calculator")
                 }
                 R.id.drawer_item_counter -> {
-
+                    Log.e("drawer", "goto counter")
                 }
+
                 R.id.drawer_item_memo -> {
-
+                    Log.e("drawer", "goto memo")
                 }
+
                 R.id.drawer_item_community -> {
+                    Log.e("drawer", "goto community")
 
                 }
-                R.id.drawer_item_license -> {
 
+                R.id.drawer_item_license -> {
+                    Log.e("drawer", "goto license")
                 }
                 R.id.drawer_item_setting -> {
-
+                    Log.e("drawer", "goto setting")
                 }
             }
             true

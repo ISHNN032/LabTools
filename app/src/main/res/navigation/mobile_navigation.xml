@@ -6,6 +6,44 @@
     app:startDestination="@+id/navigation_calculator">
 
     <fragment
+        android:id="@+id/navigation_calculator"
+        android:name="com.ishnn.labtools.ui.home.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home">
+    </fragment>
+
+
+
+    <fragment
+        android:id="@+id/navigation_stopwatch"
+        android:name="com.ishnn.labtools.ui.tools.ToolsFragment"
+        android:label="@string/title_tools"
+        tools:layout="@layout/fragment_tools_stopwatch" />
+
+<!--    <fragment-->
+<!--        android:id="@+id/navigation_notification"-->
+<!--        android:name="com.ishnn.labtools.ui.community.notification.NotificationFragment"-->
+<!--        android:label="@string/title_notification"-->
+<!--        tools:layout="@layout/fragment_tools_stopwatch" />-->
+
+
+
+    <fragment
+        android:id="@+id/navigation_memo"
+        android:name="com.ishnn.labtools.ui.memo.MemoFragment"
+        android:label="@string/title_memo"
+        tools:layout="@layout/fragment_community_webview">
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.ishnn.labtools.ui.home.profile.ProfileFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_profile" />
+
+
+
+    <fragment
         android:id="@+id/navigation_community"
         android:name="com.ishnn.labtools.ui.community.CommunityFragment"
         android:label="@string/title_community"
@@ -23,41 +61,10 @@
         android:name="com.ishnn.labtools.ui.community.notification.NotificationFragment"
         android:label="@string/title_notification"
         tools:layout="@layout/fragment_notification" />
+
     <fragment
         android:id="@+id/community_postcontent"
         android:name="com.ishnn.labtools.ui.community.post.PostContentFragment"
         android:label="@string/title_community"
         tools:layout="@layout/fragment_postcontent" />
-
-    <fragment
-        android:id="@+id/navigation_calculator"
-        android:name="com.ishnn.labtools.ui.home.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home">
-    </fragment>
-
-    <fragment
-        android:id="@+id/navigation_stopwatch"
-        android:name="com.ishnn.labtools.ui.tools.ToolsFragment"
-        android:label="@string/title_tools"
-        tools:layout="@layout/fragment_tools_stopwatch" />
-
-<!--    <fragment-->
-<!--        android:id="@+id/navigation_notification"-->
-<!--        android:name="com.ishnn.labtools.ui.community.notification.NotificationFragment"-->
-<!--        android:label="@string/title_notification"-->
-<!--        tools:layout="@layout/fragment_tools_stopwatch" />-->
-
-    <fragment
-        android:id="@+id/navigation_memo"
-        android:name="com.ishnn.labtools.ui.memo.MemoFragment"
-        android:label="@string/title_memo"
-        tools:layout="@layout/fragment_community_webview">
-    </fragment>
-
-    <fragment
-        android:id="@+id/navigation_profile"
-        android:name="com.ishnn.labtools.ui.home.profile.ProfileFragment"
-        android:label="@string/title_profile"
-        tools:layout="@layout/fragment_profile" />
 </navigation>
