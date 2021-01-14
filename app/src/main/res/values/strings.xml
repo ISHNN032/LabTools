@@ -514,5 +514,7 @@
     <string name="modify">수정하기</string>
     <string name="delete">삭제하기</string>
     <string name="desc_comment_menu">comment_menu</string>
+    <string name="post_save">등록</string>
+    <string name="post_cancel">취소</string>
 
 </resources>

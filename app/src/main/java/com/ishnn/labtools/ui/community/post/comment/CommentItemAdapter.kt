@@ -37,7 +37,9 @@ class CommentItemAdapter(
         val tvContent: TextView
         val ivImage: ImageView
         val nasted: View
-        val menuButton: ImageButton
+        val commentButton: TextView
+        val editButton: TextView
+        val deleteButton: TextView
 
         init {
             with(item) {
@@ -46,7 +48,9 @@ class CommentItemAdapter(
                 tvContent = findViewById(R.id.comment_item_tv_content)
                 ivImage = findViewById(R.id.comment_item_iv_image)
                 nasted = findViewById(R.id.comment_item_nested)
-                menuButton = findViewById(R.id.comment_item_btn_menu)
+                commentButton = findViewById(R.id.comment_item_bt_comment)
+                editButton = findViewById(R.id.comment_item_bt_edit)
+                deleteButton = findViewById(R.id.comment_item_bt_delete)
             }
         }
     }
@@ -108,23 +112,21 @@ class CommentItemAdapter(
         val time = SimpleDateFormat("yyyy-MM-dd HH:mm")
         (holder as ViewHolder).tvTime.text = time.format(item.time!!)
 
-        if (item.user == GlobalLogin.getUserData()?.id) {
-            (holder as ViewHolder).menuButton.visibility = View.VISIBLE
-            (holder as ViewHolder).menuButton.setOnClickListener { view ->
-                val popupMenu = PopupMenu(mContext, view)
-                popupMenu.show()
-                popupMenu.setOnMenuItemClickListener {
-                    when (it!!.itemId) {
-                        R.id.menu_post_modify -> {
+        if (GlobalLogin.getUserData() != null){
+            (holder as ViewHolder).commentButton.visibility = View.VISIBLE
+            (holder as ViewHolder).commentButton.setOnClickListener {
 
-                        }
-                        R.id.menu_post_delete -> {
-                            PostManager.deleteComment(postId, item.commentId!!, item.hasImage)
-                            refreshData()
-                        }
-                    }
-                    return@setOnMenuItemClickListener false
-                }
+            }
+        }
+
+        if (item.user == GlobalLogin.getUserData()?.id) {
+            (holder as ViewHolder).editButton.visibility = View.VISIBLE
+            (holder as ViewHolder).editButton.setOnClickListener {
+
+            }
+            (holder as ViewHolder).deleteButton.visibility = View.VISIBLE
+            (holder as ViewHolder).deleteButton.setOnClickListener {
+
             }
         }
     }

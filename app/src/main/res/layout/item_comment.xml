@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/large_margin">
+    android:padding="@dimen/small_margin">
 
     <View
         android:id="@+id/comment_item_nested"
@@ -63,15 +63,34 @@
         app:layout_constraintStart_toStartOf="@+id/comment_item_tv_nickname"
         app:layout_constraintTop_toBottomOf="@+id/comment_item_tv_content" />
 
-    <ImageButton
-        android:id="@+id/comment_item_btn_menu"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:background="@color/transparent"
-        android:scaleType="center"
-        android:src="@drawable/ic_post_menu"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/comment_item_tv_nickname"
-        android:contentDescription="@string/desc_comment_menu" />
+    <TextView
+        android:id="@+id/comment_item_bt_comment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="답글"
+        android:layout_marginStart="@dimen/large_margin"
+        app:layout_constraintTop_toTopOf="@+id/comment_item_tv_time"
+        app:layout_constraintBottom_toBottomOf="@+id/comment_item_tv_time"
+        app:layout_constraintStart_toEndOf="@+id/comment_item_tv_time"
+        />
+    <TextView
+        android:id="@+id/comment_item_bt_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="수정"
+        android:layout_marginStart="@dimen/large_margin"
+        app:layout_constraintTop_toTopOf="@+id/comment_item_tv_time"
+        app:layout_constraintBottom_toBottomOf="@+id/comment_item_tv_time"
+        app:layout_constraintStart_toEndOf="@+id/comment_item_bt_comment"
+        />
+    <TextView
+        android:id="@+id/comment_item_bt_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="삭제"
+        android:layout_marginStart="@dimen/large_margin"
+        app:layout_constraintTop_toTopOf="@+id/comment_item_tv_time"
+        app:layout_constraintBottom_toBottomOf="@+id/comment_item_tv_time"
+        app:layout_constraintStart_toEndOf="@+id/comment_item_bt_edit"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>
