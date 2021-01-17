@@ -47,7 +47,6 @@ public class DilutionFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_calculator_content_dilution, container, false);
-
         ButterKnife.bind(this, view);
 
 

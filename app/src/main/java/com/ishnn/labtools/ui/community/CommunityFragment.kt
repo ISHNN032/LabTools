@@ -1,5 +1,8 @@
 package com.ishnn.labtools.ui.community
 
+import android.app.AlertDialog
+import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,12 +11,16 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
+import androidx.navigation.fragment.NavHostFragment
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
+import com.ishnn.labtools.GlobalLogin
+import com.ishnn.labtools.LoginActivity
 import com.ishnn.labtools.R
 import com.ishnn.labtools.ui.community.post.PostFragment
 import com.ishnn.labtools.ui.community.post.PostManager
 import com.ishnn.labtools.util.IOnBackPressed
+import com.ishnn.labtools.util.animOptions
 import kotlinx.android.synthetic.main.fragment_community.*
 
 /**
@@ -42,7 +49,16 @@ class CommunityFragment : Fragment(), IOnBackPressed {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         community_button_post.setOnClickListener {
-            PostManager.addPost()
+            if(GlobalLogin.getUserLoggedIn()){
+                //PostManager.addPost()
+                NavHostFragment.findNavController(this).navigate(
+                    R.id.action_nav_commu_to_posting,
+                    null,
+                    animOptions
+                )
+            }else{
+                dialogLogIn()
+            }
         }
         setTabs()
     }
@@ -90,5 +106,16 @@ class CommunityFragment : Fragment(), IOnBackPressed {
         }
 
         override fun getPageTitle(position: Int): CharSequence = pageTitles[position]
+    }
+
+    private fun dialogLogIn(){
+        val builder: AlertDialog.Builder = AlertDialog.Builder(context)
+        builder.setTitle("사용자 정보가 없습니다.")
+        builder.setMessage("로그인을 진행해주세요.")
+        builder.setPositiveButton("확인", DialogInterface.OnClickListener { _, _ ->
+            val intent = Intent(context, LoginActivity::class.java)
+            requireActivity().startActivity(intent)
+        })
+        builder.show()
     }
 }

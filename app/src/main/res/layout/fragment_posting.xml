@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scrollbars="vertical"
-    tools:context=".ui.community.CommunityFragment">
+    tools:context=".ui.community.post.PostingFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -13,8 +13,11 @@
 
         <Button
             android:id="@+id/posting_button_exit"
-            android:layout_width="wrap_content"
+            android:layout_width="36dp"
             android:layout_height="wrap_content"
+            android:text="@string/x"
+            android:textStyle="bold"
+            android:background="@color/transparent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             />
@@ -62,7 +65,10 @@
             android:orientation="horizontal"
             android:padding="@dimen/small_margin"
             app:layout_constraintTop_toBottomOf="@+id/posting_et_title">
-            <Button
+            <ImageButton
+                android:id="@+id/posting_button_image"
+                android:src="@drawable/ic_posting_image"
+                android:background="@color/transparent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
@@ -79,14 +85,14 @@
             android:layout_height="wrap_content"
             android:layout_marginVertical="@dimen/large_margin"
             android:orientation="vertical"
-            android:padding="@dimen/large_margin"
             app:layout_constraintTop_toBottomOf="@+id/posting_layout_buttons">
             <EditText
+                android:id="@+id/posting_et_content"
                 android:layout_width="match_parent"
-                android:layout_height="42dp"
+                android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:gravity="center_vertical"
-                android:maxLines="1"
+                android:padding="@dimen/large_margin"
                 android:textColor="@color/colorBlack"
                 android:hint="내용을 입력하세요."
                 android:background="@null"

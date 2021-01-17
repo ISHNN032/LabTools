@@ -75,7 +75,8 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
+    api 'com.theartofdev.edmodo:android-image-cropper:2.8.0'
     implementation 'com.jakewharton:butterknife:10.2.2'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.2'
+    kapt 'com.jakewharton:butterknife-compiler:10.2.2'
     implementation 'me.grantland:autofittextview:0.2.1'
 }

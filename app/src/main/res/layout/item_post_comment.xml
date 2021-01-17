@@ -1,81 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:scrollbars="vertical"
-    tools:context=".ui.community.CommunityFragment">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <TextView
+        android:id="@+id/item_post_comment_tv_nickname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/default_nickname"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/item_post_comment_layout_content"
+        app:layout_constraintStart_toStartOf="parent" />
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/item_post_comment_bt_image"
+        android:layout_marginStart="@dimen/large_margin"
+        android:src="@drawable/ic_posting_image"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:background="@color/transparent"
+        app:layout_constraintStart_toEndOf="@+id/item_post_comment_tv_nickname"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/item_post_comment_layout_content"/>
+
+
+    <Button
+        android:id="@+id/item_post_comment_bt_save"
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:background="@color/transparent"
+        android:text="@string/post_save"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0.2dp"
+        android:layout_centerInParent="true"
+        android:background="@color/colorGray"
+        app:layout_constraintTop_toTopOf="@+id/item_post_comment_layout_content" />
 
-        <Button
-            android:id="@+id/item_post_comment_bt_cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="36dp"
-            android:text="@string/post_cancel"
-            android:background="@color/transparent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            />
+    <LinearLayout
+        android:id="@+id/item_post_comment_layout_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/item_post_comment_bt_save">
 
-        <TextView
-            android:id="@+id/item_post_comment_tv_nickname"
-            android:layout_width="wrap_content"
+        <ImageView
+            android:id="@+id/item_post_comment_image"
+            android:layout_width="240dp"
             android:layout_height="wrap_content"
-            android:text="@string/default_nickname"
-            app:layout_constraintBottom_toTopOf="@+id/item_post_comment_layout_content"
-            app:layout_constraintStart_toStartOf="parent"
-            />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.2dp"
-            android:layout_centerInParent="true"
-            android:background="@color/colorGray"
-            app:layout_constraintTop_toTopOf="@+id/item_post_comment_layout_content" />
-
-        <LinearLayout
-            android:id="@+id/item_post_comment_layout_content"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:padding="@dimen/large_margin"
-            app:layout_constraintTop_toBottomOf="@+id/item_post_comment_bt_cancel">
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="42dp"
-                android:ellipsize="end"
-                android:gravity="center_vertical"
-                android:maxLines="1"
-                android:textColor="@color/colorBlack"
-                android:hint="내용을 입력하세요."
-                android:background="@null"
-                android:textSize="14sp"
-                android:textStyle="bold"/>
-        </LinearLayout>
-        <View
+            android:visibility="gone"
+            android:contentDescription="@string/desc_post_item_iv_image"/>
+
+        <EditText
+            android:id="@+id/item_post_comment_text"
             android:layout_width="match_parent"
-            android:layout_height="0.2dp"
-            android:layout_centerInParent="true"
-            android:background="@color/colorGray"
-            app:layout_constraintBottom_toBottomOf="@+id/item_post_comment_layout_content" />
-
-        <Button
-            android:id="@+id/item_post_comment_bt_image"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/item_post_comment_layout_content"
-            app:layout_constraintStart_toStartOf="parent"/>
+            android:padding="@dimen/large_margin"
+            android:background="@null"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:hint="내용을 입력하세요."
+            android:textColor="@color/colorBlack"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+    </LinearLayout>
 
-        <Button
-            android:id="@+id/item_post_comment_bt_save"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/post_save"
-            app:layout_constraintTop_toBottomOf="@+id/item_post_comment_layout_content"
-            app:layout_constraintEnd_toEndOf="parent"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.core.widget.NestedScrollView>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"
+        android:layout_centerInParent="true"
+        android:background="@color/colorGray"
+        app:layout_constraintBottom_toBottomOf="@+id/item_post_comment_layout_content" />
+</androidx.constraintlayout.widget.ConstraintLayout>

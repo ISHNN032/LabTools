@@ -1,5 +1,8 @@
 package com.ishnn.labtools.ui.community.post
 
+import android.database.Cursor
+import android.net.Uri
+import android.provider.OpenableColumns
 import android.util.Log
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.Query
@@ -11,12 +14,15 @@ import com.ishnn.labtools.model.CommentItem
 import com.ishnn.labtools.model.PostContent
 import com.ishnn.labtools.model.PostItem
 import java.util.*
+import kotlin.collections.ArrayList
 
 object PostManager {
+    const val GET_GALLERY_IMAGE_POST = 100
+    const val GET_GALLERY_IMAGE_COMMENT = 200
+
     fun addPost() {
         if (!GlobalLogin.getUserLoggedIn()) {
             return
-            //Todo 로그인하지 않은 유저가 포스트 버튼을 눌렀을 경우
         }
         Global.db.collection("postContent").add(
             PostContent(
@@ -39,10 +45,44 @@ object PostManager {
         }
     }
 
+    fun addPost(title: String?, content: String?, hasImage: Boolean, Images: ArrayList<Uri>?) {
+        if (!GlobalLogin.getUserLoggedIn()) {
+            return
+        }
+        Global.db.collection("postContent").add(
+            PostContent(
+                content,
+                hasImage = hasImage
+            )
+        ).addOnSuccessListener {
+            Global.db.collection("post").document(it.id).set(
+                PostItem(
+                    it.id,
+                    title,
+                    Date(System.currentTimeMillis()),
+                    GlobalLogin.getUserData()!!.id,
+                    false,
+                    0,
+                    0,
+                    hasImage = hasImage
+                )
+            )
+
+            if(hasImage && !Images.isNullOrEmpty()){
+                for(image in Images.withIndex()){
+                    if(image.index == 0){
+                        //Global.storage.reference.child("${Global.STORAGE_POST_CONTENT}${it.id}").putFile(image.value)
+                        //Todo Preview Image
+                    }
+                    Global.storage.reference.child("${Global.STORAGE_POST_CONTENT}${it.id}").putFile(image.value)
+                }
+            }
+        }
+    }
+
     fun addPostComment(postId: String, commentId: String, content: String?, hasImage: Boolean, isNested: Boolean) {
         if (!GlobalLogin.getUserLoggedIn()) {
             return
-            //Todo 로그인하지 않은 유저가 댓글작성을 눌렀을 경우
         }
 
         Global.db.collection("postContent").document(postId).collection("comment").document(commentId).set(
@@ -163,5 +203,9 @@ object PostManager {
             .addOnFailureListener { exception ->
                 Log.d("TAG", "Error getting documents: ", exception)
             }
+    }
+
+    fun addImage(postId: String, imageName: String) {
+
     }
 }

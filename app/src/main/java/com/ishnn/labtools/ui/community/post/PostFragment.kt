@@ -27,15 +27,17 @@ class PostFragment : Fragment(), IOnBackPressed{
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        Log.d("Tag", this.tag.toString())
+
         setHasOptionsMenu(true)
         val root = inflater.inflate(R.layout.fragment_post, container, false)
         mRecyclerView = root.findViewById(R.id.recyclerView)
         mSwipe = root.findViewById<SwipeRefreshLayout>(R.id.swiperefresh)
-        mSwipe!!.setOnRefreshListener {
+        mSwipe.setOnRefreshListener {
             Log.d("refresh", "refreshed")
             GlobalScope.launch {
                 adapter.refreshData()
-                mSwipe!!.isRefreshing = false
+                mSwipe.isRefreshing = false
             }
         }
         initRecyclerView()

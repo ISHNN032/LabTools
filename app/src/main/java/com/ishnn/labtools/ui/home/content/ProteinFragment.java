@@ -46,7 +46,6 @@ public class ProteinFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_calculator_content_protein, container, false);
-
         ButterKnife.bind(this, view);
 
 

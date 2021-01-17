@@ -22,6 +22,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.dynamiclinks.DynamicLink
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks
 import com.google.firebase.dynamiclinks.ShortDynamicLink
+import com.ishnn.labtools.ui.community.post.PostManager
 import com.ishnn.labtools.util.IOnBackPressed
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
@@ -109,6 +110,33 @@ class MainActivity : AppCompatActivity() {
             }
         } else {
             Log.e(currentFragment.toString(), "b")
+            super.onBackPressed()
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+//        val request = requestCode.and(0xffff)
+//        when(request){
+//            PostManager.GET_GALLERY_IMAGE_POST -> {
+//                var fragment = supportFragmentManager.findFragmentById(R.id.community_posting)
+//                Log.e("resultp", fragment.toString())
+//            }
+//            PostManager.GET_GALLERY_IMAGE_COMMENT -> {
+//                val fragment = supportFragmentManager.findFragmentById(R.id.community_postcontent)
+//                Log.e("resultc", fragment.toString())
+//            }
+//        }
+        val fragment =
+            this.supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as? NavHostFragment
+        val currentFragment = fragment?.childFragmentManager?.primaryNavigationFragment
+        if (currentFragment.toString().contains("PostingFragment") ||
+            currentFragment.toString().contains("PostContentFragment")
+        ) {
+            Log.e(currentFragment.toString(), "Result ${data?.data}")
+            fragment?.onActivityResult(requestCode, resultCode, data)
+        } else {
+            Log.e(currentFragment.toString(), "has no Result Function")
             super.onBackPressed()
         }
     }

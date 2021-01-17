@@ -45,7 +45,7 @@ class HistoryActionListDialogFragment : BottomSheetDialogFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater!!.inflate(R.layout.fragment_tools_calculator_history_list_dialog, container, false)
+        return inflater.inflate(R.layout.fragment_tools_calculator_history_list_dialog, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -75,7 +75,7 @@ class HistoryActionListDialogFragment : BottomSheetDialogFragment() {
     }
 
     override fun onAttach(context: Context) {
-        context?.let { super.onAttach(it) }
+        context.let { super.onAttach(it) }
         val parent = parentFragment
         if (parent != null) {
             mListener = parent as Listener

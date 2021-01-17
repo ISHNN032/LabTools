@@ -92,7 +92,7 @@ class CommentItemAdapter(
             val imageView = (holder as ViewHolder).ivImage
             imageView.visibility = View.VISIBLE
             val ref =
-                Global.storage.reference.child("${Global.STORAGE_POST_CONTENT}${postId}/${Global.CROPPED_IMAGE}")
+                Global.storage.reference.child("${Global.STORAGE_POST_CONTENT}${postId}/${item.commentId}")
             GlideApp.with(mContext)
                 .load(ref)
                 .into(imageView)
@@ -110,22 +110,22 @@ class CommentItemAdapter(
         (holder as ViewHolder).tvContent.text = item.content
 
         val time = SimpleDateFormat("yyyy-MM-dd HH:mm")
-        (holder as ViewHolder).tvTime.text = time.format(item.time!!)
+        holder.tvTime.text = time.format(item.time!!)
 
         if (GlobalLogin.getUserData() != null){
-            (holder as ViewHolder).commentButton.visibility = View.VISIBLE
-            (holder as ViewHolder).commentButton.setOnClickListener {
+            holder.commentButton.visibility = View.VISIBLE
+            holder.commentButton.setOnClickListener {
 
             }
         }
 
         if (item.user == GlobalLogin.getUserData()?.id) {
-            (holder as ViewHolder).editButton.visibility = View.VISIBLE
-            (holder as ViewHolder).editButton.setOnClickListener {
+            holder.editButton.visibility = View.VISIBLE
+            holder.editButton.setOnClickListener {
 
             }
-            (holder as ViewHolder).deleteButton.visibility = View.VISIBLE
-            (holder as ViewHolder).deleteButton.setOnClickListener {
+            holder.deleteButton.visibility = View.VISIBLE
+            holder.deleteButton.setOnClickListener {
 
             }
         }

@@ -1,31 +1,32 @@
 package com.ishnn.labtools.ui.community.post
 
+import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Activity.RESULT_OK
 import android.app.AlertDialog
 import android.content.DialogInterface
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.database.Cursor
+import android.net.Uri
 import android.os.Bundle
+import android.provider.OpenableColumns
+import android.text.TextUtils
 import android.util.Log
-import android.view.*
-import android.widget.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.ishnn.labtools.Global
-import com.ishnn.labtools.GlobalLogin
 import com.ishnn.labtools.R
-import com.ishnn.labtools.model.PostContent
-import com.ishnn.labtools.model.PostItem
-import com.ishnn.labtools.ui.community.post.comment.CommentItemAdapter
 import com.ishnn.labtools.util.IOnBackPressed
-import kotlinx.android.synthetic.main.fragment_postcontent.*
-import kotlinx.coroutines.*
-import java.text.SimpleDateFormat
+import kotlinx.android.synthetic.main.fragment_posting.*
 
 
-class PostingFragment : Fragment(), IOnBackPressed {
-    private lateinit var mPost: PostItem
-    private lateinit var mPostContent: PostContent
-    private val commentAdapter by lazy { CommentItemAdapter(ArrayList(), mPost.postId!!, context)}
+class PostingFragment : Fragment(), IOnBackPressed, View.OnClickListener {
+    private val mImages : ArrayList<Uri> = ArrayList()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,82 +35,119 @@ class PostingFragment : Fragment(), IOnBackPressed {
     ): View? {
         setHasOptionsMenu(true)
         val root = inflater.inflate(R.layout.fragment_posting, container, false)
-
-        mPost = arguments?.getSerializable("post") as PostItem
-        if(mPost.user == null){
-            dialogNoPost()
-            return null
-        }
-
-        val callbackContent: (content: PostContent?) -> Unit = { content ->
-            if(content == null){
-                dialogNoPost()
-            }else{
-                mPostContent = content
-            }
-        }
-        val callbackName: (String?) -> Unit = { name ->
-            post_content_tv_nickname.text = name
-        }
-        PostManager.getPostContent(mPost.postId!!, callback = callbackContent)
-        PostManager.getUserName(mPost.user!!, callback = callbackName)
-
-        if(mPost.user == GlobalLogin.getUserData()?.id){
-            root.findViewById<ImageButton>(R.id.post_content_btn_menu).visibility = View.VISIBLE
-        }
         return root
     }
 
     @SuppressLint("SimpleDateFormat")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        if(mPost.notice){
-            post_content_tv_notice.visibility = View.VISIBLE
-        }else{
-            post_content_tv_notice.visibility = View.GONE
-        }
-        post_content_tv_title.text = mPost.title
-        val time = SimpleDateFormat("yyyy-MM-dd HH:mm")
-        post_content_tv_time.text = time.format(mPost.time!!)
-        post_content_tv_comment.text = mPost.commentCount.toString()
-        post_content_tv_favorite.text = mPost.favoriteCount.toString()
-        commentAdapter.refreshData()
-
-        PostManager.addPostComment(mPost.postId!!, "0", "댓글입니다. 0",
-            hasImage = false,
-            isNested = false
-        )
-        PostManager.addPostComment(mPost.postId!!, "0a", "대댓글입니다. 0a",
-            hasImage = false,
-            isNested = true
-        )
-        PostManager.addPostComment(mPost.postId!!, "0b", "대댓글입니다. 0b",
-            hasImage = false,
-            isNested = true
-        )
-        PostManager.addPostComment(mPost.postId!!, "1", "댓글입니다. 1",
-            hasImage = false,
-            isNested = false
-        )
-        PostManager.addPostComment(mPost.postId!!, "2", "댓글입니다. 2",
-            hasImage = false,
-            isNested = false
-        )
-        PostManager.addPostComment(mPost.postId!!, "2a", "대댓글입니다. 2a",
-            hasImage = false,
-            isNested = true
-        )
+        posting_button_exit.setOnClickListener(this)
+        posting_button_cancel.setOnClickListener(this)
+        posting_button_post.setOnClickListener(this)
+        posting_button_save.setOnClickListener(this)
+        posting_button_image.setOnClickListener(this)
     }
 
     override fun onBackPressed(): Boolean {
-        Log.e("a", "b")
+        dialogExit()
         return false
     }
 
-    private fun dialogNoPost(){
+    override fun onClick(view: View?) {
+        when(view?.id){
+            posting_button_exit.id ,
+            posting_button_cancel.id -> {
+                dialogExit()
+            }
+
+            posting_button_post.id,
+            posting_button_save.id -> {
+                var hasImage = false
+                if(mImages.size >= 0){
+                    hasImage = true
+                }
+                PostManager.addPost(posting_et_title.text.toString(), posting_et_content.text.toString(), hasImage, mImages)
+            }
+
+            posting_button_image.id -> {
+                checkSelfPermission()
+                val intent = Intent(Intent.ACTION_GET_CONTENT);
+                intent.setDataAndType(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+                startActivityForResult(intent, PostManager.GET_GALLERY_IMAGE_POST);
+            }
+        }
+    }
+
+    private fun dialogExit(){
         val builder: AlertDialog.Builder = AlertDialog.Builder(context)
-        builder.setTitle("게시물을 찾을 수 없습니다.")
-        builder.setMessage("삭제되었거나, 없는 게시물입니다.")
-        NavHostFragment.findNavController(this).navigateUp()
+        builder.setTitle("작성을 취소합니다")
+        builder.setMessage("작성하던 Post 내용은 저장되지 않습니다.")
+        builder.setPositiveButton("확인", DialogInterface.OnClickListener { _, _ ->
+            NavHostFragment.findNavController(this).navigateUp()
+        })
+        builder.setPositiveButton("돌아가기", DialogInterface.OnClickListener { dialogInterface, _ ->
+            dialogInterface.dismiss()
+        })
         builder.show()
+    }
+
+    fun checkSelfPermission() {
+        var temp = ""
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            temp += Manifest.permission.READ_EXTERNAL_STORAGE.toString() + " "
+        }
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            temp += Manifest.permission.WRITE_EXTERNAL_STORAGE.toString() + " "
+        }
+        if (TextUtils.isEmpty(temp) == false) {
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                temp.trim { it <= ' ' }.split(" ".toRegex()).toTypedArray(),
+                1
+            )
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        Log.e("RE", "$requestCode, $resultCode, ${data?.data}")
+        if (requestCode == PostManager.GET_GALLERY_IMAGE_POST && resultCode == RESULT_OK) {
+            val selectedImageUri: Uri? = data?.data
+            posting_et_content.text.insert(0, "\n[#IMAGE:${getFileName(selectedImageUri)}]\n")
+            mImages.add(data?.data!!)
+        }
+    }
+
+    fun getFileName(uri: Uri?): String? {
+        var result: String? = null
+        if (uri != null) {
+            if (uri.scheme == "content") {
+                val cursor: Cursor? = activity?.contentResolver?.query(uri, null, null, null, null)
+                try {
+                    if (cursor != null && cursor.moveToFirst()) {
+                        result = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME))
+                    }
+                } finally {
+                    cursor?.close()
+                }
+            }
+        }
+        if (result == null) {
+            if (uri != null) {
+                result = uri.path
+            }
+            val cut = result!!.lastIndexOf('/')
+            if (cut != -1) {
+                result = result.substring(cut + 1)
+            }
+        }
+        return result
     }
 }

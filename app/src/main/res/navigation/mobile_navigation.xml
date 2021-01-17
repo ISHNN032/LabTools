@@ -54,6 +54,9 @@
         <action
             android:id="@+id/action_nav_commu_to_postcontent"
             app:destination="@id/community_postcontent" />
+        <action
+            android:id="@+id/action_nav_commu_to_posting"
+            app:destination="@id/community_posting" />
     </fragment>
 
     <fragment
@@ -61,6 +64,12 @@
         android:name="com.ishnn.labtools.ui.community.notification.NotificationFragment"
         android:label="@string/title_notification"
         tools:layout="@layout/fragment_notification" />
+
+    <fragment
+        android:id="@+id/community_posting"
+        android:name="com.ishnn.labtools.ui.community.post.PostingFragment"
+        android:label="새글"
+        tools:layout="@layout/fragment_posting" />
 
     <fragment
         android:id="@+id/community_postcontent"

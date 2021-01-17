@@ -516,5 +516,6 @@
     <string name="desc_comment_menu">comment_menu</string>
     <string name="post_save">등록</string>
     <string name="post_cancel">취소</string>
+    <string name="x">X</string>
 
 </resources>

@@ -2,7 +2,7 @@ package com.ishnn.labtools.ui.community.post
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
-import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ishnn.labtools.Global
+import com.ishnn.labtools.Global.IMAGE_TAG
 import com.ishnn.labtools.GlobalLogin
 import com.ishnn.labtools.R
 import com.ishnn.labtools.model.PostContent
@@ -18,7 +19,6 @@ import com.ishnn.labtools.model.PostItem
 import com.ishnn.labtools.ui.community.post.comment.CommentItemAdapter
 import com.ishnn.labtools.util.IOnBackPressed
 import kotlinx.android.synthetic.main.fragment_postcontent.*
-import kotlinx.coroutines.*
 import java.text.SimpleDateFormat
 
 
@@ -54,7 +54,7 @@ class PostContentFragment : Fragment(), IOnBackPressed {
             if(content == null){
                 dialogNoPost()
             }else{
-                parseContent(content!!.content!!, post_content_layout_content)
+                parseContent(content.content!!, post_content_layout_content)
                 mPostContent = content
             }
         }
@@ -83,33 +83,47 @@ class PostContentFragment : Fragment(), IOnBackPressed {
         post_content_tv_comment.text = mPost.commentCount.toString()
         post_content_tv_favorite.text = mPost.favoriteCount.toString()
 
+
+        val postComment = post_content_include_post_comment
+        if(GlobalLogin.getUserLoggedIn()){
+            postComment.visibility = View.VISIBLE
+        }
+        val buttonCommentImage = postComment.findViewById<ImageButton>(R.id.item_post_comment_bt_image)
+        buttonCommentImage.setOnClickListener {
+            //Todo Image Button
+        }
+        val buttonCommentSave = postComment.findViewById<Button>(R.id.item_post_comment_bt_save)
+        buttonCommentSave.setOnClickListener {
+            PostManager.addPostComment(mPost.postId!!, "", postComment.findViewById<EditText>(R.id.item_post_comment_text).text.toString(), hasImage = false, isNested = false)
+        }
+
         initRecyclerView()
         commentAdapter.refreshData()
 
-        PostManager.addPostComment(mPost.postId!!, "0", "댓글입니다. 0",
-            hasImage = false,
-            isNested = false
-        )
-        PostManager.addPostComment(mPost.postId!!, "0a", "대댓글입니다. 0a",
-            hasImage = false,
-            isNested = true
-        )
-        PostManager.addPostComment(mPost.postId!!, "0b", "대댓글입니다. 0b",
-            hasImage = false,
-            isNested = true
-        )
-        PostManager.addPostComment(mPost.postId!!, "1", "댓글입니다. 1",
-            hasImage = false,
-            isNested = false
-        )
-        PostManager.addPostComment(mPost.postId!!, "2", "댓글입니다. 2",
-            hasImage = false,
-            isNested = false
-        )
-        PostManager.addPostComment(mPost.postId!!, "2a", "대댓글입니다. 2a",
-            hasImage = false,
-            isNested = true
-    )
+//        PostManager.addPostComment(mPost.postId!!, "0", "댓글입니다. 0",
+//            hasImage = false,
+//            isNested = false
+//        )
+//        PostManager.addPostComment(mPost.postId!!, "0a", "대댓글입니다. 0a",
+//            hasImage = false,
+//            isNested = true
+//        )
+//        PostManager.addPostComment(mPost.postId!!, "0b", "대댓글입니다. 0b",
+//            hasImage = false,
+//            isNested = true
+//        )
+//        PostManager.addPostComment(mPost.postId!!, "1", "댓글입니다. 1",
+//            hasImage = false,
+//            isNested = false
+//        )
+//        PostManager.addPostComment(mPost.postId!!, "2", "댓글입니다. 2",
+//            hasImage = false,
+//            isNested = false
+//        )
+//        PostManager.addPostComment(mPost.postId!!, "2a", "대댓글입니다. 2a",
+//            hasImage = false,
+//            isNested = true
+//    )
     }
 
     override fun onBackPressed(): Boolean {
@@ -127,14 +141,15 @@ class PostContentFragment : Fragment(), IOnBackPressed {
     fun parseContent(content: String, layout: LinearLayout){
         val split = content.split("[", "]")
         for(s in split){
-            if(s.startsWith("#IMAGE:")){
+            if(s.startsWith(IMAGE_TAG)){
+                val name = s.replaceFirst(IMAGE_TAG, "")
                 val image = ImageView(context)
                 val lp = LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT
                 )
                 image.layoutParams = lp
-                val ref = Global.storage.reference.child("${Global.STORAGE_POST_CONTENT}${mPost.postId}/Sample.png")
+                val ref = Global.storage.reference.child("${Global.STORAGE_POST_CONTENT}${mPost.postId}/$name")
                 GlideApp.with(requireContext())
                     .load(ref)
                     .into(image)
@@ -198,7 +213,6 @@ class PostContentFragment : Fragment(), IOnBackPressed {
             }
         }
     }
-
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) {
