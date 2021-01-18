@@ -1,12 +1,22 @@
 package com.ishnn.labtools.ui.community.post
 
+import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.database.Cursor
+import android.net.Uri
 import android.os.Bundle
+import android.provider.OpenableColumns
+import android.text.TextUtils
 import android.util.Log
 import android.view.*
 import android.widget.*
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,6 +29,8 @@ import com.ishnn.labtools.model.PostItem
 import com.ishnn.labtools.ui.community.post.comment.CommentItemAdapter
 import com.ishnn.labtools.util.IOnBackPressed
 import kotlinx.android.synthetic.main.fragment_postcontent.*
+import kotlinx.android.synthetic.main.fragment_posting.*
+import kotlinx.android.synthetic.main.item_post_comment.*
 import java.text.SimpleDateFormat
 
 
@@ -33,7 +45,11 @@ class PostContentFragment : Fragment(), IOnBackPressed {
 //    private lateinit var mRecyclerView: RecyclerView
     private lateinit var mPost: PostItem
     private lateinit var mPostContent: PostContent
-    private val commentAdapter by lazy { CommentItemAdapter(ArrayList(), mPost.postId!!, context)}
+    private val commentAdapter by lazy { CommentItemAdapter(ArrayList(), mPost.postId!!, this, context)}
+
+    //for comment
+    private var mCommentImage : Uri? = null
+    private var mCommentNested : String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -90,11 +106,18 @@ class PostContentFragment : Fragment(), IOnBackPressed {
         }
         val buttonCommentImage = postComment.findViewById<ImageButton>(R.id.item_post_comment_bt_image)
         buttonCommentImage.setOnClickListener {
-            //Todo Image Button
+            checkSelfPermission()
+            val intent = Intent(Intent.ACTION_GET_CONTENT);
+            intent.setDataAndType(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+            startActivityForResult(intent, PostManager.GET_GALLERY_IMAGE_COMMENT);
         }
         val buttonCommentSave = postComment.findViewById<Button>(R.id.item_post_comment_bt_save)
         buttonCommentSave.setOnClickListener {
-            PostManager.addPostComment(mPost.postId!!, "", postComment.findViewById<EditText>(R.id.item_post_comment_text).text.toString(), hasImage = false, isNested = false)
+            val hasImage = mCommentImage != null
+            val isNested = !mCommentNested.isNullOrEmpty()
+            PostManager.addPostComment(mPost.postId!!, makeCommentId(), postComment.findViewById<EditText>(R.id.item_post_comment_text).text.toString(),
+                hasImage = hasImage, isNested = isNested, image = mCommentImage
+            )
         }
 
         initRecyclerView()
@@ -102,28 +125,56 @@ class PostContentFragment : Fragment(), IOnBackPressed {
 
 //        PostManager.addPostComment(mPost.postId!!, "0", "댓글입니다. 0",
 //            hasImage = false,
-//            isNested = false
+//            isNested = false,
+//            image = null
 //        )
-//        PostManager.addPostComment(mPost.postId!!, "0a", "대댓글입니다. 0a",
+//        PostManager.addPostComment(mPost.postId!!, "0n0", "대댓글입니다. 0a",
 //            hasImage = false,
-//            isNested = true
+//            isNested = true,
+//            image = null
 //        )
-//        PostManager.addPostComment(mPost.postId!!, "0b", "대댓글입니다. 0b",
+//        PostManager.addPostComment(mPost.postId!!, "0n1", "대댓글입니다. 0b",
 //            hasImage = false,
-//            isNested = true
+//            isNested = true,
+//            image = null
 //        )
 //        PostManager.addPostComment(mPost.postId!!, "1", "댓글입니다. 1",
 //            hasImage = false,
-//            isNested = false
+//            isNested = false,
+//            image = null
 //        )
 //        PostManager.addPostComment(mPost.postId!!, "2", "댓글입니다. 2",
 //            hasImage = false,
-//            isNested = false
+//            isNested = false,
+//            image = null
 //        )
-//        PostManager.addPostComment(mPost.postId!!, "2a", "대댓글입니다. 2a",
+//        PostManager.addPostComment(mPost.postId!!, "2n0", "대댓글입니다. 2a",
 //            hasImage = false,
-//            isNested = true
-//    )
+//            isNested = true,
+//            image = null
+//        )
+    }
+
+    fun setCommentNested(nested: String?){
+        mCommentNested = nested
+        post_content_layout_scroll.scrollTo(post_content_include_post_comment.scrollX, post_content_include_post_comment.scrollY)
+    }
+    private fun makeCommentId(): String{
+        if(commentAdapter.itemCount > 0){
+            if(!mCommentNested.isNullOrEmpty()){
+                val id = mCommentNested!!.split("n")[0]
+                if(mCommentNested!!.split("n").size > 1){
+                    val nid = mCommentNested!!.split("n")[1]
+                    return (id.toInt(10)).toString().plus("n" + nid.toInt(10) + 1)
+                }
+                return (id.toInt(10)).toString().plus("n0")
+            }
+            val id = commentAdapter.items[commentAdapter.itemCount -1].commentId!!.split("n")[0]
+            return (id.toInt(10) + 1).toString()
+        }
+        else {
+            return "0"
+        }
     }
 
     override fun onBackPressed(): Boolean {
@@ -190,6 +241,19 @@ class PostContentFragment : Fragment(), IOnBackPressed {
         builder.show()
     }
 
+    private fun dialogDeletePost(){
+        val builder: AlertDialog.Builder = AlertDialog.Builder(context)
+        builder.setTitle("작성글을 삭제합니다.")
+        builder.setPositiveButton("확인", DialogInterface.OnClickListener { _, _ ->
+            PostManager.deletePost(mPost.postId!!, mPostContent.hasImage!!)
+            NavHostFragment.findNavController(this).navigateUp()
+        })
+        builder.setNegativeButton("취소", DialogInterface.OnClickListener { dialogInterface, _ ->
+            dialogInterface.dismiss()
+        })
+        builder.show()
+    }
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         if(post_content_btn_menu != null){
@@ -203,9 +267,7 @@ class PostContentFragment : Fragment(), IOnBackPressed {
 
                         }
                         R.id.menu_post_delete -> {
-                            PostManager.deletePost(mPost.postId!!, mPostContent.hasImage!!)
-                            //parentFragmentManager.popBackStack()
-                            NavHostFragment.findNavController(this).navigateUp()
+                            dialogDeletePost()
                         }
                     }
                     return@setOnMenuItemClickListener false
@@ -219,5 +281,67 @@ class PostContentFragment : Fragment(), IOnBackPressed {
             activity?.onBackPressed()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        Log.e("RE", "$requestCode, $resultCode, ${data?.data}")
+        if (requestCode == PostManager.GET_GALLERY_IMAGE_COMMENT && resultCode == Activity.RESULT_OK) {
+            val selectedImageUri: Uri? = data?.data
+            item_post_comment_image.setImageURI(selectedImageUri)
+            item_post_comment_image.visibility = View.VISIBLE
+            mCommentImage = selectedImageUri
+        }
+    }
+
+    fun getFileName(uri: Uri?): String? {
+        var result: String? = null
+        if (uri != null) {
+            if (uri.scheme == "content") {
+                val cursor: Cursor? = activity?.contentResolver?.query(uri, null, null, null, null)
+                try {
+                    if (cursor != null && cursor.moveToFirst()) {
+                        result = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME))
+                    }
+                } finally {
+                    cursor?.close()
+                }
+            }
+        }
+        if (result == null) {
+            if (uri != null) {
+                result = uri.path
+            }
+            val cut = result!!.lastIndexOf('/')
+            if (cut != -1) {
+                result = result.substring(cut + 1)
+            }
+        }
+        return result
+    }
+
+    fun checkSelfPermission() {
+        var temp = ""
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            temp += Manifest.permission.READ_EXTERNAL_STORAGE.toString() + " "
+        }
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            temp += Manifest.permission.WRITE_EXTERNAL_STORAGE.toString() + " "
+        }
+        if (TextUtils.isEmpty(temp) == false) {
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                temp.trim { it <= ' ' }.split(" ".toRegex()).toTypedArray(),
+                1
+            )
+        }
     }
 }

@@ -65,7 +65,7 @@ class PostingFragment : Fragment(), IOnBackPressed, View.OnClickListener {
                 if(mImages.size >= 0){
                     hasImage = true
                 }
-                PostManager.addPost(posting_et_title.text.toString(), posting_et_content.text.toString(), hasImage, mImages)
+                PostManager.addPost(posting_et_title.text.toString(), posting_et_content.text.toString(), hasImage, mImages, context)
             }
 
             posting_button_image.id -> {
@@ -84,7 +84,7 @@ class PostingFragment : Fragment(), IOnBackPressed, View.OnClickListener {
         builder.setPositiveButton("확인", DialogInterface.OnClickListener { _, _ ->
             NavHostFragment.findNavController(this).navigateUp()
         })
-        builder.setPositiveButton("돌아가기", DialogInterface.OnClickListener { dialogInterface, _ ->
+        builder.setNegativeButton("돌아가기", DialogInterface.OnClickListener { dialogInterface, _ ->
             dialogInterface.dismiss()
         })
         builder.show()

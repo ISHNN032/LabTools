@@ -1,7 +1,9 @@
 package com.ishnn.labtools.ui.community.post.comment
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,12 +14,14 @@ import com.ishnn.labtools.GlobalLogin
 import com.ishnn.labtools.R
 import com.ishnn.labtools.model.CommentItem
 import com.ishnn.labtools.ui.community.post.GlideApp
+import com.ishnn.labtools.ui.community.post.PostContentFragment
 import com.ishnn.labtools.ui.community.post.PostManager
 import java.text.SimpleDateFormat
 
 class CommentItemAdapter(
     var items: MutableList<CommentItem>,
     var postId: String,
+    val fragment: PostContentFragment,
     val mContext: Context?
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -92,7 +96,7 @@ class CommentItemAdapter(
             val imageView = (holder as ViewHolder).ivImage
             imageView.visibility = View.VISIBLE
             val ref =
-                Global.storage.reference.child("${Global.STORAGE_POST_CONTENT}${postId}/${item.commentId}")
+                Global.storage.reference.child("${Global.STORAGE_POST_CONTENT}${postId}/${item.commentId}.jpg")
             GlideApp.with(mContext)
                 .load(ref)
                 .into(imageView)
@@ -115,19 +119,32 @@ class CommentItemAdapter(
         if (GlobalLogin.getUserData() != null){
             holder.commentButton.visibility = View.VISIBLE
             holder.commentButton.setOnClickListener {
-
+                fragment.setCommentNested(item.commentId)
             }
         }
 
         if (item.user == GlobalLogin.getUserData()?.id) {
-            holder.editButton.visibility = View.VISIBLE
+            //holder.editButton.visibility = View.VISIBLE
             holder.editButton.setOnClickListener {
 
             }
             holder.deleteButton.visibility = View.VISIBLE
             holder.deleteButton.setOnClickListener {
-
+                dialogDeleteComment(item)
             }
         }
+    }
+
+    private fun dialogDeleteComment(item: CommentItem){
+        val builder: AlertDialog.Builder = AlertDialog.Builder(mContext)
+        builder.setTitle("댓글을 삭제합니다.")
+        builder.setPositiveButton("확인", DialogInterface.OnClickListener { _, _ ->
+            PostManager.deleteComment(postId, item.commentId!!, item.hasImage)
+            refreshData()
+        })
+        builder.setNegativeButton("취소", DialogInterface.OnClickListener { dialogInterface, _ ->
+            dialogInterface.dismiss()
+        })
+        builder.show()
     }
 }
