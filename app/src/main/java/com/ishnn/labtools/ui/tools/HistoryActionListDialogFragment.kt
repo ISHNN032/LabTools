@@ -60,7 +60,7 @@ class HistoryActionListDialogFragment : BottomSheetDialogFragment() {
             }
         }
 
-        val recyclerView = view!!.findViewById<View>(R.id.list) as androidx.recyclerview.widget.RecyclerView?
+        val recyclerView = requireView().findViewById<View>(R.id.list) as androidx.recyclerview.widget.RecyclerView?
         recyclerView!!.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
         recyclerView.adapter = ItemAdapter(mData)
 

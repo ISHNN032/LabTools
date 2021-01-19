@@ -12,6 +12,7 @@ import android.widget.ImageButton
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.ishnn.labtools.Global
 import com.ishnn.labtools.R
 import com.rnnzzo.uxdesign.model.TimerItem
 import kotlinx.coroutines.*
@@ -80,6 +81,7 @@ class TimerItemAdapter(
                         stopStopwatch()
                         items.removeAt(adapterPosition)
                         notifyItemRemoved(adapterPosition)
+                        Global.setStringArrayPref(context, "times", items as ArrayList<TimerItem>)
                     }
                 }
             }

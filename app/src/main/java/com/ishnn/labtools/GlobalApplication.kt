@@ -2,8 +2,10 @@ package com.ishnn.labtools
 
 import android.app.Activity
 import android.app.Application
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.preference.PreferenceManager
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -18,6 +20,9 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.kakao.sdk.common.KakaoSdk.init
 import com.kakao.sdk.common.util.Utility
+import com.rnnzzo.uxdesign.model.TimerItem
+import org.json.JSONArray
+import org.json.JSONException
 
 
 class GlobalApplication : Application() {
@@ -57,5 +62,45 @@ object Global {
             view = View(activity)
         }
         imm.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+
+    fun setStringArrayPref(
+        context: Context?,
+        key: String,
+        values: ArrayList<TimerItem>
+    ) {
+        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+        val editor = prefs.edit()
+        val a = JSONArray()
+        for (i in 0 until values.size) {
+            a.put(values[i])
+        }
+        if (values.isNotEmpty()) {
+            editor.putString(key, a.toString())
+        } else {
+            editor.putString(key, null)
+        }
+        editor.apply()
+    }
+
+    fun getStringArrayPref(
+        context: Context?,
+        key: String
+    ): ArrayList<TimerItem>? {
+        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+        val json = prefs.getString(key, null)
+        val urls = ArrayList<TimerItem>()
+        if (json != null) {
+            try {
+                val a = JSONArray(json)
+                for (i in 0 until a.length()) {
+                    val url = a.get(i) as TimerItem
+                    urls.add(url)
+                }
+            } catch (e: JSONException) {
+                e.printStackTrace()
+            }
+        }
+        return urls
     }
 }

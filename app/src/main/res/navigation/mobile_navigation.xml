@@ -3,13 +3,34 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_calculator">
+    app:startDestination="@+id/navigation_home">
 
     <fragment
-        android:id="@+id/navigation_calculator"
+        android:id="@+id/navigation_home"
         android:name="com.ishnn.labtools.ui.home.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home">
+
+        <action
+            android:id="@+id/action_nav_home_to_stopwatch"
+            app:destination="@id/navigation_stopwatch" />
+        <action
+            android:id="@+id/action_nav_home_to_timer"
+            app:destination="@id/tools_timer" />
+        <action
+            android:id="@+id/action_nav_home_to_calculator"
+            app:destination="@id/tools_calculator" />
+        <action
+            android:id="@+id/action_nav_home_to_counter"
+            app:destination="@id/tools_counter" />
+
+        <action
+            android:id="@+id/action_nav_home_to_memo"
+            app:destination="@id/navigation_memo" />
+
+        <action
+            android:id="@+id/action_nav_home_to_community"
+            app:destination="@id/navigation_community" />
     </fragment>
 
 
@@ -19,6 +40,22 @@
         android:name="com.ishnn.labtools.ui.tools.ToolsFragment"
         android:label="@string/title_tools"
         tools:layout="@layout/fragment_tools_stopwatch" />
+
+    <fragment
+        android:id="@+id/tools_timer"
+        android:name="com.ishnn.labtools.ui.tools.ToolsFragment"
+        android:label="@string/title_tools"
+        tools:layout="@layout/fragment_tools_timer" />
+    <fragment
+        android:id="@+id/tools_counter"
+        android:name="com.ishnn.labtools.ui.tools.CounterFragment"
+        android:label="@string/title_tools"
+        tools:layout="@layout/fragment_tools_counter" />
+    <fragment
+        android:id="@+id/tools_calculator"
+        android:name="com.ishnn.labtools.ui.tools.CalculatorMainFragment"
+        android:label="@string/title_tools"
+        tools:layout="@layout/fragment_tools_calculator" />
 
 <!--    <fragment-->
 <!--        android:id="@+id/navigation_notification"-->

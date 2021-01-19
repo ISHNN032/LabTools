@@ -13,12 +13,14 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.navigation.fragment.NavHostFragment
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.dynamiclinks.DynamicLink
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks
 import com.google.firebase.dynamiclinks.ShortDynamicLink
 import com.ishnn.labtools.*
 import com.ishnn.labtools.ui.home.content.*
+import com.ishnn.labtools.util.animOptions
 import kotlinx.android.synthetic.main.fragment_home.*
 
 
@@ -68,26 +70,52 @@ class HomeFragment : Fragment(), GlobalLogin.OnLoginInterface {
             when(it.itemId){
                 R.id.drawer_item_stopwatch -> {
                     Log.e("drawer", "goto stopwatch")
+                    NavHostFragment.findNavController(this).navigate(
+                        R.id.action_nav_home_to_stopwatch,
+                        null,
+                        animOptions
+                    )
                 }
                 R.id.drawer_item_timer -> {
                     Log.e("drawer", "goto timer")
+                    NavHostFragment.findNavController(this).navigate(
+                        R.id.action_nav_home_to_timer,
+                        null,
+                        animOptions
+                    )
                 }
                 R.id.drawer_item_calculator -> {
                     Log.e("drawer", "goto calculator")
+                    NavHostFragment.findNavController(this).navigate(
+                        R.id.action_nav_home_to_calculator,
+                        null,
+                        animOptions
+                    )
                 }
                 R.id.drawer_item_counter -> {
                     Log.e("drawer", "goto counter")
+                    NavHostFragment.findNavController(this).navigate(
+                        R.id.action_nav_home_to_counter,
+                        null,
+                        animOptions
+                    )
                 }
-
                 R.id.drawer_item_memo -> {
                     Log.e("drawer", "goto memo")
+                    NavHostFragment.findNavController(this).navigate(
+                        R.id.action_nav_home_to_memo,
+                        null,
+                        animOptions
+                    )
                 }
-
                 R.id.drawer_item_community -> {
                     Log.e("drawer", "goto community")
-
+                    NavHostFragment.findNavController(this).navigate(
+                        R.id.navigation_community,
+                        null,
+                        animOptions
+                    )
                 }
-
                 R.id.drawer_item_license -> {
                     Log.e("drawer", "goto license")
                 }
