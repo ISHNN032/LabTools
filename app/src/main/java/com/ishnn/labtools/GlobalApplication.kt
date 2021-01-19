@@ -47,7 +47,7 @@ class GlobalApplication : Application() {
 
 object Global {
     const val STORAGE_POST_CONTENT = "post/content/"
-    const val CROPPED_IMAGE = "cropped.png"
+    const val CROPPED_IMAGE = "cropped.jpg"
     const val IMAGE_TAG = "#IMAGE:"
 
     var db = FirebaseFirestore.getInstance()

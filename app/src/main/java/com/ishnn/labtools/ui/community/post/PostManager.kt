@@ -1,20 +1,25 @@
 package com.ishnn.labtools.ui.community.post
 
-import android.database.Cursor
+import android.content.Context
+import android.graphics.Bitmap
 import android.net.Uri
-import android.provider.OpenableColumns
+import android.provider.MediaStore
 import android.util.Log
+import androidx.core.graphics.get
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.Query
-import com.google.firebase.firestore.Source
 import com.ishnn.labtools.Global
 import com.ishnn.labtools.GlobalLogin
 import com.ishnn.labtools.UserProfile
 import com.ishnn.labtools.model.CommentItem
 import com.ishnn.labtools.model.PostContent
 import com.ishnn.labtools.model.PostItem
+import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.FileInputStream
+import java.io.InputStream
 import java.util.*
-import kotlin.collections.ArrayList
+
 
 object PostManager {
     const val GET_GALLERY_IMAGE_POST = 100
@@ -45,7 +50,7 @@ object PostManager {
         }
     }
 
-    fun addPost(title: String?, content: String?, hasImage: Boolean, Images: ArrayList<Uri>?) {
+    fun addPost(title: String?, content: String?, hasImage: Boolean, Images: ArrayList<Uri>?, context: Context?) {
         if (!GlobalLogin.getUserLoggedIn()) {
             return
         }
@@ -68,24 +73,43 @@ object PostManager {
                 )
             )
 
-            if(hasImage && !Images.isNullOrEmpty()){
-                for(image in Images.withIndex()){
-                    if(image.index == 0){
-                        //Global.storage.reference.child("${Global.STORAGE_POST_CONTENT}${it.id}").putFile(image.value)
-                        //Todo Preview Image
+            if (hasImage && !Images.isNullOrEmpty()) {
+                for (image in Images.withIndex()) {
+                    if (image.index == 0) {
+                        var bitmap = MediaStore.Images.Media.getBitmap(
+                            context?.contentResolver,
+                            image.value
+                        )
+                        bitmap = Bitmap.createScaledBitmap(bitmap, 200, 200, true);
+                        val stream = ByteArrayOutputStream()
+                        bitmap.compress(Bitmap.CompressFormat.PNG, 90, stream)
+                        val bytes = stream.toByteArray()
+                        Global.storage.reference.child("${Global.STORAGE_POST_CONTENT}${it.id}/${Global.CROPPED_IMAGE}").putBytes(bytes)
                     }
-                    Global.storage.reference.child("${Global.STORAGE_POST_CONTENT}${it.id}").putFile(image.value)
+                    Global.storage.reference.child("${Global.STORAGE_POST_CONTENT}${it.id}/")
+                        .putFile(
+                            image.value
+                        )
                 }
             }
         }
     }
 
-    fun addPostComment(postId: String, commentId: String, content: String?, hasImage: Boolean, isNested: Boolean) {
+    fun addPostComment(
+        postId: String,
+        commentId: String,
+        content: String?,
+        hasImage: Boolean,
+        isNested: Boolean,
+        image: Uri?
+    ) {
         if (!GlobalLogin.getUserLoggedIn()) {
             return
         }
 
-        Global.db.collection("postContent").document(postId).collection("comment").document(commentId).set(
+        Global.db.collection("postContent").document(postId).collection("comment").document(
+            commentId
+        ).set(
             CommentItem(
                 commentId, content,
                 Date(System.currentTimeMillis()),
@@ -93,6 +117,12 @@ object PostManager {
                 hasImage, isNested
             )
         )
+
+        if (hasImage && image != null) {
+            Global.storage.reference.child("${Global.STORAGE_POST_CONTENT}${postId}/$commentId.jpg").putFile(
+                image
+            )
+        }
     }
 
     fun deletePost(postId: String, hasImage: Boolean) {
@@ -112,9 +142,12 @@ object PostManager {
 
     fun deleteComment(postId: String, commentId: String, hasImage: Boolean) {
         if (hasImage) {
-            Global.storage.reference.child("${Global.STORAGE_POST_CONTENT}${postId}/${commentId}").delete()
+            Global.storage.reference.child("${Global.STORAGE_POST_CONTENT}${postId}/${commentId}")
+                .delete()
         }
-        Global.db.collection("postContent").document(postId).collection("comment").document(commentId).delete()
+        Global.db.collection("postContent").document(postId).collection("comment").document(
+            commentId
+        ).delete()
     }
 
     fun getPosts(callback: (List<PostItem>) -> Unit) {
@@ -138,8 +171,8 @@ object PostManager {
     }
 
     fun getPostComments(postId: String, callback: (List<CommentItem>) -> Unit) {
-        Global.db.collection("postContent").document(postId).collection("comment").
-        orderBy("commentId", Query.Direction.ASCENDING)
+        Global.db.collection("postContent").document(postId).collection("comment")
+            .orderBy("commentId", Query.Direction.ASCENDING)
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
