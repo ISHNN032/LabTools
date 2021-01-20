@@ -1,69 +1,75 @@
 package com.ishnn.labtools.ui.memo
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
-import android.view.*
-import android.webkit.WebSettings
-import android.webkit.WebView
-import android.webkit.WebViewClient
+import android.view.LayoutInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.ishnn.labtools.R
+import com.ishnn.labtools.ui.community.CommunityFragment
 import com.ishnn.labtools.util.IOnBackPressed
+import kotlinx.coroutines.*
 
 
-class MemoFragment : Fragment(), IOnBackPressed {
-    private var mWebView // 웹뷰 선언
-            : WebView? = null
-    private var mWebSettings //웹뷰세팅
-            : WebSettings? = null
+class MemoFragment : Fragment(), IOnBackPressed{
+    private val adapter by lazy { MemoItemAdapter(ArrayList(), this, context) }
+    private var isLoading = false
+    private lateinit var mRecyclerView: RecyclerView
+    private lateinit var mSwipe: SwipeRefreshLayout
 
-    @SuppressLint("SetJavaScriptEnabled")
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
+        Log.d("Tag", this.tag.toString())
+
         setHasOptionsMenu(true)
-        val root = inflater.inflate(R.layout.fragment_community_webview, container, false)
-        // 웹뷰 시작
-
-        // 웹뷰 시작
-        mWebView = root.findViewById(R.id.webView) as WebView
-        mWebView!!.webViewClient = WebViewClient() // 클릭시 새창 안뜨게
-        mWebSettings = mWebView!!.settings //세부 세팅 등록
-        mWebSettings!!.javaScriptEnabled = true // 웹페이지 자바스클비트 허용 여부
-        mWebSettings!!.setSupportMultipleWindows(true) // 새창 띄우기 허용 여부
-        mWebSettings!!.javaScriptCanOpenWindowsAutomatically = true // 자바스크립트 새창 띄우기(멀티뷰) 허용 여부
-        mWebSettings!!.loadWithOverviewMode = true // 메타태그 허용 여부
-        mWebSettings!!.useWideViewPort = true // 화면 사이즈 맞추기 허용 여부
-        mWebSettings!!.setSupportZoom(false) // 화면 줌 허용 여부
-        mWebSettings!!.builtInZoomControls = false // 화면 확대 축소 허용 여부
-        mWebSettings!!.layoutAlgorithm = WebSettings.LayoutAlgorithm.SINGLE_COLUMN // 컨텐츠 사이즈 맞추기
-        mWebSettings!!.cacheMode = WebSettings.LOAD_NO_CACHE // 브라우저 캐시 허용 여부
-        mWebSettings!!.domStorageEnabled = true // 로컬저장소 허용 여부
-
-        mWebView!!.loadUrl("https://m.memo.naver.com/") // 웹뷰에 표시할 웹사이트 주소, 웹뷰 시작
+        val root = inflater.inflate(R.layout.fragment_memo, container, false)
+        mRecyclerView = root.findViewById(R.id.recyclerView)
+        mSwipe = root.findViewById<SwipeRefreshLayout>(R.id.swiperefresh)
+        mSwipe.setOnRefreshListener {
+            Log.d("refresh", "refreshed")
+            GlobalScope.launch {
+                adapter.refreshData()
+                mSwipe.isRefreshing = false
+            }
+        }
+        initRecyclerView()
+        adapter.refreshData()
         return root
     }
+
     override fun onBackPressed(): Boolean {
         Log.e("a","b")
-        return if (mWebView?.canGoBack() == true) {
-            Log.e("b","b")
-            mWebView?.goBack()
-            true
-        }else{
-            false
+        return false
+    }
+
+    private fun initRecyclerView() {
+        mRecyclerView.adapter = adapter
+        val linearLayoutManager = LinearLayoutManager(requireContext())
+        mRecyclerView.layoutManager = linearLayoutManager
+    }
+
+    fun loadData() {
+        CoroutineScope(Dispatchers.IO).launch {
+            withContext(Dispatchers.Main) {
+                adapter.removeLoader()
+                adapter.refreshData()
+                isLoading = false
+            }
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        activity?.invalidateOptionsMenu()
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        menu.clear()
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(item.itemId ==android.R.id.home){
+            activity?.onBackPressed()
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

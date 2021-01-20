@@ -69,7 +69,7 @@
         android:id="@+id/navigation_memo"
         android:name="com.ishnn.labtools.ui.memo.MemoFragment"
         android:label="@string/title_memo"
-        tools:layout="@layout/fragment_community_webview">
+        tools:layout="@layout/fragment_memo">
     </fragment>
 
     <fragment
