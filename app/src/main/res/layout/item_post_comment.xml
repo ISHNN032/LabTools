@@ -57,6 +57,15 @@
             android:visibility="gone"
             android:contentDescription="@string/desc_post_item_iv_image"/>
 
+        <TextView
+            android:id="@+id/item_post_comment_text_nested"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="<<"
+            android:visibility="gone"
+            android:textStyle="bold"
+            />
+
         <EditText
             android:id="@+id/item_post_comment_text"
             android:layout_width="match_parent"

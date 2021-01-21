@@ -155,9 +155,12 @@ class PostContentFragment : Fragment(), IOnBackPressed {
 //        )
     }
 
+    @SuppressLint("SetTextI18n")
     fun setCommentNested(nested: String?){
         mCommentNested = nested
         post_content_layout_scroll.scrollTo(post_content_include_post_comment.scrollX, post_content_include_post_comment.scrollY)
+        item_post_comment_text_nested.visibility = View.VISIBLE
+        item_post_comment_text_nested.text = "<<$nested"
     }
     private fun makeCommentId(): String{
         if(commentAdapter.itemCount > 0){
