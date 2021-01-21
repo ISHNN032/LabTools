@@ -26,7 +26,7 @@ import kotlinx.android.synthetic.main.fragment_posting.*
 
 
 class PostingFragment : Fragment(), IOnBackPressed, View.OnClickListener {
-    private val mImages : ArrayList<Uri> = ArrayList()
+    private val mImages : MutableMap<String,Uri> = mutableMapOf()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -69,10 +69,7 @@ class PostingFragment : Fragment(), IOnBackPressed, View.OnClickListener {
             }
 
             posting_button_image.id -> {
-                checkSelfPermission()
-                val intent = Intent(Intent.ACTION_GET_CONTENT);
-                intent.setDataAndType(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
-                startActivityForResult(intent, PostManager.GET_GALLERY_IMAGE_POST);
+                getImageFromStorage()
             }
         }
     }
@@ -90,7 +87,7 @@ class PostingFragment : Fragment(), IOnBackPressed, View.OnClickListener {
         builder.show()
     }
 
-    fun checkSelfPermission() {
+    fun getImageFromStorage() {
         var temp = ""
         if (ContextCompat.checkSelfPermission(
                 requireContext(),
@@ -106,12 +103,17 @@ class PostingFragment : Fragment(), IOnBackPressed, View.OnClickListener {
         ) {
             temp += Manifest.permission.WRITE_EXTERNAL_STORAGE.toString() + " "
         }
-        if (TextUtils.isEmpty(temp) == false) {
+        if (!TextUtils.isEmpty(temp)) {
             ActivityCompat.requestPermissions(
                 requireActivity(),
                 temp.trim { it <= ' ' }.split(" ".toRegex()).toTypedArray(),
                 1
             )
+        }
+        else{
+            val intent = Intent(Intent.ACTION_GET_CONTENT);
+            intent.setDataAndType(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+            startActivityForResult(intent, PostManager.GET_GALLERY_IMAGE_POST);
         }
     }
 
@@ -121,11 +123,11 @@ class PostingFragment : Fragment(), IOnBackPressed, View.OnClickListener {
         if (requestCode == PostManager.GET_GALLERY_IMAGE_POST && resultCode == RESULT_OK) {
             val selectedImageUri: Uri? = data?.data
             posting_et_content.text.insert(0, "\n[#IMAGE:${getFileName(selectedImageUri)}]\n")
-            mImages.add(data?.data!!)
+            mImages[getFileName(data?.data!!)] = data.data!!
         }
     }
 
-    fun getFileName(uri: Uri?): String? {
+    fun getFileName(uri: Uri?): String{
         var result: String? = null
         if (uri != null) {
             if (uri.scheme == "content") {

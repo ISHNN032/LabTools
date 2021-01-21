@@ -1,9 +1,11 @@
 package com.ishnn.labtools.ui.community.post
 
 import android.content.Context
+import android.database.Cursor
 import android.graphics.Bitmap
 import android.net.Uri
 import android.provider.MediaStore
+import android.provider.OpenableColumns
 import android.util.Log
 import androidx.core.graphics.get
 import com.google.firebase.firestore.DocumentReference
@@ -50,7 +52,7 @@ object PostManager {
         }
     }
 
-    fun addPost(title: String?, content: String?, hasImage: Boolean, Images: ArrayList<Uri>?, context: Context?) {
+    fun addPost(title: String?, content: String?, hasImage: Boolean, Images: MutableMap<String,Uri>?, context: Context?) {
         if (!GlobalLogin.getUserLoggedIn()) {
             return
         }
@@ -74,8 +76,10 @@ object PostManager {
             )
 
             if (hasImage && !Images.isNullOrEmpty()) {
-                for (image in Images.withIndex()) {
-                    if (image.index == 0) {
+                var first = true
+                for (image in Images) {
+                    if (first) {
+                        first = false
                         var bitmap = MediaStore.Images.Media.getBitmap(
                             context?.contentResolver,
                             image.value
@@ -86,10 +90,7 @@ object PostManager {
                         val bytes = stream.toByteArray()
                         Global.storage.reference.child("${Global.STORAGE_POST_CONTENT}${it.id}/${Global.CROPPED_IMAGE}").putBytes(bytes)
                     }
-                    Global.storage.reference.child("${Global.STORAGE_POST_CONTENT}${it.id}/")
-                        .putFile(
-                            image.value
-                        )
+                    Global.storage.reference.child("${Global.STORAGE_POST_CONTENT}${it.id}/${image.key}").putFile(image.value)
                 }
             }
         }

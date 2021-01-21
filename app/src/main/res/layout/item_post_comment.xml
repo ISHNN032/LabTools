@@ -61,7 +61,7 @@
             android:id="@+id/item_post_comment_text_nested"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="<<"
+            android:text="@string/nested"
             android:visibility="gone"
             android:textStyle="bold"
             />

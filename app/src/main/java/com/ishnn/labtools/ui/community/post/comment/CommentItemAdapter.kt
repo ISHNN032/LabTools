@@ -140,7 +140,7 @@ class CommentItemAdapter(
         builder.setTitle("댓글을 삭제합니다.")
         builder.setPositiveButton("확인", DialogInterface.OnClickListener { _, _ ->
             PostManager.deleteComment(postId, item.commentId!!, item.hasImage)
-            refreshData()
+            fragment.refreshFragment()
         })
         builder.setNegativeButton("취소", DialogInterface.OnClickListener { dialogInterface, _ ->
             dialogInterface.dismiss()

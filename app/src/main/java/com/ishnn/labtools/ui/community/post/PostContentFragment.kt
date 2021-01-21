@@ -18,6 +18,8 @@ import android.widget.*
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ishnn.labtools.Global
@@ -56,6 +58,10 @@ class PostContentFragment : Fragment(), IOnBackPressed {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        //refresh values
+        mCommentImage = null
+        mCommentNested = null
+
         setHasOptionsMenu(true)
         val root = inflater.inflate(R.layout.fragment_postcontent, container, false)
 //        mRecyclerView = root.findViewById(R.id.recyclerView)
@@ -106,10 +112,7 @@ class PostContentFragment : Fragment(), IOnBackPressed {
         }
         val buttonCommentImage = postComment.findViewById<ImageButton>(R.id.item_post_comment_bt_image)
         buttonCommentImage.setOnClickListener {
-            checkSelfPermission()
-            val intent = Intent(Intent.ACTION_GET_CONTENT);
-            intent.setDataAndType(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
-            startActivityForResult(intent, PostManager.GET_GALLERY_IMAGE_COMMENT);
+            getImageFromStorage()
         }
         val buttonCommentSave = postComment.findViewById<Button>(R.id.item_post_comment_bt_save)
         buttonCommentSave.setOnClickListener {
@@ -118,6 +121,7 @@ class PostContentFragment : Fragment(), IOnBackPressed {
             PostManager.addPostComment(mPost.postId!!, makeCommentId(), postComment.findViewById<EditText>(R.id.item_post_comment_text).text.toString(),
                 hasImage = hasImage, isNested = isNested, image = mCommentImage
             )
+            refreshFragment()
         }
 
         initRecyclerView()
@@ -155,6 +159,12 @@ class PostContentFragment : Fragment(), IOnBackPressed {
 //        )
     }
 
+    fun refreshFragment() {
+        val ft: FragmentTransaction = parentFragmentManager.beginTransaction()
+        ft.setReorderingAllowed(false)
+        ft.detach(this).attach(this).commitAllowingStateLoss()
+    }
+
     @SuppressLint("SetTextI18n")
     fun setCommentNested(nested: String?){
         mCommentNested = nested
@@ -166,17 +176,19 @@ class PostContentFragment : Fragment(), IOnBackPressed {
         if(commentAdapter.itemCount > 0){
             if(!mCommentNested.isNullOrEmpty()){
                 val id = mCommentNested!!.split("n")[0]
-                if(mCommentNested!!.split("n").size > 1){
-                    val nid = mCommentNested!!.split("n")[1]
-                    return (id.toInt(10)).toString().plus("n" + nid.toInt(10) + 1)
-                }
-                return (id.toInt(10)).toString().plus("n0")
+//                if(mCommentNested!!.split("n").size > 1){
+//                    var nid = mCommentNested!!.split("n")[1]
+//                    nid = "n" + (nid.toInt(10) + 1).toString().padStart(3,'0')
+//                    return (id.toInt(10).toString().padStart(3,'0')).plus(nid)
+//                }
+//                return (id.toInt(10).toString().padStart(3,'0')).plus("n000")
+                //Todo 답글 마지막 ID를 불러와야함
             }
             val id = commentAdapter.items[commentAdapter.itemCount -1].commentId!!.split("n")[0]
-            return (id.toInt(10) + 1).toString()
+            return (id.toInt(10) + 1).toString().padStart(3,'0')
         }
         else {
-            return "0"
+            return "000"
         }
     }
 
@@ -323,7 +335,7 @@ class PostContentFragment : Fragment(), IOnBackPressed {
         return result
     }
 
-    fun checkSelfPermission() {
+    private fun getImageFromStorage() {
         var temp = ""
         if (ContextCompat.checkSelfPermission(
                 requireContext(),
@@ -345,6 +357,11 @@ class PostContentFragment : Fragment(), IOnBackPressed {
                 temp.trim { it <= ' ' }.split(" ".toRegex()).toTypedArray(),
                 1
             )
+        }
+        else{
+            val intent = Intent(Intent.ACTION_GET_CONTENT);
+            intent.setDataAndType(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+            startActivityForResult(intent, PostManager.GET_GALLERY_IMAGE_COMMENT);
         }
     }
 }

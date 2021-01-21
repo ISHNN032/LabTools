@@ -517,5 +517,6 @@
     <string name="post_save">등록</string>
     <string name="post_cancel">취소</string>
     <string name="x">X</string>
+    <string name="nested"><![CDATA[<<]]></string>
 
 </resources>
