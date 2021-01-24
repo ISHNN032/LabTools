@@ -209,6 +209,7 @@ class PostContentFragment : Fragment(), IOnBackPressed {
                     ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT
                 )
+                image.adjustViewBounds = true
                 image.layoutParams = lp
                 val ref =
                     Global.storage.reference.child("${Global.STORAGE_POST_CONTENT}${mPost.postId}/$name")

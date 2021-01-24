@@ -13,20 +13,40 @@
 
         <action
             android:id="@+id/action_nav_home_to_stopwatch"
-            app:destination="@id/navigation_stopwatch" />
+            app:destination="@id/navigation_tools">
+            <argument
+                android:name="myArg"
+                app:argType="integer"
+                android:defaultValue="0"/>
+        </action>
         <action
             android:id="@+id/action_nav_home_to_timer"
-            app:destination="@id/tools_timer" />
+            app:destination="@id/navigation_tools">
+            <argument
+                android:name="myArg"
+                app:argType="integer"
+                android:defaultValue="1"/>
+        </action>
         <action
             android:id="@+id/action_nav_home_to_calculator"
-            app:destination="@id/tools_calculator" />
+            app:destination="@id/navigation_tools">
+            <argument
+                android:name="myArg"
+                app:argType="integer"
+                android:defaultValue="2"/>
+        </action>
         <action
             android:id="@+id/action_nav_home_to_counter"
-            app:destination="@id/tools_counter" />
+            app:destination="@id/navigation_tools">
+            <argument
+                android:name="myArg"
+                app:argType="integer"
+                android:defaultValue="3"/>
+        </action>
 
         <action
             android:id="@+id/action_nav_home_to_memo"
-            app:destination="@id/navigation_memo" />
+            app:destination="@id/navigation_memo"/>
 
         <action
             android:id="@+id/action_nav_home_to_community"
@@ -36,26 +56,15 @@
 
 
     <fragment
-        android:id="@+id/navigation_stopwatch"
+        android:id="@+id/navigation_tools"
         android:name="com.ishnn.labtools.ui.tools.ToolsFragment"
         android:label="@string/title_tools"
-        tools:layout="@layout/fragment_tools_stopwatch" />
-
-    <fragment
-        android:id="@+id/tools_timer"
-        android:name="com.ishnn.labtools.ui.tools.ToolsFragment"
-        android:label="@string/title_tools"
-        tools:layout="@layout/fragment_tools_timer" />
-    <fragment
-        android:id="@+id/tools_counter"
-        android:name="com.ishnn.labtools.ui.tools.CounterFragment"
-        android:label="@string/title_tools"
-        tools:layout="@layout/fragment_tools_counter" />
-    <fragment
-        android:id="@+id/tools_calculator"
-        android:name="com.ishnn.labtools.ui.tools.CalculatorMainFragment"
-        android:label="@string/title_tools"
-        tools:layout="@layout/fragment_tools_calculator" />
+        tools:layout="@layout/fragment_tools_stopwatch">
+        <argument
+            android:name="myArg"
+            app:argType="integer"
+            android:defaultValue="0"/>
+    </fragment>
 
 <!--    <fragment-->
 <!--        android:id="@+id/navigation_notification"-->

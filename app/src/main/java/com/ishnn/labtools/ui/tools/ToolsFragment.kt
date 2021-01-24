@@ -41,6 +41,22 @@ class ToolsFragment : Fragment(), IOnBackPressed {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         setTabs()
+
+        Log.e("ARGS", arguments?.get("myArg").toString())
+        when(arguments?.get("myArg").toString()){
+            "0" -> {
+                mViewPager.setCurrentItem(0,true)
+            }
+            "1" -> {
+                mViewPager.setCurrentItem(1,true)
+            }
+            "2" -> {
+                mViewPager.setCurrentItem(2,true)
+            }
+            "3" -> {
+                mViewPager.setCurrentItem(3,true)
+            }
+        }
     }
 
     private fun setTabs() {

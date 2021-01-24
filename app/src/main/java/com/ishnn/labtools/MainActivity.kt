@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
             setOf(
                 R.id.navigation_community,
                 R.id.navigation_home,
-                R.id.navigation_stopwatch,
+                R.id.navigation_tools,
                 R.id.navigation_memo
             )
         )
