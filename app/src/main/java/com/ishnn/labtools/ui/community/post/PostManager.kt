@@ -14,6 +14,7 @@ import com.ishnn.labtools.Global
 import com.ishnn.labtools.GlobalLogin
 import com.ishnn.labtools.UserProfile
 import com.ishnn.labtools.model.CommentItem
+import com.ishnn.labtools.model.FavoriteItem
 import com.ishnn.labtools.model.PostContent
 import com.ishnn.labtools.model.PostItem
 import kotlinx.android.synthetic.main.fragment_postcontent.*
@@ -126,7 +127,7 @@ object PostManager {
                 commentId = (commentIdToNest.padStart(3, '0')).plus("n000")
             }
             getNestedCommentLast(postId, commentIdToNest, callback = callbackLast)
-        }else{
+        } else {
             val callbackLast: (last: String?) -> Unit = { last ->
                 commentId = (last!!.toInt(10) + 1).toString().padStart(3, '0')
             }
@@ -267,12 +268,27 @@ object PostManager {
 //        val data = hashMapOf("favorites" to listOf<DocumentReference>(ref, ref2))
 //        Global.db.collection("userData").document(GlobalLogin.getUserData()!!.id.toString()).set(data)
 
+//        Global.db.collection("userData").document(GlobalLogin.getUserData()!!.id.toString())
+//            .get()
+//            .addOnSuccessListener { result ->
+//                val list = result.get("favorites") as List<DocumentReference>
+//                for (data in list) {
+//                    data.get().addOnSuccessListener {
+//                        if (it.exists()) {
+//                            callback(it.toObject(PostItem::class.java)!!)
+//                        } else {
+//                            callback(PostItem())
+//                        }
+//                    }
+//                }
+//            }
+//            .addOnFailureListener { exception ->
+//                Log.d("TAG", "Error getting documents: ", exception)
+//            }
         Global.db.collection("userData").document(GlobalLogin.getUserData()!!.id.toString())
-            .get()
-            .addOnSuccessListener { result ->
-                val list = result.get("favorites") as List<DocumentReference>
-                for (data in list) {
-                    data.get().addOnSuccessListener {
+            .collection("favorite").orderBy("time", Query.Direction.DESCENDING).get().addOnSuccessListener { result ->
+                for (data in result.toObjects(FavoriteItem::class.java)) {
+                    data.reference?.get()?.addOnSuccessListener {
                         if (it.exists()) {
                             callback(it.toObject(PostItem::class.java)!!)
                         } else {
@@ -281,9 +297,30 @@ object PostManager {
                     }
                 }
             }
-            .addOnFailureListener { exception ->
-                Log.d("TAG", "Error getting documents: ", exception)
+    }
+
+    fun addFavorite(postId: String) {
+        if (!GlobalLogin.getUserLoggedIn()) {
+            return
+        }
+        Global.db.collection("userData").document(GlobalLogin.getUserData()!!.id.toString())
+            .collection("favorite").document(postId).set(
+                FavoriteItem(postId, Global.db.collection("post").document(postId) ,Date(System.currentTimeMillis()))
+            )
+    }
+    fun isFavorite(postId: String, callback: (Boolean) -> Unit){
+        Global.db.collection("userData").document(GlobalLogin.getUserData()!!.id.toString())
+            .collection("favorite").document(postId).get().addOnSuccessListener {
+                callback(it.exists())
             }
+    }
+    fun deleteFavorite(postId: String) {
+        if (!GlobalLogin.getUserLoggedIn()) {
+            return
+        }
+        Global.db.collection("userData").document(GlobalLogin.getUserData()!!.id.toString())
+            .collection("favorite")
+            .document(postId).delete()
     }
 
     fun getNotices(callback: (List<PostItem>) -> Unit) {

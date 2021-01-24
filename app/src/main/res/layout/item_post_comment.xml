@@ -53,6 +53,7 @@
             android:layout_width="360dp"
             android:layout_height="360dp"
             android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
             android:padding="@dimen/large_margin"
             android:visibility="gone"
             android:contentDescription="@string/desc_post_item_iv_image"/>

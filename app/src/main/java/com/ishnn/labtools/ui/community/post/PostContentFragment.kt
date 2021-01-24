@@ -28,6 +28,7 @@ import com.ishnn.labtools.R
 import com.ishnn.labtools.model.PostContent
 import com.ishnn.labtools.model.PostItem
 import com.ishnn.labtools.ui.community.post.comment.CommentItemAdapter
+import com.ishnn.labtools.ui.tools.HistoryActionListDialogFragment
 import com.ishnn.labtools.util.IOnBackPressed
 import kotlinx.android.synthetic.main.fragment_postcontent.*
 import kotlinx.android.synthetic.main.item_post_comment.*
@@ -268,6 +269,24 @@ class PostContentFragment : Fragment(), IOnBackPressed {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
+        menu.clear()
+        if(GlobalLogin.getUserLoggedIn()){
+            inflater.inflate(R.menu.action_menu_post, menu)
+
+            val menuItem = menu.getItem(0)
+            val callbackExists: (Boolean?) -> Unit = { exists ->
+                if(exists == null || !exists){
+                    PostManager.addFavorite(mPost.postId!!)
+                    menuItem.isChecked = true
+                }
+                else{
+                    PostManager.deleteFavorite(mPost.postId!!)
+                    menuItem.isChecked = false
+                }
+            }
+            PostManager.isFavorite(mPost.postId!!, callback = callbackExists)
+        }
+
         if (post_content_btn_menu != null) {
             post_content_btn_menu.setOnClickListener { view ->
                 val popupMenu = PopupMenu(context, view)
@@ -289,10 +308,26 @@ class PostContentFragment : Fragment(), IOnBackPressed {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == android.R.id.home) {
-            activity?.onBackPressed()
+        when (item.itemId) {
+            R.id.action_post_favorite -> {
+                val callbackExists: (Boolean?) -> Unit = { exists ->
+                    if(exists == null || !exists){
+                        PostManager.addFavorite(mPost.postId!!)
+                        item.isChecked = true
+                    }
+                    else{
+                        PostManager.deleteFavorite(mPost.postId!!)
+                        item.isChecked = false
+                    }
+                }
+                PostManager.isFavorite(mPost.postId!!, callback = callbackExists)
+                return true
+            }
+            else ->{
+                activity?.onBackPressed()
+                return super.onOptionsItemSelected(item)
+            }
         }
-        return super.onOptionsItemSelected(item)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
