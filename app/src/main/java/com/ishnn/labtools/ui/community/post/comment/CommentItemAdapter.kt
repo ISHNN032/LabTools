@@ -145,6 +145,7 @@ class CommentItemAdapter(
         builder.setNegativeButton("취소", DialogInterface.OnClickListener { dialogInterface, _ ->
             dialogInterface.dismiss()
         })
+        PostManager.updateCommentCount(postId)
         builder.show()
     }
 }

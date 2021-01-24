@@ -18,7 +18,6 @@ import android.widget.*
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -31,13 +30,12 @@ import com.ishnn.labtools.model.PostItem
 import com.ishnn.labtools.ui.community.post.comment.CommentItemAdapter
 import com.ishnn.labtools.util.IOnBackPressed
 import kotlinx.android.synthetic.main.fragment_postcontent.*
-import kotlinx.android.synthetic.main.fragment_posting.*
 import kotlinx.android.synthetic.main.item_post_comment.*
 import java.text.SimpleDateFormat
 
 
 class PostContentFragment : Fragment(), IOnBackPressed {
-//    private val adapter by lazy {
+    //    private val adapter by lazy {
 //        PostCommentAdapter(
 //            (parentFragment as CommunityFragment).getPosts(),
 //            ArrayList(),
@@ -47,11 +45,18 @@ class PostContentFragment : Fragment(), IOnBackPressed {
 //    private lateinit var mRecyclerView: RecyclerView
     private lateinit var mPost: PostItem
     private lateinit var mPostContent: PostContent
-    private val commentAdapter by lazy { CommentItemAdapter(ArrayList(), mPost.postId!!, this, context)}
+    private val commentAdapter by lazy {
+        CommentItemAdapter(
+            ArrayList(),
+            mPost.postId!!,
+            this,
+            context
+        )
+    }
 
     //for comment
-    private var mCommentImage : Uri? = null
-    private var mCommentNested : String? = null
+    private var mCommentImage: Uri? = null
+    private var mCommentToNest: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -60,22 +65,22 @@ class PostContentFragment : Fragment(), IOnBackPressed {
     ): View? {
         //refresh values
         mCommentImage = null
-        mCommentNested = null
+        mCommentToNest = null
 
         setHasOptionsMenu(true)
         val root = inflater.inflate(R.layout.fragment_postcontent, container, false)
 //        mRecyclerView = root.findViewById(R.id.recyclerView)
 
         mPost = arguments?.getSerializable("post") as PostItem
-        if(mPost.user == null){
+        if (mPost.user == null) {
             dialogNoPost()
             return null
         }
 
         val callbackContent: (content: PostContent?) -> Unit = { content ->
-            if(content == null){
+            if (content == null) {
                 dialogNoPost()
-            }else{
+            } else {
                 parseContent(content.content!!, post_content_layout_content)
                 mPostContent = content
             }
@@ -86,7 +91,7 @@ class PostContentFragment : Fragment(), IOnBackPressed {
         PostManager.getPostContent(mPost.postId!!, callback = callbackContent)
         PostManager.getUserName(mPost.user!!, callback = callbackName)
 
-        if(mPost.user == GlobalLogin.getUserData()?.id){
+        if (mPost.user == GlobalLogin.getUserData()?.id) {
             root.findViewById<ImageButton>(R.id.post_content_btn_menu).visibility = View.VISIBLE
         }
         return root
@@ -94,33 +99,39 @@ class PostContentFragment : Fragment(), IOnBackPressed {
 
     @SuppressLint("SimpleDateFormat")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        if(mPost.notice){
+        if (mPost.notice) {
             post_content_tv_notice.visibility = View.VISIBLE
-        }else{
+        } else {
             post_content_tv_notice.visibility = View.GONE
         }
         post_content_tv_title.text = mPost.title
         val time = SimpleDateFormat("yyyy-MM-dd HH:mm")
         post_content_tv_time.text = time.format(mPost.time!!)
         post_content_tv_comment.text = mPost.commentCount.toString()
-        post_content_tv_favorite.text = mPost.favoriteCount.toString()
 
 
         val postComment = post_content_include_post_comment
-        if(GlobalLogin.getUserLoggedIn()){
+        if (GlobalLogin.getUserLoggedIn()) {
             postComment.visibility = View.VISIBLE
         }
-        val buttonCommentImage = postComment.findViewById<ImageButton>(R.id.item_post_comment_bt_image)
+        val buttonCommentImage =
+            postComment.findViewById<ImageButton>(R.id.item_post_comment_bt_image)
         buttonCommentImage.setOnClickListener {
             getImageFromStorage()
         }
         val buttonCommentSave = postComment.findViewById<Button>(R.id.item_post_comment_bt_save)
         buttonCommentSave.setOnClickListener {
             val hasImage = mCommentImage != null
-            val isNested = !mCommentNested.isNullOrEmpty()
-            PostManager.addPostComment(mPost.postId!!, makeCommentId(), postComment.findViewById<EditText>(R.id.item_post_comment_text).text.toString(),
-                hasImage = hasImage, isNested = isNested, image = mCommentImage
+            val isNested = !mCommentToNest.isNullOrEmpty()
+            PostManager.addPostComment(
+                mPost.postId!!,
+                mCommentToNest,
+                postComment.findViewById<EditText>(R.id.item_post_comment_text).text.toString(),
+                hasImage = hasImage,
+                isNested = isNested,
+                image = mCommentImage
             )
+            PostManager.updateCommentCount(mPost.postId!!)
             refreshFragment()
         }
 
@@ -166,30 +177,14 @@ class PostContentFragment : Fragment(), IOnBackPressed {
     }
 
     @SuppressLint("SetTextI18n")
-    fun setCommentNested(nested: String?){
-        mCommentNested = nested
-        post_content_layout_scroll.scrollTo(post_content_include_post_comment.scrollX, post_content_include_post_comment.scrollY)
+    fun setCommentNested(nested: String?) {
+        mCommentToNest = nested
+        post_content_layout_scroll.scrollTo(
+            post_content_include_post_comment.scrollX,
+            post_content_include_post_comment.scrollY
+        )
         item_post_comment_text_nested.visibility = View.VISIBLE
         item_post_comment_text_nested.text = "<<$nested"
-    }
-    private fun makeCommentId(): String{
-        if(commentAdapter.itemCount > 0){
-            if(!mCommentNested.isNullOrEmpty()){
-                val id = mCommentNested!!.split("n")[0]
-//                if(mCommentNested!!.split("n").size > 1){
-//                    var nid = mCommentNested!!.split("n")[1]
-//                    nid = "n" + (nid.toInt(10) + 1).toString().padStart(3,'0')
-//                    return (id.toInt(10).toString().padStart(3,'0')).plus(nid)
-//                }
-//                return (id.toInt(10).toString().padStart(3,'0')).plus("n000")
-                //Todo 답글 마지막 ID를 불러와야함
-            }
-            val id = commentAdapter.items[commentAdapter.itemCount -1].commentId!!.split("n")[0]
-            return (id.toInt(10) + 1).toString().padStart(3,'0')
-        }
-        else {
-            return "000"
-        }
     }
 
     override fun onBackPressed(): Boolean {
@@ -204,10 +199,10 @@ class PostContentFragment : Fragment(), IOnBackPressed {
     }
 
 
-    fun parseContent(content: String, layout: LinearLayout){
+    fun parseContent(content: String, layout: LinearLayout) {
         val split = content.split("[", "]")
-        for(s in split){
-            if(s.startsWith(IMAGE_TAG)){
+        for (s in split) {
+            if (s.startsWith(IMAGE_TAG)) {
                 val name = s.replaceFirst(IMAGE_TAG, "")
                 val image = ImageView(context)
                 val lp = LinearLayout.LayoutParams(
@@ -215,12 +210,13 @@ class PostContentFragment : Fragment(), IOnBackPressed {
                     ViewGroup.LayoutParams.WRAP_CONTENT
                 )
                 image.layoutParams = lp
-                val ref = Global.storage.reference.child("${Global.STORAGE_POST_CONTENT}${mPost.postId}/$name")
+                val ref =
+                    Global.storage.reference.child("${Global.STORAGE_POST_CONTENT}${mPost.postId}/$name")
                 GlideApp.with(requireContext())
                     .load(ref)
                     .into(image)
                 layout.addView(image)
-            }else{
+            } else {
                 val text = TextView(context)
                 val lp = LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.WRAP_CONTENT,
@@ -248,7 +244,7 @@ class PostContentFragment : Fragment(), IOnBackPressed {
 //        }
     }
 
-    private fun dialogNoPost(){
+    private fun dialogNoPost() {
         val builder: AlertDialog.Builder = AlertDialog.Builder(context)
         builder.setTitle("게시물을 찾을 수 없습니다.")
         builder.setMessage("삭제되었거나, 없는 게시물입니다.")
@@ -256,7 +252,7 @@ class PostContentFragment : Fragment(), IOnBackPressed {
         builder.show()
     }
 
-    private fun dialogDeletePost(){
+    private fun dialogDeletePost() {
         val builder: AlertDialog.Builder = AlertDialog.Builder(context)
         builder.setTitle("작성글을 삭제합니다.")
         builder.setPositiveButton("확인", DialogInterface.OnClickListener { _, _ ->
@@ -271,13 +267,13 @@ class PostContentFragment : Fragment(), IOnBackPressed {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        if(post_content_btn_menu != null){
+        if (post_content_btn_menu != null) {
             post_content_btn_menu.setOnClickListener { view ->
                 val popupMenu = PopupMenu(context, view)
                 inflater.inflate(R.menu.post_menu, popupMenu.menu)
                 popupMenu.show()
                 popupMenu.setOnMenuItemClickListener {
-                    when(it!!.itemId){
+                    when (it!!.itemId) {
                         R.id.menu_post_modify -> {
 
                         }
@@ -316,7 +312,8 @@ class PostContentFragment : Fragment(), IOnBackPressed {
                 val cursor: Cursor? = activity?.contentResolver?.query(uri, null, null, null, null)
                 try {
                     if (cursor != null && cursor.moveToFirst()) {
-                        result = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME))
+                        result =
+                            cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME))
                     }
                 } finally {
                     cursor?.close()
@@ -357,10 +354,12 @@ class PostContentFragment : Fragment(), IOnBackPressed {
                 temp.trim { it <= ' ' }.split(" ".toRegex()).toTypedArray(),
                 1
             )
-        }
-        else{
+        } else {
             val intent = Intent(Intent.ACTION_GET_CONTENT);
-            intent.setDataAndType(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+            intent.setDataAndType(
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                "image/*"
+            );
             startActivityForResult(intent, PostManager.GET_GALLERY_IMAGE_COMMENT);
         }
     }

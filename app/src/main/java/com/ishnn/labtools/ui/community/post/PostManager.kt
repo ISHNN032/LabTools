@@ -16,6 +16,7 @@ import com.ishnn.labtools.UserProfile
 import com.ishnn.labtools.model.CommentItem
 import com.ishnn.labtools.model.PostContent
 import com.ishnn.labtools.model.PostItem
+import kotlinx.android.synthetic.main.fragment_postcontent.*
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileInputStream
@@ -45,14 +46,19 @@ object PostManager {
                     GlobalLogin.getUserData()!!.id,
                     false,
                     0,
-                    0,
                     false
                 )
             )
         }
     }
 
-    fun addPost(title: String?, content: String?, hasImage: Boolean, Images: MutableMap<String,Uri>?, context: Context?) {
+    fun addPost(
+        title: String?,
+        content: String?,
+        hasImage: Boolean,
+        Images: MutableMap<String, Uri>?,
+        context: Context?
+    ) {
         if (!GlobalLogin.getUserLoggedIn()) {
             return
         }
@@ -69,7 +75,6 @@ object PostManager {
                     Date(System.currentTimeMillis()),
                     GlobalLogin.getUserData()!!.id,
                     false,
-                    0,
                     0,
                     hasImage = hasImage
                 )
@@ -88,9 +93,11 @@ object PostManager {
                         val stream = ByteArrayOutputStream()
                         bitmap.compress(Bitmap.CompressFormat.PNG, 90, stream)
                         val bytes = stream.toByteArray()
-                        Global.storage.reference.child("${Global.STORAGE_POST_CONTENT}${it.id}/${Global.CROPPED_IMAGE}").putBytes(bytes)
+                        Global.storage.reference.child("${Global.STORAGE_POST_CONTENT}${it.id}/${Global.CROPPED_IMAGE}")
+                            .putBytes(bytes)
                     }
-                    Global.storage.reference.child("${Global.STORAGE_POST_CONTENT}${it.id}/${image.key}").putFile(image.value)
+                    Global.storage.reference.child("${Global.STORAGE_POST_CONTENT}${it.id}/${image.key}")
+                        .putFile(image.value)
                 }
             }
         }
@@ -98,7 +105,7 @@ object PostManager {
 
     fun addPostComment(
         postId: String,
-        commentId: String,
+        commentIdToNest: String?,
         content: String?,
         hasImage: Boolean,
         isNested: Boolean,
@@ -107,6 +114,25 @@ object PostManager {
         if (!GlobalLogin.getUserLoggedIn()) {
             return
         }
+
+        var commentId = "000"
+        if (!commentIdToNest.isNullOrEmpty()) {
+            val callbackLast: (last: String?) -> Unit = { nestedLast ->
+                if (commentIdToNest.split("n").size > 1) {
+                    var nestedId = commentIdToNest.split("n")[1]
+                    nestedId = "n" + (nestedId.toInt(10) + 1).toString().padStart(3, '0')
+                    commentId = (commentIdToNest.padStart(3, '0')).plus(nestedId)
+                }
+                commentId = (commentIdToNest.padStart(3, '0')).plus("n000")
+            }
+            getNestedCommentLast(postId, commentIdToNest, callback = callbackLast)
+        }else{
+            val callbackLast: (last: String?) -> Unit = { last ->
+                commentId = (last!!.toInt(10) + 1).toString().padStart(3, '0')
+            }
+            getCommentLast(postId, callbackLast)
+        }
+
 
         Global.db.collection("postContent").document(postId).collection("comment").document(
             commentId
@@ -120,9 +146,10 @@ object PostManager {
         )
 
         if (hasImage && image != null) {
-            Global.storage.reference.child("${Global.STORAGE_POST_CONTENT}${postId}/$commentId.jpg").putFile(
-                image
-            )
+            Global.storage.reference.child("${Global.STORAGE_POST_CONTENT}${postId}/$commentId.jpg")
+                .putFile(
+                    image
+                )
         }
     }
 
@@ -169,6 +196,52 @@ object PostManager {
         Global.db.collection("postContent").document(postId).get().addOnSuccessListener { result ->
             callback(result.toObject(PostContent::class.java))
         }
+    }
+
+    fun getCommentCount(postId: String, callback: (content: Int?) -> Unit) {
+        Global.db.collection("postContent").document(postId).collection("comment").get()
+            .addOnSuccessListener { result ->
+                callback(result.size())
+            }
+    }
+
+    fun updateCommentCount(postId: String) {
+        val callbackComment: (content: Int?) -> Unit = { count ->
+            Global.db.collection("post").document(postId).update("commentCount", count)
+        }
+        getCommentCount(postId, callback = callbackComment)
+    }
+
+    fun getCommentLast(postId: String, callback: (content: String?) -> Unit) {
+        var last = "000"
+        Global.db.collection("postContent").document(postId).collection("comment").get()
+            .addOnSuccessListener { result ->
+                for (comment in result) {
+                    if (last < comment.id) {
+                        last = comment.id
+                    }
+                }
+                callback(last)
+            }
+    }
+
+    fun getNestedCommentLast(
+        postId: String,
+        commentId: String,
+        callback: (content: String?) -> Unit
+    ) {
+        var last = postId
+        Global.db.collection("postContent").document(postId).collection("comment").get()
+            .addOnSuccessListener { result ->
+                for (comment in result) {
+                    if (comment.id.contains(commentId)) {
+                        if (last < comment.id) {
+                            last = comment.id
+                        }
+                    }
+                }
+                callback(last)
+            }
     }
 
     fun getPostComments(postId: String, callback: (List<CommentItem>) -> Unit) {

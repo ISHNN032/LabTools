@@ -42,7 +42,6 @@ class PostItemAdapter(
         val tvNickname: TextView
         val tvTime: TextView
         val tvCommentCount: TextView
-        val tvFavorateCount: TextView
         val ivImage: ImageView
         init {
             with(item) {
@@ -51,7 +50,6 @@ class PostItemAdapter(
                 tvNickname = findViewById(R.id.post_item_tv_nickname)
                 tvTime = findViewById(R.id.post_item_tv_time)
                 tvCommentCount = findViewById(R.id.post_item_tv_comment)
-                tvFavorateCount = findViewById(R.id.post_item_tv_favorite)
                 ivImage = findViewById(R.id.post_item_iv_image)
             }
 
@@ -129,7 +127,6 @@ class PostItemAdapter(
         }
 
         (holder as ViewHolder).tvCommentCount.text = item.commentCount.toString()
-        (holder as ViewHolder).tvFavorateCount.text = item.favoriteCount.toString()
 
         if (item.hasImage && mContext != null){
             val imageView = (holder as ViewHolder).ivImage

@@ -10,6 +10,5 @@ data class PostItem(
     val user: Long? = null,
     val notice: Boolean = false,
     val commentCount: Int? = 0,
-    val favoriteCount: Int? = 0,
     val hasImage: Boolean = false
 ) : Serializable
