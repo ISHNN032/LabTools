@@ -1,8 +1,6 @@
 package com.ishnn.labtools.ui.tools.timer
 
-import android.content.Context
 import android.os.Bundle
-import android.preference.PreferenceManager
 import android.util.Log
 import android.view.*
 import android.widget.Button
@@ -15,9 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ishnn.labtools.Global
 import com.ishnn.labtools.R
 import com.ishnn.labtools.util.IOnBackPressed
-import com.rnnzzo.uxdesign.model.TimerItem
-import org.json.JSONArray
-import org.json.JSONException
+import com.ishnn.labtools.model.TimerItem
 
 
 class TimerFragment : Fragment(), IOnBackPressed{
@@ -39,14 +35,14 @@ class TimerFragment : Fragment(), IOnBackPressed{
             openAddTimerDialog()
         }
 
-        val data: MutableList<TimerItem> = ArrayList()
-        data.add(TimerItem(0, 3, 0))
-        data.add(TimerItem(0, 5, 0))
-        adapter.addData(data)
-
-        val prefdata = Global.getStringArrayPref(context, "array")?.toList()
+        val prefdata = Global.getStringArrayPref(context, "times")?.toList()
         if (prefdata != null) {
             adapter.addData(prefdata)
+        }else{
+            val data: MutableList<TimerItem> = ArrayList()
+            data.add(TimerItem(0, 3, 0))
+            data.add(TimerItem(0, 5, 0))
+            adapter.addData(data)
         }
 
         return root

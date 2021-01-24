@@ -14,7 +14,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.ishnn.labtools.Global
 import com.ishnn.labtools.R
-import com.rnnzzo.uxdesign.model.TimerItem
+import com.ishnn.labtools.model.TimerItem
 import kotlinx.coroutines.*
 import java.lang.Exception
 import java.text.DecimalFormat

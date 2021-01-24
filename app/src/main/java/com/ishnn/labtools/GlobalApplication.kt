@@ -3,26 +3,19 @@ package com.ishnn.labtools
 import android.app.Activity
 import android.app.Application
 import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import android.preference.PreferenceManager
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import androidx.core.content.ContextCompat.startActivity
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.Task
-import com.google.firebase.dynamiclinks.DynamicLink.AndroidParameters
-import com.google.firebase.dynamiclinks.DynamicLink.SocialMetaTagParameters
-import com.google.firebase.dynamiclinks.FirebaseDynamicLinks
-import com.google.firebase.dynamiclinks.ShortDynamicLink
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import com.ishnn.labtools.model.TimerItem
 import com.kakao.sdk.common.KakaoSdk.init
 import com.kakao.sdk.common.util.Utility
-import com.rnnzzo.uxdesign.model.TimerItem
-import org.json.JSONArray
 import org.json.JSONException
+import java.lang.reflect.Type
 
 
 class GlobalApplication : Application() {
@@ -71,12 +64,12 @@ object Global {
     ) {
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
         val editor = prefs.edit()
-        val a = JSONArray()
-        for (i in 0 until values.size) {
-            a.put(values[i])
-        }
+
         if (values.isNotEmpty()) {
-            editor.putString(key, a.toString())
+            val gson = Gson()
+            val listType: Type = object : TypeToken<ArrayList<TimerItem?>?>() {}.type
+            val jvalue = gson.toJson(values, listType)
+            editor.putString(key, jvalue)
         } else {
             editor.putString(key, null)
         }
@@ -89,18 +82,16 @@ object Global {
     ): ArrayList<TimerItem>? {
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
         val json = prefs.getString(key, null)
-        val urls = ArrayList<TimerItem>()
+        var jvalue = ArrayList<TimerItem>()
         if (json != null) {
             try {
-                val a = JSONArray(json)
-                for (i in 0 until a.length()) {
-                    val url = a.get(i) as TimerItem
-                    urls.add(url)
-                }
+                val gson = Gson()
+                val listType: Type = object : TypeToken<ArrayList<TimerItem?>?>() {}.type
+                jvalue = gson.fromJson<ArrayList<TimerItem>>(json, listType)
             } catch (e: JSONException) {
                 e.printStackTrace()
             }
         }
-        return urls
+        return jvalue
     }
 }

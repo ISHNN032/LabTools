@@ -1,4 +1,4 @@
-package com.rnnzzo.uxdesign.model
+package com.ishnn.labtools.model
 
 class TimerItem(
     val hour: Int,
