@@ -4,7 +4,7 @@ import java.net.URL
 import java.util.*
 
 data class MemoItem(
-    val postId: String? = null,
     val title: String? = "메모",
+    val time: Date? = null,
     val hasImage: Boolean = false
 ) : Serializable

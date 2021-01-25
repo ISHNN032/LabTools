@@ -30,32 +30,51 @@ class MemoItemAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view: View = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_post, parent, false)
+            .inflate(R.layout.item_memo, parent, false)
         return ViewHolder(view)
+    }
+    inner class ViewHolder(item: View) : RecyclerView.ViewHolder(item) {
+        val tvTitle: TextView
+        val tvTime: TextView
+        val ivImage: ImageView
+        init {
+            with(item) {
+                tvTitle = findViewById(R.id.memo_item_tv_title)
+                tvTime = findViewById(R.id.memo_item_tv_time)
+                ivImage = findViewById(R.id.memo_item_iv_image)
+            }
+        }
+    }
+    @SuppressLint("SimpleDateFormat")
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        val item = items[position]
+
+        (holder as ViewHolder).tvTitle.text = item.title
+        if (item.hasImage && mContext != null){
+            val imageView = (holder as ViewHolder).ivImage
+            imageView.visibility = View.VISIBLE
+//            val ref = Global.storage.reference.child("${Global.STORAGE_POST_CONTENT}${item.postId}/${Global.CROPPED_IMAGE}")
+//            GlideApp.with(mContext)
+//                .load(ref)
+//                .into(imageView)
+        }
+            holder.itemView.setOnClickListener {
+            if(position != -1){
+                Log.e("Click", "${items[position].time}")
+                val bundle = Bundle()
+                bundle.putSerializable("memo", items[position] as Serializable)
+
+                findNavController(fragment).navigate(
+                    R.id.action_nav_commu_to_postcontent,
+                    bundle,
+                    animOptions
+                )
+            }
+        }
     }
 
     override fun getItemCount(): Int {
         return items.count()
-    }
-
-    inner class ViewHolder(item: View) : RecyclerView.ViewHolder(item) {
-        val tvNotice: TextView
-        val tvTitle: TextView
-        val tvNickname: TextView
-        val tvTime: TextView
-        val tvCommentCount: TextView
-        val ivImage: ImageView
-        init {
-            with(item) {
-                tvNotice = findViewById(R.id.post_item_tv_notice)
-                tvTitle = findViewById(R.id.post_item_tv_title)
-                tvNickname = findViewById(R.id.post_item_tv_nickname)
-                tvTime = findViewById(R.id.post_item_tv_time)
-                tvCommentCount = findViewById(R.id.post_item_tv_comment)
-                ivImage = findViewById(R.id.post_item_iv_image)
-            }
-
-        }
     }
 
     fun getItem(pos: Int) = items[pos]
@@ -85,35 +104,5 @@ class MemoItemAdapter(
     fun removeLoader() {
         items.removeAt(items.size - 1)
         notifyItemRemoved(items.size)
-    }
-
-    @SuppressLint("SimpleDateFormat")
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val item = items[position]
-
-        (holder as ViewHolder).tvTitle.text = item.title
-
-        if (item.hasImage && mContext != null){
-            val imageView = (holder as ViewHolder).ivImage
-            imageView.visibility = View.VISIBLE
-            val ref = Global.storage.reference.child("${Global.STORAGE_POST_CONTENT}${item.postId}/${Global.CROPPED_IMAGE}")
-            GlideApp.with(mContext)
-                .load(ref)
-                .into(imageView)
-        }
-
-            holder.itemView.setOnClickListener {
-            if(position != -1){
-                Log.e("Click", "${items[position].postId}")
-                val bundle = Bundle()
-                bundle.putSerializable("post", items[position] as Serializable)
-
-                findNavController(fragment).navigate(
-                    R.id.action_nav_commu_to_postcontent,
-                    bundle,
-                    animOptions
-                )
-            }
-        }
     }
 }
