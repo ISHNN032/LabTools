@@ -43,16 +43,12 @@ class LoginActivity : AppCompatActivity(), GlobalLogin.OnLoginInterface {
     }
 
     override fun onLogin(platform: LoginPlatform) {
-        val sharedPref = getPreferences(Context.MODE_PRIVATE) ?: return
-        with (sharedPref.edit()) {
-            putString(getString(R.string.shared_last_login_platform), platform.name)
-            commit()
-        }
+        Global.setStringPref(this, getString(R.string.shared_last_login_platform), platform.name)
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
     }
 
     override fun onLogout() {
-        TODO("Not yet implemented")
+        Global.setStringPref(this, getString(R.string.shared_last_login_platform), "")
     }
 }

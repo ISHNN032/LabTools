@@ -76,6 +76,21 @@ object Global {
         editor.apply()
     }
 
+    fun setStringPref(
+        context: Context?,
+        key: String,
+        value: String
+    ) {
+        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+        val editor = prefs.edit()
+        if (value.isNotBlank()) {
+            editor.putString(key, value)
+        } else {
+            editor.putString(key, null)
+        }
+        editor.apply()
+    }
+
     fun getStringArrayPref(
         context: Context?,
         key: String
@@ -93,5 +108,13 @@ object Global {
             }
         }
         return jvalue
+    }
+
+    fun getStringPref(
+        context: Context?,
+        key: String
+    ): String? {
+        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+        return prefs.getString(key, null)
     }
 }

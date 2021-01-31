@@ -35,8 +35,8 @@
         android:textSize="16sp"
         android:title = "라이센스"/>
 
-    <item android:id = "@+id/drawer_item_setting"
-        android:icon = "@drawable/ic_setting_app_setting"
-        android:textSize="16sp"
-        android:title = "앱 설정"/>
+<!--    <item android:id = "@+id/drawer_item_setting"-->
+<!--        android:icon = "@drawable/ic_setting_app_setting"-->
+<!--        android:textSize="16sp"-->
+<!--        android:title = "앱 설정"/>-->
 </menu>

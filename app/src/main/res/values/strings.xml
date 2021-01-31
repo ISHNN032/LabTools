@@ -10,7 +10,7 @@
     <string name="kakao_app_key">fa80791b0b8cfd763b4894481f6e8638</string>
     <string name="notification">알림</string>
 
-    <string name="shared_last_login_platform">공지:</string>
+    <string name="shared_last_login_platform">last_login</string>
 
     <string name="notice">공지:</string>
 

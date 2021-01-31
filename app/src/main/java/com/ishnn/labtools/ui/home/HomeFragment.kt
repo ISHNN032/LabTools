@@ -122,9 +122,9 @@ class HomeFragment : Fragment(), GlobalLogin.OnLoginInterface {
                     startActivity(Intent(context, OssLicensesMenuActivity::class.java))
                     OssLicensesMenuActivity.setActivityTitle("Open Source Licenses")
                 }
-                R.id.drawer_item_setting -> {
-                    Log.e("drawer", "goto setting")
-                }
+//                R.id.drawer_item_setting -> {
+//                    Log.e("drawer", "goto setting")
+//                }
             }
             true
         }

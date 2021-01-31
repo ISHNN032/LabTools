@@ -20,7 +20,7 @@ import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), GlobalLogin.OnLoginInterface {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -74,36 +74,48 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun autoLogin() {
-        val sharedPref = getPreferences(Context.MODE_PRIVATE) ?: return
-        val lastLogin = sharedPref.getString(getString(R.string.shared_last_login_platform), null)
+        val lastLogin = Global.getStringPref(this, getString(R.string.shared_last_login_platform))
         if (lastLogin != null) {
             when (lastLogin) {
                 LoginPlatform.NAVER.name -> {
-                    GlobalLogin.loginNaver(this, null)
+                    GlobalLogin.loginNaver(this, this)
                 }
                 LoginPlatform.KAKAO.name -> {
-                    GlobalLogin.loginKakao(this, null)
+                    GlobalLogin.loginKakao(this, this)
                 }
             }
+        }
+        else{
+            Log.e("Login", "is null")
         }
     }
 
+    override fun onLogin(platform: LoginPlatform) {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+    }
+
+    override fun onLogout() {
+        Global.setStringPref(this, getString(R.string.shared_last_login_platform), "")
+    }
+
     override fun onBackPressed() {
-        val fragment =
-            this.supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as? NavHostFragment
-        val currentFragment = fragment?.childFragmentManager?.primaryNavigationFragment
-        if (currentFragment.toString().contains("MemoFragment") ||
-            currentFragment.toString().contains("CommunityFragment")
-        ) {
-            val webBack = currentFragment as IOnBackPressed
-            webBack.onBackPressed().takeIf { !it }?.let {
-                Log.e("c", "b")
-                super.onBackPressed()
-            }
-        } else {
-            Log.e(currentFragment.toString(), "b")
-            super.onBackPressed()
-        }
+//        val fragment =
+//            this.supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as? NavHostFragment
+//        val currentFragment = fragment?.childFragmentManager?.primaryNavigationFragment
+//        if (currentFragment.toString().contains("MemoFragment") ||
+//            currentFragment.toString().contains("CommunityFragment")
+//        ) {
+//            val webBack = currentFragment as IOnBackPressed
+//            webBack.onBackPressed().takeIf { !it }?.let {
+//                Log.e("c", "b")
+//                super.onBackPressed()
+//            }
+//        } else {
+//            Log.e(currentFragment.toString(), "b")
+//            super.onBackPressed()
+//        }
+        super.onBackPressed()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
