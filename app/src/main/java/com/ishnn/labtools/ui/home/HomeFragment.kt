@@ -14,6 +14,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.navigation.fragment.NavHostFragment
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.dynamiclinks.DynamicLink
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks
@@ -118,6 +119,8 @@ class HomeFragment : Fragment(), GlobalLogin.OnLoginInterface {
                 }
                 R.id.drawer_item_license -> {
                     Log.e("drawer", "goto license")
+                    startActivity(Intent(context, OssLicensesMenuActivity::class.java))
+                    OssLicensesMenuActivity.setActivityTitle("Open Source Licenses")
                 }
                 R.id.drawer_item_setting -> {
                     Log.e("drawer", "goto setting")
