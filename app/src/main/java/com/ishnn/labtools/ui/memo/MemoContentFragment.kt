@@ -106,7 +106,7 @@ class MemoContentFragment : Fragment(), IOnBackPressed {
         val builder: AlertDialog.Builder = AlertDialog.Builder(context)
         builder.setTitle("메모를 삭제합니다.")
         builder.setPositiveButton("확인", DialogInterface.OnClickListener { _, _ ->
-            StorageManager.deleteMemo(mMemo.time!!, mMemo.hasImage)
+            StorageManager.deleteMemo(mMemo.time!!)
             NavHostFragment.findNavController(this).navigateUp()
         })
         builder.setNegativeButton("취소", DialogInterface.OnClickListener { dialogInterface, _ ->
