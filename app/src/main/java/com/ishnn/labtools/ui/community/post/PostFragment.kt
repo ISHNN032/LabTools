@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.ImageButton
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -13,6 +15,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.ishnn.labtools.R
 import com.ishnn.labtools.ui.community.CommunityFragment
 import com.ishnn.labtools.util.IOnBackPressed
+import kotlinx.android.synthetic.main.fragment_post.*
 import kotlinx.coroutines.*
 
 
@@ -36,12 +39,17 @@ class PostFragment : Fragment(), IOnBackPressed{
         mSwipe.setOnRefreshListener {
             Log.d("refresh", "refreshed")
             GlobalScope.launch {
-                adapter.refreshData()
+                adapter.refreshData(null)
                 mSwipe.isRefreshing = false
             }
         }
+        val searchButton = root.findViewById<ImageButton>(R.id.post_search_button)
+        val searchBar = root.findViewById<EditText>(R.id.post_search_edit)
+        searchButton.setOnClickListener {
+            adapter.refreshData(searchBar.text.toString())
+        }
         initRecyclerView()
-        adapter.refreshData()
+        adapter.refreshData(null)
         return root
     }
 
@@ -60,7 +68,7 @@ class PostFragment : Fragment(), IOnBackPressed{
         CoroutineScope(Dispatchers.IO).launch {
             withContext(Dispatchers.Main) {
                 adapter.removeLoader()
-                adapter.refreshData()
+                adapter.refreshData(null)
                 isLoading = false
             }
         }

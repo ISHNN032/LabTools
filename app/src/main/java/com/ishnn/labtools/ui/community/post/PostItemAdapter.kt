@@ -52,7 +52,6 @@ class PostItemAdapter(
                 tvCommentCount = findViewById(R.id.post_item_tv_comment)
                 ivImage = findViewById(R.id.post_item_iv_image)
             }
-
         }
     }
 
@@ -63,12 +62,12 @@ class PostItemAdapter(
         notifyItemInserted(pos)
     }
 
-    fun refreshData(){
+    fun refreshData(keyword: String?){
         items.clear()
-        addData()
+        addData(keyword)
     }
 
-    fun addData(){
+    fun addData(keyword: String?){
         val callbackAll: (List<PostItem>) -> Unit = { data ->
             items.addAll(data)
             notifyDataSetChanged()
@@ -79,13 +78,13 @@ class PostItemAdapter(
         }
         when(fragment.requireArguments().get("Tag").toString()){
             "전체글" ->{
-                PostManager.getPosts(callback = callbackAll)
+                PostManager.getPosts(callback = callbackAll, keyword = keyword)
             }
             "즐겨찾기"->{
-                PostManager.getFavorites(callback = callback)
+                PostManager.run { getFavorites(callback = callback, keyword = keyword) }
             }
             "전체공지"->{
-                PostManager.getNotices(callback = callbackAll)
+                PostManager.getNotices(callback = callbackAll, keyword = keyword)
             }
         }
     }

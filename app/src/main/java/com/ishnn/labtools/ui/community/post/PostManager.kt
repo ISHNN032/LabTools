@@ -179,18 +179,32 @@ object PostManager {
         ).delete()
     }
 
-    fun getPosts(callback: (List<PostItem>) -> Unit) {
-        Global.db.collection("post").orderBy("time", Query.Direction.DESCENDING)
-            .get()
-            .addOnSuccessListener { result ->
-                for (document in result) {
-                    Log.d("TAG", "${document.id} => ${document.data}")
+    fun getPosts(callback: (List<PostItem>) -> Unit, keyword:String?) {
+        if(keyword.isNullOrBlank()){
+            Global.db.collection("post").orderBy("time", Query.Direction.DESCENDING)
+                .get()
+                .addOnSuccessListener { result ->
+                    for (document in result) {
+                        Log.d("TAG", "${document.id} => ${document.data}")
+                    }
+                    callback(result.toObjects(PostItem::class.java))
                 }
-                callback(result.toObjects(PostItem::class.java))
-            }
-            .addOnFailureListener { exception ->
-                Log.d("TAG", "Error getting documents: ", exception)
-            }
+                .addOnFailureListener { exception ->
+                    Log.d("TAG", "Error getting documents: ", exception)
+                }
+        }else{
+            Global.db.collection("post").whereGreaterThanOrEqualTo("title", keyword)
+                .get()
+                .addOnSuccessListener { result ->
+                    for (document in result) {
+                        Log.d("TAG", "${document.id} => ${document.data}")
+                    }
+                    callback(result.toObjects(PostItem::class.java))
+                }
+                .addOnFailureListener { exception ->
+                    Log.d("TAG", "Error getting documents: ", exception)
+                }
+        }
     }
 
     fun getPostContent(postId: String, callback: (content: PostContent?) -> Unit) {
@@ -260,7 +274,7 @@ object PostManager {
             }
     }
 
-    fun getFavorites(callback: (PostItem) -> Unit) {
+    fun getFavorites(callback: (PostItem) -> Unit, keyword: String?) {
         if (GlobalLogin.getUserData() == null) return
 
 //        val ref = Global.db.collection("post").document("2nSmnvB49RqQ0rou2Vcx")
@@ -285,18 +299,33 @@ object PostManager {
 //            .addOnFailureListener { exception ->
 //                Log.d("TAG", "Error getting documents: ", exception)
 //            }
-        Global.db.collection("userData").document(GlobalLogin.getUserData()!!.id.toString())
-            .collection("favorite").orderBy("time", Query.Direction.DESCENDING).get().addOnSuccessListener { result ->
-                for (data in result.toObjects(FavoriteItem::class.java)) {
-                    data.reference?.get()?.addOnSuccessListener {
-                        if (it.exists()) {
-                            callback(it.toObject(PostItem::class.java)!!)
-                        } else {
-                            callback(PostItem())
+        if(keyword.isNullOrBlank()){
+            Global.db.collection("userData").document(GlobalLogin.getUserData()!!.id.toString())
+                .collection("favorite").orderBy("time", Query.Direction.DESCENDING).get().addOnSuccessListener { result ->
+                    for (data in result.toObjects(FavoriteItem::class.java)) {
+                        data.reference?.get()?.addOnSuccessListener {
+                            if (it.exists()) {
+                                callback(it.toObject(PostItem::class.java)!!)
+                            } else {
+                                callback(PostItem())
+                            }
                         }
                     }
                 }
-            }
+        }else{
+            Global.db.collection("userData").document(GlobalLogin.getUserData()!!.id.toString())
+                .collection("favorite").whereGreaterThanOrEqualTo("title", "$keyword").get().addOnSuccessListener { result ->
+                    for (data in result.toObjects(FavoriteItem::class.java)) {
+                        data.reference?.get()?.addOnSuccessListener {
+                            if (it.exists()) {
+                                callback(it.toObject(PostItem::class.java)!!)
+                            } else {
+                                callback(PostItem())
+                            }
+                        }
+                    }
+                }
+        }
     }
 
     fun addFavorite(postId: String) {
@@ -323,19 +352,33 @@ object PostManager {
             .document(postId).delete()
     }
 
-    fun getNotices(callback: (List<PostItem>) -> Unit) {
-        Global.db.collection("post").whereEqualTo("notice", true)
-            .orderBy("time", Query.Direction.DESCENDING)
-            .get()
-            .addOnSuccessListener { result ->
-                for (document in result) {
-                    Log.d("TAG", "${document.id} => ${document.data}")
+    fun getNotices(callback: (List<PostItem>) -> Unit, keyword: String?) {
+        if(keyword.isNullOrBlank()){
+            Global.db.collection("post").whereEqualTo("notice", true)
+                .orderBy("time", Query.Direction.DESCENDING)
+                .get()
+                .addOnSuccessListener { result ->
+                    for (document in result) {
+                        Log.d("TAG", "${document.id} => ${document.data}")
+                    }
+                    callback(result.toObjects(PostItem::class.java))
                 }
-                callback(result.toObjects(PostItem::class.java))
-            }
-            .addOnFailureListener { exception ->
-                Log.d("TAG", "Error getting documents: ", exception)
-            }
+                .addOnFailureListener { exception ->
+                    Log.d("TAG", "Error getting documents: ", exception)
+                }
+        }else{
+            Global.db.collection("post").whereGreaterThanOrEqualTo("title", "$keyword").whereEqualTo("notice", true)
+                .get()
+                .addOnSuccessListener { result ->
+                    for (document in result) {
+                        Log.d("TAG", "${document.id} => ${document.data}")
+                    }
+                    callback(result.toObjects(PostItem::class.java))
+                }
+                .addOnFailureListener { exception ->
+                    Log.d("TAG", "Error getting documents: ", exception)
+                }
+        }
     }
 
     fun getUserName(id: Long, callback: (name: String?) -> Unit) {
