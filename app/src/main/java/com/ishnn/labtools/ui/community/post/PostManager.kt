@@ -104,6 +104,60 @@ object PostManager {
         }
     }
 
+    fun updatePost(
+        postId: String,
+        postHasImage: Boolean,
+        title: String?,
+        content: String?,
+        newImage: Boolean,
+        Images: MutableMap<String, Uri>?,
+        context: Context?
+    ) {
+        if (!GlobalLogin.getUserLoggedIn()) {
+            return
+        }
+        val hasImage = postHasImage || newImage
+
+        Global.db.collection("postContent").document(postId).set(
+            PostContent(
+                content,
+                hasImage = hasImage
+            )
+        ).addOnSuccessListener {
+            Global.db.collection("post").document(postId).set(
+                PostItem(
+                    postId,
+                    title,
+                    Date(System.currentTimeMillis()),
+                    GlobalLogin.getUserData()!!.id,
+                    false,
+                    0,
+                    hasImage = hasImage
+                )
+            )
+        }
+        if (newImage && !Images.isNullOrEmpty()) {
+            var first = !postHasImage //기존 이미지가 있었으면 crop 저장할 필요 없음
+            for (image in Images) {
+                if (first) {
+                    first = false
+                    var bitmap = MediaStore.Images.Media.getBitmap(
+                        context?.contentResolver,
+                        image.value
+                    )
+                    bitmap = Bitmap.createScaledBitmap(bitmap, 200, 200, true);
+                    val stream = ByteArrayOutputStream()
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 90, stream)
+                    val bytes = stream.toByteArray()
+                    Global.storage.reference.child("${Global.STORAGE_POST_CONTENT}${postId}/${Global.CROPPED_IMAGE}")
+                        .putBytes(bytes)
+                }
+                Global.storage.reference.child("${Global.STORAGE_POST_CONTENT}${postId}/${image.key}")
+                    .putFile(image.value)
+            }
+        }
+    }
+
     fun addPostComment(
         postId: String,
         commentIdToNest: String?,
