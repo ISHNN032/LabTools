@@ -30,8 +30,10 @@ import com.ishnn.labtools.model.PostItem
 import com.ishnn.labtools.ui.community.post.comment.CommentItemAdapter
 import com.ishnn.labtools.ui.tools.HistoryActionListDialogFragment
 import com.ishnn.labtools.util.IOnBackPressed
+import com.ishnn.labtools.util.animOptions
 import kotlinx.android.synthetic.main.fragment_postcontent.*
 import kotlinx.android.synthetic.main.item_post_comment.*
+import java.io.Serializable
 import java.text.SimpleDateFormat
 
 
@@ -295,7 +297,14 @@ class PostContentFragment : Fragment(), IOnBackPressed {
                 popupMenu.setOnMenuItemClickListener {
                     when (it!!.itemId) {
                         R.id.menu_post_modify -> {
+                            val bundle = Bundle()
+                            bundle.putSerializable("post", mPost as Serializable)
 
+                            NavHostFragment.findNavController(this).navigate(
+                                R.id.action_nav_postcontent_to_posting,
+                                bundle,
+                                animOptions
+                            )
                         }
                         R.id.menu_post_delete -> {
                             dialogDeletePost()

@@ -121,5 +121,9 @@
         android:id="@+id/community_postcontent"
         android:name="com.ishnn.labtools.ui.community.post.PostContentFragment"
         android:label="@string/title_community"
-        tools:layout="@layout/fragment_postcontent" />
+        tools:layout="@layout/fragment_postcontent">
+        <action
+            android:id="@+id/action_nav_postcontent_to_posting"
+            app:destination="@id/community_posting" />
+    </fragment>
 </navigation>

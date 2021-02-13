@@ -16,16 +16,25 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
+import com.ishnn.labtools.GlobalLogin
 import com.ishnn.labtools.R
+import com.ishnn.labtools.model.PostContent
+import com.ishnn.labtools.model.PostItem
 import com.ishnn.labtools.util.IOnBackPressed
+import kotlinx.android.synthetic.main.fragment_postcontent.*
 import kotlinx.android.synthetic.main.fragment_posting.*
 
 
 class PostingFragment : Fragment(), IOnBackPressed, View.OnClickListener {
+    private var isUpdate: Boolean = false
+    private var mPost: PostItem? = null
+    private var mPostContent: PostContent? = null
+
     private val mImages : MutableMap<String,Uri> = mutableMapOf()
 
     override fun onCreateView(
@@ -35,6 +44,21 @@ class PostingFragment : Fragment(), IOnBackPressed, View.OnClickListener {
     ): View? {
         setHasOptionsMenu(true)
         val root = inflater.inflate(R.layout.fragment_posting, container, false)
+
+        mPost = arguments?.getSerializable("post") as PostItem?
+        if(mPost != null){
+            Log.d("Posting", "Post mode Update ${mPost?.title}")
+            isUpdate = true
+            val callbackContent: (content: PostContent?) -> Unit = { content ->
+                mPostContent = content
+                posting_et_title.text.append(mPost!!.title)
+                posting_et_content.text.append(content!!.content)
+            }
+            PostManager.getPostContent(mPost!!.postId!!, callback = callbackContent)
+        }
+
+
+
         return root
     }
 
@@ -62,10 +86,14 @@ class PostingFragment : Fragment(), IOnBackPressed, View.OnClickListener {
             posting_button_post.id,
             posting_button_save.id -> {
                 var hasImage = false
-                if(mImages.size >= 0){
+                if(mImages.isNotEmpty()){
                     hasImage = true
                 }
-                PostManager.addPost(posting_et_title.text.toString(), posting_et_content.text.toString(), hasImage, mImages, context)
+                if(isUpdate){
+                    PostManager.updatePost(mPost!!.postId!!, mPost!!.hasImage, posting_et_title.text.toString(), posting_et_content.text.toString(), hasImage, mImages, context)
+                }else{
+                    PostManager.addPost(posting_et_title.text.toString(), posting_et_content.text.toString(), hasImage, mImages, context)
+                }
             }
 
             posting_button_image.id -> {
