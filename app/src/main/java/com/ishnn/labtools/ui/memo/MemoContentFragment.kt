@@ -60,9 +60,9 @@ class MemoContentFragment : Fragment(), IOnBackPressed {
 
     @SuppressLint("SimpleDateFormat")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        memo_content_tv_title.text = mMemo.title
+        memo_content_tv_title.text = mMemo.content
         val time = SimpleDateFormat("yyyy-MM-dd HH:mm")
-        memo_content_tv_time.text = time.format(mMemo.time!!)
+        //memo_content_tv_time.text = time.format(mMemo.time!!)
     }
 
     override fun onBackPressed(): Boolean {

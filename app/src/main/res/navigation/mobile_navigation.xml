@@ -79,6 +79,16 @@
         android:name="com.ishnn.labtools.ui.memo.MemoFragment"
         android:label="@string/title_memo"
         tools:layout="@layout/fragment_memo">
+        <action
+            android:id="@+id/action_memo_to_memocontent"
+            app:destination="@id/memo_memocontent" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/memo_memocontent"
+        android:name="com.ishnn.labtools.ui.memo.MemoContentFragment"
+        android:label="@string/title_memo"
+        tools:layout="@layout/fragment_memocontent">
     </fragment>
 
     <fragment

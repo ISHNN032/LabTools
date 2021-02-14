@@ -49,7 +49,7 @@ class MemoItemAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = items[position]
 
-        (holder as ViewHolder).tvTitle.text = item.title
+        (holder as ViewHolder).tvTitle.text = item.content
         if (item.hasImage && mContext != null){
             val imageView = (holder as ViewHolder).ivImage
             imageView.visibility = View.VISIBLE
@@ -65,7 +65,7 @@ class MemoItemAdapter(
                 bundle.putSerializable("memo", items[position] as Serializable)
 
                 findNavController(fragment).navigate(
-                    R.id.action_nav_commu_to_postcontent,
+                    R.id.action_memo_to_memocontent,
                     bundle,
                     animOptions
                 )
@@ -94,10 +94,7 @@ class MemoItemAdapter(
             items.addAll(data)
             notifyDataSetChanged()
         }
-        val callback: (MemoItem) -> Unit = { data ->
-            items.add(data)
-            notifyDataSetChanged()
-        }
+        StorageManager.getMemos(mContext, callback = callbackAll)
         //PostManager.getPosts(callback = callbackAll)
     }
 
