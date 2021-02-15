@@ -5,6 +5,8 @@ import android.content.Context.MODE_PRIVATE
 import android.net.Uri
 import android.os.Environment
 import android.util.Log
+import androidx.room.*
+import com.google.type.DateTime
 import com.ishnn.labtools.model.MemoItem
 import com.nhn.android.naverlogin.OAuthLoginDefine.LOG_TAG
 import java.io.File
@@ -66,4 +68,35 @@ object StorageManager {
 //    fun getMemos(context: Context):List<MemoItem>{
 //        context.dataDir
 //    }
+}
+
+@Entity(tableName = "memo")
+data class Memo(
+    @PrimaryKey val title: String,
+    @ColumnInfo(name = "time") val time: DateTime?,
+    @ColumnInfo(name = "content") val content: String?
+)
+
+@Dao
+interface MemoDao {
+    @Query("SELECT * FROM memo")
+    fun getAll(): List<Memo>
+
+    @Query("SELECT * FROM memo WHERE title IN (:userIds)")
+    fun loadAllByIds(userIds: IntArray): List<Memo>
+
+    @Query("SELECT * FROM user WHERE first_name LIKE :first AND " +
+            "last_name LIKE :last LIMIT 1")
+    fun findByTitle(title: String): Memo
+
+    @Insert
+    fun insertAll(vararg memos: Memo)
+
+    @Delete
+    fun delete(user: Memo)
+}
+
+@Database(entities = arrayOf(Memo::class), version = 1)
+abstract class AppDatabase : RoomDatabase() {
+    abstract fun memoDao(): MemoDao
 }

@@ -95,6 +95,8 @@ class MemoItemAdapter(
             notifyDataSetChanged()
         }
         StorageManager.getMemos(mContext, callback = callbackAll)
+
+        Global.localdb?.memoDao()?.getAll()
         //PostManager.getPosts(callback = callbackAll)
     }
 

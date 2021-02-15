@@ -11,6 +11,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.ishnn.labtools.Global
 import com.ishnn.labtools.GlobalLogin
 import com.ishnn.labtools.R
 import com.ishnn.labtools.ui.community.CommunityFragment

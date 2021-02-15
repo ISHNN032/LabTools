@@ -29,6 +29,8 @@ class MainActivity : AppCompatActivity(), GlobalLogin.OnLoginInterface {
         GlobalApplication.currentActivity = this
         autoLogin()
 
+        Global.initLocaldb(this)
+
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
         val navController = findNavController(R.id.nav_host_fragment)
         val appBarConfiguration = AppBarConfiguration(

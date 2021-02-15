@@ -7,11 +7,14 @@ import android.preference.PreferenceManager
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.room.Room
+import androidx.room.RoomDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.ishnn.labtools.model.TimerItem
+import com.ishnn.labtools.ui.memo.AppDatabase
 import com.kakao.sdk.common.KakaoSdk.init
 import com.kakao.sdk.common.util.Utility
 import org.json.JSONException
@@ -45,6 +48,13 @@ object Global {
 
     var db = FirebaseFirestore.getInstance()
     var storage = FirebaseStorage.getInstance("gs://labtools-59b01.appspot.com")
+
+    var localdb : AppDatabase? = null
+    fun initLocaldb(context: Context){
+        localdb = Room.databaseBuilder(
+            context, AppDatabase::class.java, "database-name"
+        ).build()
+    }
 
     fun hideKeyboard(activity: Activity){
         val imm: InputMethodManager = activity.getSystemService(Application.INPUT_METHOD_SERVICE) as InputMethodManager
