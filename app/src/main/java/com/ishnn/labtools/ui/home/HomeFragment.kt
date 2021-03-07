@@ -10,6 +10,7 @@ import android.util.Log
 import android.view.*
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -19,6 +20,7 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.dynamiclinks.DynamicLink
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks
 import com.google.firebase.dynamiclinks.ShortDynamicLink
+import com.google.firebase.messaging.FirebaseMessaging
 import com.ishnn.labtools.*
 import com.ishnn.labtools.ui.home.content.*
 import com.ishnn.labtools.util.animOptions
@@ -162,6 +164,21 @@ class HomeFragment : Fragment(), GlobalLogin.OnLoginInterface {
             val main_user_id = main_navigationView!!.getHeaderView(0)
                 .findViewById<TextView>(R.id.home_header_userId)
             main_user_id.text = userdata.id.toString()
+
+            FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                    Log.w("FirebaseMessaging", "Fetching FCM registration token failed", task.exception)
+                    return@OnCompleteListener
+                }
+
+                // Get new FCM registration token
+                val token = task.result
+
+                // Log and toast
+                val msg = getString(R.string.msg_token_fmt, token)
+                Log.d("FirebaseMessaging", msg)
+                Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+            })
 
 //            val mainScope = CoroutineScope(Dispatchers.Main)
 //            mainScope.launch {

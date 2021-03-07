@@ -12,6 +12,8 @@
 
     <string name="shared_last_login_platform">last_login</string>
 
+    <string name="msg_token_fmt" translatable="false">토큰 : %s</string>
+
     <string name="notice">공지:</string>
 
     <!--  Calculator  -->

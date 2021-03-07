@@ -7,6 +7,7 @@ import android.os.Environment
 import android.util.Log
 import androidx.room.*
 import com.google.type.DateTime
+import com.ishnn.labtools.Global
 import com.ishnn.labtools.model.MemoItem
 import com.nhn.android.naverlogin.OAuthLoginDefine.LOG_TAG
 import java.io.File
@@ -17,7 +18,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-object StorageManager {
+object StorageManager{
     const val GET_GALLERY_IMAGE_MEMO = 300
 
     fun addMemo(
@@ -39,6 +40,8 @@ object StorageManager {
     }
 
     fun writeFile(context: Context?, fileName: String, content: String) {
+        Global.localdb
+
         val file = File(
             context?.getExternalFilesDir("memos"),
             fileName
@@ -73,7 +76,7 @@ object StorageManager {
 @Entity(tableName = "memo")
 data class Memo(
     @PrimaryKey val title: String,
-    @ColumnInfo(name = "time") val time: DateTime?,
+//    @ColumnInfo(name = "time") val time: DateTime?,
     @ColumnInfo(name = "content") val content: String?
 )
 
@@ -85,9 +88,9 @@ interface MemoDao {
     @Query("SELECT * FROM memo WHERE title IN (:userIds)")
     fun loadAllByIds(userIds: IntArray): List<Memo>
 
-    @Query("SELECT * FROM user WHERE first_name LIKE :first AND " +
-            "last_name LIKE :last LIMIT 1")
-    fun findByTitle(title: String): Memo
+//    @Query("SELECT * FROM memo WHERE title LIKE :first AND " +
+//            "last_name LIKE :last LIMIT 1")
+//    fun findByTitle(title: String): Memo
 
     @Insert
     fun insertAll(vararg memos: Memo)
