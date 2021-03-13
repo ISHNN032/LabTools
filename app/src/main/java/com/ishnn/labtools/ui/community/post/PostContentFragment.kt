@@ -274,16 +274,13 @@ class PostContentFragment : Fragment(), IOnBackPressed {
         menu.clear()
         if(GlobalLogin.getUserLoggedIn()){
             inflater.inflate(R.menu.action_menu_post, menu)
-
             val menuItem = menu.getItem(0)
             val callbackExists: (Boolean?) -> Unit = { exists ->
                 if(exists == null || !exists){
-                    PostManager.addFavorite(mPost.postId!!)
-                    menuItem.isChecked = true
+                    menuItem.setIcon(R.drawable.ic_toolbar_favorite_off)
                 }
                 else{
-                    PostManager.deleteFavorite(mPost.postId!!)
-                    menuItem.isChecked = false
+                    menuItem.setIcon(R.drawable.ic_toolbar_favorite_on)
                 }
             }
             PostManager.isFavorite(mPost.postId!!, callback = callbackExists)
@@ -322,11 +319,11 @@ class PostContentFragment : Fragment(), IOnBackPressed {
                 val callbackExists: (Boolean?) -> Unit = { exists ->
                     if(exists == null || !exists){
                         PostManager.addFavorite(mPost.postId!!)
-                        item.isChecked = true
+                        item.setIcon(R.drawable.ic_toolbar_favorite_on)
                     }
                     else{
                         PostManager.deleteFavorite(mPost.postId!!)
-                        item.isChecked = false
+                        item.setIcon(R.drawable.ic_toolbar_favorite_off)
                     }
                 }
                 PostManager.isFavorite(mPost.postId!!, callback = callbackExists)

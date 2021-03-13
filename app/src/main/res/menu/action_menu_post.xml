@@ -21,6 +21,5 @@
         android:id="@+id/action_post_favorite"
         android:icon="@drawable/ic_toolbar_favorite"
         android:title="@string/favorite"
-        android:checkable="true"
-        app:showAsAction="always" />
+        app:showAsAction="always"/>
 </menu>
