@@ -173,7 +173,7 @@ class HomeFragment : Fragment(), GlobalLogin.OnLoginInterface {
 
                 // Get new FCM registration token
                 val token = task.result
-
+                Global.db.collection("user").document(userdata.id.toString()).update("notificationToken", token)
                 // Log and toast
                 val msg = getString(R.string.msg_token_fmt, token)
                 Log.d("FirebaseMessaging", msg)

@@ -19,6 +19,11 @@ const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 admin.initializeApp();
 
+// Since this code will be running in the Cloud Functions environment
+// we call initialize Firestore without any arguments because it
+// detects authentication from the environment.
+const firestore = admin.firestore();
+
 /**
  * Triggers when a user gets a new follower and sends a notification.
  *
@@ -38,8 +43,8 @@ exports.sendFollowerNotification = functions.firestore
       console.log('We have a new follower UID:', commentId, 'for user:', commentUId);
 
       // Get the list of device notification tokens.
-      const getDeviceTokensPromise = admin.database()
-          .ref(`/users/${commentUId}/notificationTokens`).once('value');
+      const getDeviceTokensPromise = firestore
+          .ref(`/user/${commentUId}/notificationTokens`).once('value');
 
       // Get the follower profile.
       const getFollowerProfilePromise = admin.auth().getUser(commentId);

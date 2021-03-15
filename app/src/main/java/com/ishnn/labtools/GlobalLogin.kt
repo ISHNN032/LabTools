@@ -106,7 +106,7 @@ object GlobalLogin {
                     val data: JSONObject = jsonObject.getJSONObject("response")
                     val id = data.getString("id")
                     val name = data.getString("nickname")
-                    this.mProfile = UserProfile(id.toLong(), name, null)
+                    this.mProfile = UserProfile(id.toLong(), name, null, null)
                 }
             } catch (e: Exception) {
                 Log.e("e", e.toString())
@@ -148,7 +148,8 @@ object GlobalLogin {
 data class UserProfile(
     var id: Long? = null,
     var nickName: String? = null,
-    var imageUrl: String? = null
+    var imageUrl: String? = null,
+    var notificationToken: String? = null
 )
 
 enum class LoginPlatform{
