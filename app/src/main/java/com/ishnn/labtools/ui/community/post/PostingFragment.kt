@@ -85,6 +85,11 @@ class PostingFragment : Fragment(), IOnBackPressed, View.OnClickListener {
 
             posting_button_post.id,
             posting_button_save.id -> {
+                if(posting_et_title.text.toString().isNullOrEmpty()){
+                    dialogNoTitle()
+                    return
+                }
+
                 var hasImage = false
                 if(mImages.isNotEmpty()){
                     hasImage = true
@@ -94,12 +99,23 @@ class PostingFragment : Fragment(), IOnBackPressed, View.OnClickListener {
                 }else{
                     PostManager.addPost(posting_et_title.text.toString(), posting_et_content.text.toString(), hasImage, mImages, context)
                 }
+                NavHostFragment.findNavController(this).navigateUp()
             }
 
             posting_button_image.id -> {
                 getImageFromStorage()
             }
         }
+    }
+
+    private fun dialogNoTitle(){
+        val builder: AlertDialog.Builder = AlertDialog.Builder(context)
+        builder.setTitle("제목을 입력해주세요.")
+        builder.setMessage("작성글에 제목이 없습니다.")
+        builder.setPositiveButton("확인", DialogInterface.OnClickListener { dialogInterface, _ ->
+            dialogInterface.dismiss()
+        })
+        builder.show()
     }
 
     private fun dialogExit(){

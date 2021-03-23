@@ -135,6 +135,11 @@ class PostContentFragment : Fragment(), IOnBackPressed {
                 image = mCommentImage
             )
             PostManager.updateCommentCount(mPost.postId!!)
+
+            //clear comment post data
+            mCommentImage = null
+            mCommentToNest = null
+            postComment.findViewById<EditText>(R.id.item_post_comment_text).text.clear()
             refreshFragment()
         }
 
