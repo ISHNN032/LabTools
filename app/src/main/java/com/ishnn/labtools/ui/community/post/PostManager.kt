@@ -170,42 +170,59 @@ object PostManager {
             return
         }
 
-        var commentId = "000"
-        if (!commentIdToNest.isNullOrEmpty()) {
-            val callbackLast: (last: String?) -> Unit = { nestedLast ->
-                if (commentIdToNest.split("n").size > 1) {
-                    var nestedId = commentIdToNest.split("n")[1]
-                    nestedId = "n" + (nestedId.toInt(10) + 1).toString().padStart(3, '0')
-                    commentId = (commentIdToNest.padStart(3, '0')).plus(nestedId)
-                }
-                commentId = (commentIdToNest.padStart(3, '0')).plus("n000")
-            }
-            getNestedCommentLast(postId, commentIdToNest, callback = callbackLast)
-        } else {
-            val callbackLast: (last: String?) -> Unit = { last ->
-                commentId = (last!!.toInt(10) + 1).toString().padStart(3, '0')
-            }
-            getCommentLast(postId, callbackLast)
-        }
+//        var commentId = "000"
+//        if (!commentIdToNest.isNullOrEmpty()) {
+//            val callbackLast: (last: String?) -> Unit = { nestedLast ->
+//                if (commentIdToNest.split("n").size > 1) {
+//                    var nestedId = commentIdToNest.split("n")[1]
+//                    nestedId = "n" + (nestedId.toInt(10) + 1).toString().padStart(3, '0')
+//                    commentId = (commentIdToNest.padStart(3, '0')).plus(nestedId)
+//                }
+//                commentId = (commentIdToNest.padStart(3, '0')).plus("n000")
+//            }
+//            getNestedCommentLast(postId, commentIdToNest, callback = callbackLast)
+//        } else {
+//            val callbackLast: (last: String?) -> Unit = { last ->
+//                commentId = (last!!.toInt(10) + 1).toString().padStart(3, '0')
+//            }
+//            getCommentLast(postId, callbackLast)
+//        }
 
+//        Global.db.collection("postContent").document(postId).collection("comment").document(
+//            commentId
+//        ).set(
+//            CommentItem(
+//                commentId, content,
+//                Date(System.currentTimeMillis()),
+//                GlobalLogin.getUserData()!!.id,
+//                hasImage, isNested
+//            )
+//        )
+//
+//        if (hasImage && image != null) {
+//            Global.storage.reference.child("${Global.STORAGE_POST_CONTENT}${postId}/$commentId.jpg")
+//                .putFile(
+//                    image
+//                )
+//        }
 
-        Global.db.collection("postContent").document(postId).collection("comment").document(
-            commentId
-        ).set(
+        Global.db.collection("postContent").document(postId).collection("comment").add(
             CommentItem(
-                commentId, content,
+                "---", "<<$commentIdToNest\n$content",
                 Date(System.currentTimeMillis()),
                 GlobalLogin.getUserData()!!.id,
                 hasImage, isNested
             )
-        )
-
-        if (hasImage && image != null) {
-            Global.storage.reference.child("${Global.STORAGE_POST_CONTENT}${postId}/$commentId.jpg")
-                .putFile(
-                    image
-                )
+        ).addOnSuccessListener {
+            it.update("commentId", it.id)
+            if (hasImage && image != null) {
+                Global.storage.reference.child("${Global.STORAGE_POST_CONTENT}${postId}/${it.id}.jpg")
+                    .putFile(
+                        image
+                    )
+            }
         }
+
     }
 
     fun deletePost(postId: String, hasImage: Boolean) {
@@ -315,7 +332,8 @@ object PostManager {
 
     fun getPostComments(postId: String, callback: (List<CommentItem>) -> Unit) {
         Global.db.collection("postContent").document(postId).collection("comment")
-            .orderBy("commentId", Query.Direction.ASCENDING)
+//            .orderBy("commentId", Query.Direction.ASCENDING)
+            .orderBy("time", Query.Direction.ASCENDING)
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {

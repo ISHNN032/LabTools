@@ -102,9 +102,9 @@ class CommentItemAdapter(
                 .into(imageView)
         }
 
-        if (item.nested) {
-            (holder as ViewHolder).nasted.visibility = View.VISIBLE
-        }
+//        if (item.nested) {
+//            (holder as ViewHolder).nasted.visibility = View.VISIBLE
+//        }
 
         val callback: (String?) -> Unit = { name ->
             (holder as ViewHolder).tvNickname.text = name
