@@ -35,16 +35,23 @@ exports.sendFollowerNotification = functions.firestore
     .document('postContent/{docId}/comment/{commentId}')
     .onCreate(async (snap, context) => {
       const commentId = context.params.commentId;
-      const commentUId = context.params.user;
+      const newValue = snap.data();
+      const commentUId = newValue.user;
       // If un-follow we exit the function.
       // if (!change.after.val()) {
       //   return console.log('User ', followerUid, 'un-followed user', followedUid);
       // }
+
       console.log('We have a new follower UID:', commentId, 'for user:', commentUId);
+
+      // Write to the log. The log.write() call returns a Promise if you want to
+      // make sure that the log was written successfully.
+      const entry = log.entry(METADATA, data);
+      log.write(entry);
 
       // Get the list of device notification tokens.
       const getDeviceTokensPromise = firestore
-          .ref(`/user/${commentUId}/notificationTokens`).once('value');
+          .ref('user/{commentUId}/notificationTokens').once('value');
 
       // Get the follower profile.
       const getFollowerProfilePromise = admin.auth().getUser(commentId);
